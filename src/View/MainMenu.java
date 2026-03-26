@@ -19,17 +19,6 @@ public class MainMenu extends JPanel {
         this.setVisible(true);
         setup();
 
-//        infoPanel = new InfoPanel(width-(height*7/8)-100 , height*7/8, mainFrame);
-//        add(infoPanel);
-//
-//        gameBoardPanel = new GameBoardPanel(height*7/8 , height*7/8, mainFrame);
-//        add(gameBoardPanel);
-//
-//        bottomPanel = new BottomPanel(width, height/8, mainFrame);
-//        add(bottomPanel);
-//
-//        mainMenuPanel = new MainMenuPanel(width, height, mainFrame);
-//        add(mainMenuPanel);
     }
 
     private void setup() {
@@ -39,19 +28,24 @@ public class MainMenu extends JPanel {
         title.setForeground(Color.white);
         add(title);
 
-        /*
-        turnMarkerPlayerTwo = new JLabel("->");
-        turnMarkerPlayerTwo.setLocation(5,200);
-        turnMarkerPlayerTwo.setSize(40,50);
-        turnMarkerPlayerTwo.setFont(markerFont);
-        turnMarkerPlayerTwo.setForeground(Color.blue);
-        add(turnMarkerPlayerTwo);
-         */
+        JLabel isUserLoggedInLabel = new JLabel("Playing as GUEST (not logged in)");
+        isUserLoggedInLabel.setLocation(650,10);
+        isUserLoggedInLabel.setSize(300,50);
+        isUserLoggedInLabel.setForeground(Color.white);
+        add(isUserLoggedInLabel);
+
         int[] buttonSize = {400,100};
         int startPositionY = 100;
         int spacingY = 150;
 
         Font buttonFont= new Font("Dialog", Font.BOLD, 24);
+
+        JLabel ruleLabel = new JLabel("Game rules to be shown here");
+        ruleLabel.setLocation( width/2-buttonSize[0]/2 , startPositionY );
+        ruleLabel.setSize(400,50);
+        ruleLabel.setFont(buttonFont);
+        ruleLabel.setForeground(Color.white);
+        add(ruleLabel);
 
         JButton startGameButton = new JButton("PLAY");
         startGameButton.setEnabled(true);
@@ -59,17 +53,17 @@ public class MainMenu extends JPanel {
         startGameButton.setForeground(Color.white);
         startGameButton.setFont(buttonFont);
         startGameButton.setSize(buttonSize[0], buttonSize[1]);
-        startGameButton.setLocation( width/2-buttonSize[0]/2 , startPositionY);
+        startGameButton.setLocation( width/2-buttonSize[0]/2 , startPositionY + spacingY);
         startGameButton.addActionListener(l -> gui.mainMenuButtonPressed(startGameButton.getText()) );
         add(startGameButton);
 
-        JButton logInButton = new JButton("LOG IN");
+        JButton logInButton = new JButton("ACCOUNT");
         logInButton.setEnabled(true);
         logInButton.setBackground(Color.DARK_GRAY);
         logInButton.setForeground(Color.white);
         logInButton.setFont(buttonFont);
         logInButton.setSize(buttonSize[0], buttonSize[1]);
-        logInButton.setLocation( width/2-buttonSize[0]/2 , startPositionY + spacingY );
+        logInButton.setLocation( width/2-buttonSize[0]/2 , startPositionY + spacingY*2 );
         logInButton.addActionListener(l -> gui.mainMenuButtonPressed(logInButton.getText()) );
         add(logInButton);
 
@@ -79,18 +73,11 @@ public class MainMenu extends JPanel {
         statisticsButton.setForeground(Color.white);
         statisticsButton.setFont(buttonFont);
         statisticsButton.setSize(buttonSize[0], buttonSize[1]);
-        statisticsButton.setLocation( width/2-buttonSize[0]/2 , startPositionY  + spacingY*2 );
+        statisticsButton.setLocation( width/2-buttonSize[0]/2 , startPositionY  + spacingY*3 );
         statisticsButton.addActionListener(l -> gui.mainMenuButtonPressed(statisticsButton.getText()) );
         add(statisticsButton);
 
-        /*
-        reglerButton = new JButton("REGLER");
-        reglerButton.setEnabled(true);
-        reglerButton.setSize(buttonSize[0], buttonSize[1]);
-        reglerButton.setLocation((width/(numberOfButtons+1))-buttonSize[0]/2, height / 2 - buttonSize[1]/2);
-        reglerButton.addActionListener(l -> mainFrame.buttonPressed(BottomPanelButtonType.Regler));
-        reglerButton.setFont(buttonFont);
-        this.add(reglerButton);
-         */
+
+
     }
 }

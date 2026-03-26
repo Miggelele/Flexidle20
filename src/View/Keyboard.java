@@ -82,38 +82,47 @@ public class Keyboard extends JPanel {
         add(enterGuessButton);
 
 
-//        switch(chosenLanguage) {
-//            case "SWEDISH":
-//
-//                break;
-//            case "ENGLISH":
-//
-//                break;
-//            case "GERMAN":
-//
-//                break;
-//        }
+        String[][] allSwedishLetters = { {"Q","W","E","R","T","Y","U","I","O","P","Å"},{"A","S","D","F","G","H","J","K","L","Ö","Ä"},{"Z","X","C","V","B","N","M"} };
+        String[][] allEnglishLetters = { {"Q","W","E","R","T","Y","U","I","O","P"}, {"A","S","D","F","G","H","J","K","L"}, {"Z","X","C","V","B","N","M"}  };
+        String[][] allGermanLetters = { {"Q","W","E","R","T","Z","U","I","O","P","Ü"}, {"A","S","D","F","G","H","J","K","L","Ö","Ä"}, {"Y","X","C","V","B","N","M","ß"} };
 
+        switch(chosenLanguage) {
+            case "SWEDISH":
+                setUpKeyBoardButtons(allSwedishLetters);
+                break;
+            case "ENGLISH":
+                setUpKeyBoardButtons(allEnglishLetters);
+                break;
+            case "GERMAN":
+                setUpKeyBoardButtons(allGermanLetters);
+                break;
+        }
+
+
+    }
+
+    private void setUpKeyBoardButtons(String[][] language) {
         int keyboardStartPositionX = 50;
         int keyboardStartPositionY = 50;
         int keyboardSpacingX = 60;
         int keyboardSpacingY = 60;
-
+        int keyboardButtonSize = 57;
         Font keyboardFont= new Font("Dialog", Font.BOLD, 24);
-
-        String[][] allSwedishLetters = { {"Q","W","E","R","T","Y","U","I","O","P","Å"},{"A","S","D","F","G","H","J","K","L","Ö","Ä"},{"Z","X","C","V","B","N","M"} };
-        keyboardButtons = new JButton [allSwedishLetters.length][];
-        for (int i = 0; i < allSwedishLetters.length; i++) {
-            keyboardButtons[i] = new JButton[allSwedishLetters[i].length];
-        }
         Color keyboardButtonsColor = new Color(117, 117, 117, 255);
 
-        for (int i = 0; i < allSwedishLetters.length; i++) {
-            for (int j = 0; j < allSwedishLetters[i].length; j++) {
-                keyboardButtons[i][j] = new JButton(allSwedishLetters[i][j]);
+
+        keyboardButtons = new JButton [language.length][];
+        for (int i = 0; i < language.length; i++) {
+            keyboardButtons[i] = new JButton[language[i].length];
+        }
+
+
+        for (int i = 0; i < language.length; i++) {
+            for (int j = 0; j < language[i].length; j++) {
+                keyboardButtons[i][j] = new JButton(language[i][j]);
                 keyboardButtons[i][j].setBackground(keyboardButtonsColor);
                 keyboardButtons[i][j].setForeground(Color.white);
-                keyboardButtons[i][j].setSize(57, 57);
+                keyboardButtons[i][j].setSize(keyboardButtonSize, keyboardButtonSize);
                 keyboardButtons[i][j].setFont(keyboardFont);
                 keyboardButtons[i][j].setLocation(keyboardStartPositionX + keyboardSpacingX*j, keyboardStartPositionY + keyboardSpacingY*i);
                 String buttonText = keyboardButtons[i][j].getText();
@@ -121,9 +130,7 @@ public class Keyboard extends JPanel {
                 add(keyboardButtons[i][j]);
             }
         }
-
     }
-
     protected JButton[][] getKeyBoardButtons() {
         return keyboardButtons;
     }

@@ -7,9 +7,14 @@ import java.beans.PropertyChangeEvent;
 
 public class GameBoard extends JPanel {
 
+
+    /**
+     * The letterBoxes are implemented as JButtons, because that was the most aesthetical option that was functional.
+     * These JButtons are not used as buttons, but only used to display text on them (they show which letters have
+     * been chosen).
+     */
+    private JButton[][] letterBoxes;
     private Keyboard keyboard;
-//    private JFormattedTextField[][] letterBoxes;
-    private JTextField[][] letterBoxes;
     private int chosenMaxGuesses;
     private int chosenWordlength;
     private String chosenLanguage;
@@ -32,7 +37,7 @@ public class GameBoard extends JPanel {
         this.keyboard = new Keyboard(gui, width, height, chosenLanguage);
         add(keyboard);
 
-        letterBoxes = new JTextField[chosenMaxGuesses][chosenWordlength];
+        letterBoxes = new JButton[chosenMaxGuesses][chosenWordlength];
         setup();
     }
 
@@ -45,51 +50,54 @@ public class GameBoard extends JPanel {
         title.setForeground(Color.white);
         add(title);
 
+        Font labelFont = new Font("Dialog", Font.BOLD, 14);
+
         JLabel chosenGuessesLabel = new JLabel("Maximum Guesses: " +  chosenMaxGuesses);
         chosenGuessesLabel.setLocation(10,labelSpacingY);
         chosenGuessesLabel.setSize(200,50);
+        chosenGuessesLabel.setFont(labelFont);
         chosenGuessesLabel.setForeground(Color.white);
         add(chosenGuessesLabel);
 
         JLabel chosenWordLengthLabel = new JLabel("Wordlength: " +  chosenWordlength);
         chosenWordLengthLabel.setLocation(10,labelSpacingY*2);
         chosenWordLengthLabel.setSize(200,50);
+        chosenWordLengthLabel.setFont(labelFont);
         chosenWordLengthLabel.setForeground(Color.white);
         add(chosenWordLengthLabel);
 
         JLabel chosenLanguageLabel = new JLabel("Language: " +  chosenLanguage);
         chosenLanguageLabel.setLocation(10,labelSpacingY*3);
         chosenLanguageLabel.setSize(200,50);
+        chosenLanguageLabel.setFont(labelFont);
         chosenLanguageLabel.setForeground(Color.white);
         add(chosenLanguageLabel);
 
+        JLabel correctWordLabel = new JLabel("Correct word (debug): " +  gui.getCorrectWord());
+        correctWordLabel.setLocation(10,labelSpacingY*4);
+        correctWordLabel.setSize(200,50);
+        correctWordLabel.setForeground(Color.white);
+        add(correctWordLabel);
+
         int startPositionX = 250;
         int startPositionY = 10;
-        int spacingX = 50;
-        int spacingY = 50;
+        int spacingX = 58;
+        int spacingY = 53;
 
-        Font letterBoxFont = new Font("Dialog", Font.BOLD, 24);
+        Font letterBoxFont = new Font("Dialog", Font.BOLD, 22);
 
         for (int i = 0; i < letterBoxes.length; i++) {
             for (int j = 0; j < letterBoxes[i].length; j++) {
-                letterBoxes[i][j] = new JTextField();
+                letterBoxes[i][j] = new JButton();
                 letterBoxes[i][j].setLocation( startPositionX+spacingX*j, startPositionY+spacingY*i);
-                letterBoxes[i][j].setSize(40, 40);
+                letterBoxes[i][j].setSize(53, 45);
                 letterBoxes[i][j].setFont(letterBoxFont);
-                if (i != 0) {
-                    letterBoxes[i][j].setBackground( new Color(117, 117, 117, 255));
-//                    letterBoxes[i][j].setEditable(false);
-                    letterBoxes[i][j].setEnabled(false);
-                }
-                letterBoxes[i][j].addPropertyChangeListener(l -> disableLetterBox(l));
+                letterBoxes[i][j].setBorder(BorderFactory.createLineBorder(Color.lightGray));
+                letterBoxes[i][j].setBackground(Color.black);
+                letterBoxes[i][j].setForeground( Color.white);
                 add(letterBoxes[i][j]);
             }
         }
-//        JTextField = new JTextField(0);
-//        nameEntryField.setLocation(200,80);
-//        nameEntryField.setSize(270,30);
-//        leftPanel.add(nameEntryField);
-
 
     }
 
@@ -97,10 +105,7 @@ public class GameBoard extends JPanel {
         return keyboard.getKeyBoardButtons();
     }
 
-    private void disableLetterBox(PropertyChangeEvent e) {
-        System.out.println("property change in letter box");
-        if ( ( (JTextField) e.getSource()).getText().length() != 0 ) {
-            ((JTextField) e.getSource()).setEnabled(false);
-        }
+    public JButton[] getLetterBoxesRow(int i) {
+        return letterBoxes[i];
     }
 }

@@ -2,10 +2,12 @@ package Controller;
 
 import View.GUI;
 import javax.swing.*;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
- * The Controller handles the GUI and starts the
+ * The Controller starts the GUI and handles communication with the view package. It should also handle the logic
+ * of when to change the GUI in response to events in the game.
  */
 public class Controller {
     private GUI gui;
@@ -14,14 +16,23 @@ public class Controller {
     public static final String[] LANGUAGE_OPTIONS = {"SWEDISH", "ENGLISH", "GERMAN"};
 
     private String wordToGuess;
+    private int numberOfGuessesMade;
+    private int chosenMaxGuesses;
+    private int chosenWordLength;
+    private String chosenLanguage;
 
+    /**
+     * In this constructor the GUI is started by initiating a JFrame object (the GUI class).
+     */
     public Controller() {
-
-        gui = new GUI(this, 900, 700);
-
-
+        gui = new GUI(this, 900, 750);
     }
 
+    /**
+     * Called when a button in the MainMenu panel is pressed. ("PLAY", "ACCOUNT", "STATISTICS")
+     *
+     * @param buttonName,   a String, which is the text on the button
+     */
     public void mainMenuButtonPressed(String buttonName) {
         switch(buttonName){
             case "PLAY":
@@ -29,8 +40,9 @@ public class Controller {
                 gui.setPanel("GameMenu");
                 break;
 
-            case "LOG IN":
-                System.out.println("Pressed LOG IN in MainMenu.");
+            case "ACCOUNT":
+                System.out.println("Pressed ACCOUNT in MainMenu.");
+                gui.setPanel("Account");
                 //ToDo implementera log in
                 break;
 
@@ -45,8 +57,13 @@ public class Controller {
         }
     }
 
+    /**
+     * Called when a button in the Statistics panel is pressed. ("BACK TO MAIN MENU")
+     *
+     * @param buttonName,   a String, which is the text on the button
+     */
     public void statisticsButtonPressed(String buttonName) {
-        switch(buttonName){
+        switch (buttonName) {
             case "BACK TO MAIN MENU":
                 System.out.println("Pressed BACK TO MAIN MENU in Statistics ");
                 gui.setPanel("MainMenu");
@@ -56,6 +73,27 @@ public class Controller {
         }
     }
 
+    /**
+     * Called when a button in the Account panel is pressed. ("BACK TO MAIN MENU")
+     *
+     * @param buttonName,   a String, which is the text on the button
+     */
+    public void accountButtonPressed(String buttonName) {
+        switch (buttonName) {
+            case "BACK TO MAIN MENU":
+                System.out.println("Pressed BACK TO MAIN MENU in Account ");
+                gui.setPanel("MainMenu");
+                break;
+            default:
+                System.out.println("Invalid account button name.");
+        }
+    }
+
+    /**
+     * Called when a button in the GameMenu panel is pressed. ("PLAY RANDOM GAME", "START GAME", "BACK TO MAIN MENU")
+     *
+     * @param buttonName,   a String, which is the text on the button
+     */
     public void gameMenuButtonPressed(String buttonName) {
         switch(buttonName){
             case "BACK TO MAIN MENU":
@@ -64,18 +102,17 @@ public class Controller {
                 break;
             case "START GAME":
                 System.out.println("Pressed START GAME in GameMenu.");
-                //ToDo kolla om user gjort giltiga val av game mode innan spel startas. Kanske disabla knappen tills dess?
-                gui.setPanel("GameBoard");
-                int chosenMaxGuesses = 7;
-                int chosenWordLength = 5;
-                String chosenLanguage = "SWEDISH";
-                startNewGame(chosenMaxGuesses, chosenWordLength, chosenLanguage);
+                chosenMaxGuesses = gui.getChosenMaxGuesses();   //hämtar värderna från drop down menyerna
+                chosenWordLength = gui.getChosenWordLength();
+                chosenLanguage = gui.getChosenLanguage();
+
+                startNewGame(false);
 
                 break;
-            case "RANDOMIZE!":      //ska knappen starta spelet direkt? nu är det så
-                System.out.println("Pressed RANDOMIZE OPTIONS! in GameMenu.");
-                gui.setPanel("GameBoard");
-                startNewGame(0, 0, null);
+            case "PLAY RANDOM GAME!":
+                System.out.println("Pressed PLAY RANDOM GAME! in GameMenu.");
+
+                startNewGame(true);
 
                 break;
 
@@ -84,6 +121,14 @@ public class Controller {
         }
     }
 
+    /**
+     * Called when a button in the GameBoard panel (or from its Keyboard panel!) is pressed.
+     * (buttons include all the keyboard letters, ENTER, BACKSPACE, main menu-button and game menu-button)
+     * The buttons with the letters from the keyboard currently all go to the default case in the switch case and are
+     * handled there.
+     *
+     * @param buttonName,   a String, which is the text on the button
+     */
     public void gameBoardButtonPressed(String buttonName) {
         switch(buttonName){
             case "BACK TO MAIN MENU":
@@ -96,37 +141,73 @@ public class Controller {
                 break;
             case "<- BACKSPACE":
                 System.out.println("Pressed BACKSPACE in GameBoard");
+                if (numberOfGuessesMade < chosenMaxGuesses) {
+                    int currentGuessLength = gui.checkNumberOfFilledLetterBoxes(numberOfGuessesMade);
+                    if (currentGuessLength > 0) {
+                        gui.clearLetterBox(numberOfGuessesMade, currentGuessLength - 1);
+                    }
+                }
                 break;
             case "ENTER GUESS":
                 System.out.println("Pressed ENTER GUESS in GameBoard");
-                changeKeyBoardButtonColor("A", "GREEN");        //for testing
-                changeKeyBoardButtonColor("T", "GREEN");
-                changeKeyBoardButtonColor("B", "YELLOW");
-                changeKeyBoardButtonColor("X", "YELLOW");
-                changeKeyBoardButtonColor("C", "GRAY");
-                changeKeyBoardButtonColor("V", "GRAY");
+
+                //kolla om alla letterboxes fyllda
+
+                if (numberOfGuessesMade < chosenMaxGuesses) {
+                    compareGuessToWord();
+                }
                 break;
             default:        //för alla bokstavsknappar i keyboard (i gameboard)
                 System.out.println("pressed button " + buttonName + " in GameBoard");
+                addLetterToGuess(buttonName);
         }
     }
 
-    //colours: "GREEN", "GRAY", "YELLOW"
-    private void changeKeyBoardButtonColor(String keyboardButton, String colour) {
-        gui.changeKeyBoardButtonColor(keyboardButton, colour);
+    /**
+     *  Changes the color of a button in the keyboard in the GameBoard panel in the GUI. Used after a guess has been
+     *  made to indicate to the user which letters are correct and in the right position ("GREEN"), or correct but in
+     *  the wrong position ("YELLOW"), or completely wrong ("GRAY").
+     *
+     * @param keyboardButton    a String, that is the letter on the button that should change color.
+     * @param color            a String, that is the new color of the button.
+     */
+    private void changeKeyBoardButtonColor(String keyboardButton, String color) {
+        gui.changeKeyBoardButtonColor(keyboardButton, color);
     }
 
-    private void startNewGame(int chosenMaxGuesses, int chosenWordLength, String chosenLanguage) {
-        if (chosenMaxGuesses == 0) {
+    /**
+     * Used to start a new game when either "START NEW GAME" OR "PLAY RANDOM GAME!" was selected in the GameMenu in
+     * the GUI. This function uses a boolean parameter to decide if the game starts with random settings or with the
+     * settings selected in the GameMenu.
+     * A word to guess is generated with the given (or randomized) settings, and then the game starts by showing the
+     * GameBoard panel in the GUI.
+     *
+     * @param randomSettingsChosen    a boolean, it represents if the new game should use random settings or not.
+     */
+    private void startNewGame(boolean randomSettingsChosen) {
+
+        if (randomSettingsChosen) {        //kommer från menyvalet "PLAY RANDOM GAME!"
             String[] newOptions = generateRandomOptions();
             chosenMaxGuesses = Integer.parseInt(newOptions[0]);
             chosenWordLength = Integer.parseInt(newOptions[1]);
             chosenLanguage = newOptions[2];
         }
+
         wordToGuess = generateNewWord(chosenWordLength, chosenLanguage);
+        numberOfGuessesMade = 0;        //nollställer inför nytt spel
+        gui.setPanel("GameBoard");
     }
 
+    /**
+     * Should generate a random word that fits the given parameters.
+     *
+     * @param wordLength    an int, the length of the word to guess in the game.
+     * @param language      a String, the language of the word to guess in the game.
+     *
+     * @return              a String, the word to guess in the game.
+     */
     private String generateNewWord(int wordLength, String language) {
+        //ToDo should select a random word from our dictionaries
         if (language.equals("SWEDISH")) {
             if (wordLength == 4) {
                 return "STOL";
@@ -137,7 +218,7 @@ public class Controller {
             }
         } else if (language.equals("ENGLISH")) {
             if (wordLength == 4) {
-                return "TURD";
+                return "ROSE";
             } else if  (wordLength == 5) {
                 return "SILKY";
             } else if (wordLength == 6) {
@@ -156,7 +237,77 @@ public class Controller {
         return "ÄPPLE";
     }
 
+    /**
+     * Should generate randomly selected settings of maximum guesses, wordlength and language. A String[] is used so
+     * that all the settings can be returned with one method (integer parsing will be needed for parts of the return).
+     *
+     * @return      a String[] with the randomly selected settings of maximum guesses, wordlength and language.
+     */
     private String[] generateRandomOptions() {
+        //ToDo should be selected at random from the hard-coded options
         return new String[] {"5", "6", "ENGLISH"};
     }
+
+    /**
+     * Called after the user has pressed "ENTER GUESS" in the GameBoard panel.
+     * Should handle the logic of...
+     * - which letters are correct
+     * - update keyboard button colors
+     * - update letterBox colors
+     * - check if the game is over
+     *
+     */
+    private void compareGuessToWord() {
+        //hämtar bokstäverna i letterBoxes
+        String[] currentGuess = gui.getCurrentGuess(numberOfGuessesMade);
+
+        changeKeyBoardButtonColor("A", "GREEN");        //for testing
+        changeKeyBoardButtonColor("T", "GREEN");
+        changeKeyBoardButtonColor("B", "YELLOW");
+        changeKeyBoardButtonColor("X", "YELLOW");
+        changeKeyBoardButtonColor("C", "GRAY");
+        changeKeyBoardButtonColor("V", "GRAY");
+        gui.updateLetterBoxColors(numberOfGuessesMade, new String[] {"GREEN",  "YELLOW", "GRAY", "GRAY", "YELLOW", "GREEN"});
+
+        //just nu kontrolleras inga villkor när ENTER GUESS-knappen trycks, den går alltid vidare till nästa rad:
+        numberOfGuessesMade ++;
+
+        //TODO lägg denna raden i en if-sats som kollar om spelet är slut
+//        gui.showMessage("GAME OVER. YOU WON OR LOST.\nCONGRATULATIONS\nPRESS MENU BUTTONS TO CONTINUE");
+
+    }
+
+    /**
+     * Adds a letter to the first free letterBox in the GameBoard panel, in the row of the current guess. Used to
+     * show the current guess after a keyboard button has been pressed. The method checks if the row is full before
+     * adding the letter.
+     *
+     * @param letter       a String, the letter of the pressed keyboard button that should be shown.
+     */
+    private void addLetterToGuess(String letter) {
+        if (numberOfGuessesMade < chosenMaxGuesses) {
+            int currentGuessLength = gui.checkNumberOfFilledLetterBoxes(numberOfGuessesMade);
+            if (currentGuessLength < chosenWordLength) {        //om alla letterboxes är fulla så läggs inget till
+                gui.updateLetterBox(numberOfGuessesMade, currentGuessLength, letter);
+            }
+        }
+    }
+
+    public int getChosenWordLength() {
+        return chosenWordLength;
+    }
+
+    public int getChosenMaxGuesses() {
+        return chosenMaxGuesses;
+    }
+
+    public String getChosenLanguage() {
+        return chosenLanguage;
+    }
+
+    public String getWordToGuess() {
+        return wordToGuess;
+    }
+
+
 }
