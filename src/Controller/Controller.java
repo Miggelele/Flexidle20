@@ -1,9 +1,7 @@
 package Controller;
 
+import Model.GameLogic;
 import View.GUI;
-import javax.swing.*;
-import java.util.Arrays;
-import java.util.Random;
 
 /**
  * The Controller starts the GUI and handles communication with the view package. It should also handle the logic
@@ -21,11 +19,14 @@ public class Controller {
     private int chosenWordLength;
     private String chosenLanguage;
 
+    private GameLogic gameLogic;
+
     /**
      * In this constructor the GUI is started by initiating a JFrame object (the GUI class).
      */
     public Controller() {
         gui = new GUI(this, 900, 750);
+        gameLogic = new GameLogic();
     }
 
     /**
@@ -194,6 +195,7 @@ public class Controller {
         }
 
         wordToGuess = generateNewWord(chosenWordLength, chosenLanguage);
+        gameLogic.addWordToGuess(wordToGuess);
         numberOfGuessesMade = 0;        //nollställer inför nytt spel
         gui.setPanel("GameBoard");
     }
@@ -208,6 +210,8 @@ public class Controller {
      */
     private String generateNewWord(int wordLength, String language) {
         //ToDo should select a random word from our dictionaries
+        //gameLogic.selectNewWord(wordLength, language); // NOT IMPLEMENTED
+
         if (language.equals("SWEDISH")) {
             if (wordLength == 4) {
                 return "STOL";
@@ -233,7 +237,6 @@ public class Controller {
                 return "STRAßE";
             }
         }
-
         return "ÄPPLE";
     }
 
@@ -258,23 +261,36 @@ public class Controller {
      *
      */
     private void compareGuessToWord() {
-        //hämtar bokstäverna i letterBoxes
+
         String[] currentGuess = gui.getCurrentGuess(numberOfGuessesMade);
 
-        changeKeyBoardButtonColor("A", "GREEN");        //for testing
-        changeKeyBoardButtonColor("T", "GREEN");
-        changeKeyBoardButtonColor("B", "YELLOW");
-        changeKeyBoardButtonColor("X", "YELLOW");
-        changeKeyBoardButtonColor("C", "GRAY");
-        changeKeyBoardButtonColor("V", "GRAY");
-        gui.updateLetterBoxColors(numberOfGuessesMade, new String[] {"GREEN",  "YELLOW", "GRAY", "GRAY", "YELLOW", "GREEN"});
+        if (gameLogic.isNoWhitespaceInWord(currentGuess)){
 
-        //just nu kontrolleras inga villkor när ENTER GUESS-knappen trycks, den går alltid vidare till nästa rad:
-        numberOfGuessesMade ++;
+            String[] newColorsForGameBoard = gameLogic.selectCorrectColorsForGameBoard(currentGuess);
 
-        //TODO lägg denna raden i en if-sats som kollar om spelet är slut
-//        gui.showMessage("GAME OVER. YOU WON OR LOST.\nCONGRATULATIONS\nPRESS MENU BUTTONS TO CONTINUE");
+            for (int i = 0; i < newColorsForGameBoard.length; i++){
+                changeKeyBoardButtonColor(currentGuess[i], newColorsForGameBoard[i]);
+            }
 
+            String[] newColorsForLetterBoxArray = new String[chosenWordLength];
+
+            for (int i = 0; i < newColorsForGameBoard.length; i++){
+                newColorsForLetterBoxArray[i] = newColorsForGameBoard[i];
+            }
+
+            gui.updateLetterBoxColors(numberOfGuessesMade++, newColorsForLetterBoxArray);
+
+            if (gameLogic.isWinner()){
+                gui.showMessage("CONGRATULATIONS!\nYOU GUESSED THE RIGHT WORD: "+wordToGuess+"\nPRESS MENU BUTTONS TO CONTINUE");
+            }
+
+        } else {
+            gui.showMessage("You have not filled in all boxes with letters");
+        }
+
+        if (chosenMaxGuesses == numberOfGuessesMade && !gameLogic.isWinner()){
+            gui.showMessage("GAME OVER.\nTHE RIGHT WORD WAS: "+wordToGuess+"\nPRESS MENU BUTTONS TO CONTINUE");
+        }
     }
 
     /**
