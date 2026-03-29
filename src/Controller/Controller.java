@@ -196,7 +196,7 @@ public class Controller {
 
         wordToGuess = generateNewWord(chosenWordLength, chosenLanguage);
         gameLogic.addWordToGuess(wordToGuess);
-        gameLogic.setIsWinnerToFalse();
+        gameLogic.setIsWinnerToFalse(); //nollställer inför nytt spel i gameLogic
         numberOfGuessesMade = 0;        //nollställer inför nytt spel
         gui.setPanel("GameBoard");
     }
