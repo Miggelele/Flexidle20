@@ -6,6 +6,7 @@ import View.GUI;
 /**
  * The Controller starts the GUI and handles communication with the view package. It should also handle the logic
  * of when to change the GUI in response to events in the game.
+ * @author Isabell Persson
  */
 public class Controller {
     private GUI gui;
