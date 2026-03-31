@@ -6,6 +6,8 @@ import View.GUI;
 /**
  * The Controller starts the GUI and handles communication with the view package. It should also handle the logic
  * of when to change the GUI in response to events in the game.
+ *
+ * @author Frida Sjögren
  * @author Isabell Persson
  */
 public class Controller {
@@ -24,6 +26,8 @@ public class Controller {
 
     /**
      * In this constructor the GUI is started by initiating a JFrame object (the GUI class).
+     *
+     * @author Frida Sjögren
      */
     public Controller() {
         gui = new GUI(this, 900, 750);
@@ -34,6 +38,8 @@ public class Controller {
      * Called when a button in the MainMenu panel is pressed. ("PLAY", "ACCOUNT", "STATISTICS")
      *
      * @param buttonName,   a String, which is the text on the button
+     *
+     * @author Frida Sjögren
      */
     public void mainMenuButtonPressed(String buttonName) {
         switch(buttonName){
@@ -63,6 +69,8 @@ public class Controller {
      * Called when a button in the Statistics panel is pressed. ("BACK TO MAIN MENU")
      *
      * @param buttonName,   a String, which is the text on the button
+     *
+     * @author Frida Sjögren
      */
     public void statisticsButtonPressed(String buttonName) {
         switch (buttonName) {
@@ -79,6 +87,8 @@ public class Controller {
      * Called when a button in the Account panel is pressed. ("BACK TO MAIN MENU")
      *
      * @param buttonName,   a String, which is the text on the button
+     *
+     * @author Frida Sjögren
      */
     public void accountButtonPressed(String buttonName) {
         switch (buttonName) {
@@ -95,6 +105,8 @@ public class Controller {
      * Called when a button in the GameMenu panel is pressed. ("PLAY RANDOM GAME", "START GAME", "BACK TO MAIN MENU")
      *
      * @param buttonName,   a String, which is the text on the button
+     *
+     * @author Frida Sjögren
      */
     public void gameMenuButtonPressed(String buttonName) {
         switch(buttonName){
@@ -130,6 +142,8 @@ public class Controller {
      * handled there.
      *
      * @param buttonName,   a String, which is the text on the button
+     *
+     * @author Frida Sjögren
      */
     public void gameBoardButtonPressed(String buttonName) {
         switch(buttonName){
@@ -172,6 +186,8 @@ public class Controller {
      *
      * @param keyboardButton    a String, that is the letter on the button that should change color.
      * @param color            a String, that is the new color of the button.
+     *
+     * @author Frida Sjögren
      */
     private void changeKeyBoardButtonColor(String keyboardButton, String color) {
         gui.changeKeyBoardButtonColor(keyboardButton, color);
@@ -185,6 +201,9 @@ public class Controller {
      * GameBoard panel in the GUI.
      *
      * @param randomSettingsChosen    a boolean, it represents if the new game should use random settings or not.
+     *
+     * @author Frida Sjögren
+     * @author Isabell Persson
      */
     private void startNewGame(boolean randomSettingsChosen) {
 
@@ -209,6 +228,8 @@ public class Controller {
      * @param language      a String, the language of the word to guess in the game.
      *
      * @return              a String, the word to guess in the game.
+     *
+     * @author Frida Sjögren
      */
     private String generateNewWord(int wordLength, String language) {
         //ToDo should select a random word from our dictionaries
@@ -247,6 +268,8 @@ public class Controller {
      * that all the settings can be returned with one method (integer parsing will be needed for parts of the return).
      *
      * @return      a String[] with the randomly selected settings of maximum guesses, wordlength and language.
+     *
+     * @author Frida Sjögren
      */
     private String[] generateRandomOptions() {
         //ToDo should be selected at random from the hard-coded options
@@ -261,6 +284,8 @@ public class Controller {
      * - update letterBox colors
      * - check if the game is over
      *
+     * @author Frida Sjögren
+     * @author Isabell Persson
      */
     private void compareGuessToWord() {
 
@@ -301,6 +326,8 @@ public class Controller {
      * adding the letter.
      *
      * @param letter       a String, the letter of the pressed keyboard button that should be shown.
+     *
+     * @author Frida Sjögren
      */
     private void addLetterToGuess(String letter) {
         if (numberOfGuessesMade < chosenMaxGuesses) {

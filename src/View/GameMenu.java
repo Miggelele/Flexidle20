@@ -12,6 +12,8 @@ import static Controller.Controller.*;
  * (maximum guesses, wordlength, language). Settings are selected using dropboxes (JComboBox). There's also a button
  * to select random settings. The options for the settings come from constants in the Controller class. The settings
  * are used to generate the correct gameboard as the game initiates.
+ *
+ * @author Frida Sjögren
  */
 public class GameMenu extends JPanel {
 

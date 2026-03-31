@@ -14,6 +14,8 @@ public class GameLogic {
      * Takes the correct word and break it up letter by letter.
      *
      * @param wordToGuess   the correct word the uses guesses on.
+     *
+     * @author Isabell Persson
      */
     public void addWordToGuess(String wordToGuess){
         wordToGuessInLetters = wordToGuess.split("");
@@ -27,6 +29,8 @@ public class GameLogic {
      * @param currentGuess  is the current guess the user has made.
      *
      * @return              an array of Strings with the new colors for each letterbox.
+     *
+     * @author Isabell Persson
      */
     public String[] selectCorrectColorsForGameBoard(String[] currentGuess){
 
@@ -59,6 +63,8 @@ public class GameLogic {
      * @param currentGuess  is the current guess the user has made.
      *
      * @return              true if all letterboxes has a letter, otherwise false.
+     *
+     * @author Isabell Persson
      */
     public boolean isNoWhitespaceInWord(String[] currentGuess){
         for (int i = 0; i < currentGuess.length; i++){
@@ -71,6 +77,8 @@ public class GameLogic {
 
     /**
      * Will be generating a word from database correct language and word length
+     *
+     * @author Isabell Persson
      */
     public String selectNewWord(int selectedWordLength, String selectedLanguage){
         return "NOT IMPLEMENTED YET";
@@ -80,6 +88,8 @@ public class GameLogic {
      * Returns isWinners value.
      *
      * @return  true or false depending on value of isWinner.
+     *
+     * @author Isabell Persson
      */
     public boolean isWinner(){
         return isWinner;
@@ -87,6 +97,8 @@ public class GameLogic {
 
     /**
      * Sets isWinner to false. Is called when resetting game.
+     *
+     * @author Isabell Persson
      */
     public void setIsWinnerToFalse(){
         isWinner = false;

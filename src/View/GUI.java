@@ -10,6 +10,8 @@ import static Controller.Controller.*;
 /**
  * This class contains and modifies the JPanels that makes up the different menus inside the game. This class handles
  * the communication between the controller and the view package.
+ *
+ * @author Frida Sjögren
  */
 public class GUI extends JFrame {
 
@@ -29,6 +31,8 @@ public class GUI extends JFrame {
      * @param controller    a reference to the controller, which is used for communication to the controller package.
      * @param width         an int, the width of the application window.
      * @param height        an int, the height of the application window.
+     *
+     * @author Frida Sjögren
      */
     public GUI(Controller controller, int width, int height) {
         super("FLEXIDLE");
@@ -52,6 +56,8 @@ public class GUI extends JFrame {
      * Called when a button in the MainMenu panel is pressed. ("PLAY", "ACCOUNT", "STATISTICS")
      *
      * @param buttonName,   a String, which is the text on the button
+     *
+     * @author Frida Sjögren
      */
     protected void mainMenuButtonPressed(String buttonName) {
         controller.mainMenuButtonPressed(buttonName);
@@ -61,6 +67,8 @@ public class GUI extends JFrame {
      * Called when a button in the Statistics panel is pressed. ("BACK TO MAIN MENU")
      *
      * @param buttonName,   a String, which is the text on the button
+     *
+     * @author Frida Sjögren
      */
     protected void statisticsButtonPressed(String buttonName) {
         controller.statisticsButtonPressed(buttonName);
@@ -70,6 +78,8 @@ public class GUI extends JFrame {
      * Called when a button in the GameMenu panel is pressed. ("PLAY RANDOM GAME", "START GAME", "BACK TO MAIN MENU")
      *
      * @param buttonName,   a String, which is the text on the button
+     *
+     * @author Frida Sjögren
      */
     protected void gameMenuButtonPressed(String buttonName) {
         controller.gameMenuButtonPressed(buttonName);
@@ -80,6 +90,8 @@ public class GUI extends JFrame {
      * (buttons include all the keyboard letters, ENTER, BACKSPACE, main menu-button and game menu-button)
      *
      * @param buttonName,   a String, which is the text on the button
+     *
+     * @author Frida Sjögren
      */
     protected void gameBoardButtonPressed(String buttonName) {
         controller.gameBoardButtonPressed(buttonName);
@@ -89,6 +101,8 @@ public class GUI extends JFrame {
      * Called when a button in the Account panel is pressed. ("BACK TO MAIN MENU")
      *
      * @param buttonName,   a String, which is the text on the button
+     *
+     * @author Frida Sjögren
      */
     protected void accountButtonPressed(String buttonName) {
         controller.accountButtonPressed(buttonName);
@@ -100,6 +114,8 @@ public class GUI extends JFrame {
      * application switches which one is shown in the JFrame using the panel name parameter.
      *
      * @param panelName     a String, which is the name of the panel that should be shown.
+     *
+     * @author Frida Sjögren
      */
     public void setPanel(String panelName) {
         switch (panelName) {
@@ -137,6 +153,8 @@ public class GUI extends JFrame {
      *
      * @param keyboardButton    a String, that is the letter on the button that should change color.
      * @param color             a String, that is the new color of the button.
+     *
+     * @author Frida Sjögren
      */
     public void changeKeyBoardButtonColor(String keyboardButton, String color) {
         JButton[][] keyboardButtons = gameBoard.getKeyBoardButtons();
@@ -167,6 +185,8 @@ public class GUI extends JFrame {
      *                              of made guesses).
      *
      * @return                      a String[], which is the letters of the current guess.
+     *
+     * @author Frida Sjögren
      */
     public String[] getCurrentGuess(int rowOfCurrentGuess) {
         JButton[] letterBoxRow = gameBoard.getLetterBoxesRow(rowOfCurrentGuess);;
@@ -187,6 +207,8 @@ public class GUI extends JFrame {
      *                  guesses).
      * @param column    an int, which is the index of where in the word the new letter should be added.
      * @param letter    a String, the letter that should be shown, same as the keyboard button that was pressed.
+     *
+     * @author Frida Sjögren
      */
     public void updateLetterBox(int row, int column, String letter) {
         gameBoard.getLetterBoxesRow(row)[column].setText(letter);
@@ -200,6 +222,8 @@ public class GUI extends JFrame {
      *                  of made guesses).
      *
      * @return          an int, which is the number of letters in the current guess.
+     *
+     * @author Frida Sjögren
      */
     public int checkNumberOfFilledLetterBoxes(int row) {
         JButton[] letterBoxRow = gameBoard.getLetterBoxesRow(row);
@@ -221,6 +245,8 @@ public class GUI extends JFrame {
      * @param row       an int, the coordinate for the row where the letterBox colors should be updated after a guess
      *                  has been checked.
      * @param colors    a String[], which is the new colors for the letterBoxes in the given row.
+     *
+     * @author Frida Sjögren
      */
     public void updateLetterBoxColors(int row, String[] colors) {
         JButton[] letterBoxes = gameBoard.getLetterBoxesRow(row);
@@ -244,6 +270,8 @@ public class GUI extends JFrame {
      *
      * @param row       an int, the row coordinate of which letterBox should be cleared.
      * @param column    an int, the column coordinate of which letterBox should be cleared.
+     *
+     * @author Frida Sjögren
      */
     public void clearLetterBox(int row, int column) {
         gameBoard.getLetterBoxesRow(row)[column].setText("");
@@ -254,6 +282,8 @@ public class GUI extends JFrame {
      * Used after the game is over to tell the user to go start a new game using the menu buttons.
      *
      * @param message       a String, the message to the user.
+     *
+     * @author Frida Sjögren
      */
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(null, message);
