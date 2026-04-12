@@ -1,3 +1,5 @@
+Länk till repository: https://github.com/Miggelele/Flexidle20
+
 Instruktioner för att komma igång med G20 Flexidle!
 
 1. Installera IntelliJ (Community Edition räcker)
