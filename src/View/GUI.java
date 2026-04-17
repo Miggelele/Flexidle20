@@ -266,11 +266,11 @@ public class GUI extends JFrame {
 
         for (int i = 0; i < letterBoxes.length; i++) {
             if (colors[i].equals("GREEN")) {
-                letterBoxes[i].setBackground(new Color(37, 175, 92, 255) );
+                letterBoxes[i].setBackground(wordleGreen);
             } else if (colors[i].equals("YELLOW")) {
-                letterBoxes[i].setBackground(new Color(255, 194, 23, 255));
+                letterBoxes[i].setBackground(wordleYellow);
             } else if (colors[i].equals("GRAY")) {
-                letterBoxes[i].setBackground(new Color(43, 33, 6, 255) );
+                letterBoxes[i].setBackground(wordleGray);
             }
         }
     }
