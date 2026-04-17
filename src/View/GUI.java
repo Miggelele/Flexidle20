@@ -24,6 +24,11 @@ public class GUI extends JFrame {
     private int width;
     private int height;
 
+    //jag kan motivera att dessa ska vara public och static eftersom dem används överallt (och det bara är färger) men idk vad ni känner - Elin
+    private Color wordleGreen  = new Color(37, 175, 92, 255);
+    private  Color wordleYellow = new Color(255, 194, 23, 255);
+    private Color wordleGray   = new Color(43, 33, 6, 255);
+
 
     /**
      * This constructor is used to start the GUI. It is used once by the controller when the application initiates.
@@ -155,6 +160,7 @@ public class GUI extends JFrame {
      * @param color             a String, that is the new color of the button.
      *
      * @author Frida Sjögren
+     * @author Elin Piho
      */
     public void changeKeyBoardButtonColor(String keyboardButton, String color) {
         JButton[][] keyboardButtons = gameBoard.getKeyBoardButtons();
@@ -162,13 +168,20 @@ public class GUI extends JFrame {
             for (int j = 0; j < keyboardButtons[i].length; j++) {
                 if (keyboardButtons[i][j].getText().equals(keyboardButton)) {
                     if (color.equals("GREEN")) {
-                        keyboardButtons[i][j].setBackground(new Color(37, 175, 92, 255) );
-                    } else if(color.equals("YELLOW")) {
-                        keyboardButtons[i][j].setBackground(new Color(255, 194, 23, 255) );
+                        keyboardButtons[i][j].setBackground(wordleGreen);
+                    }
+                    else if(color.equals("YELLOW")) {
+                        if (!keyboardButtons[i][j].getBackground().equals(wordleGreen)) {
+                            keyboardButtons[i][j].setBackground(wordleYellow);
+                        }
 //                        keyboardButtons[i][j].setBackground(new Color(255, 237, 67, 255) );
-                    } else if(color.equals("GRAY")) {
-                        keyboardButtons[i][j].setBackground( new Color(43, 33, 6, 255) );
+                    }
+                    else if(color.equals("GRAY")) {
+                        if (!keyboardButtons[i][j].getBackground().equals(wordleGreen) ||
+                                keyboardButtons[i][j].getBackground().equals(wordleYellow) ) {
+                            keyboardButtons[i][j].setBackground(wordleGray);
 //                        keyboardButtons[i][j].setBackground( new Color(67, 66, 74, 255) );
+                        }
                     }
                     return;
                 }

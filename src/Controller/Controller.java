@@ -21,6 +21,7 @@ public class Controller {
     private int chosenMaxGuesses;
     private int chosenWordLength;
     private String chosenLanguage;
+    private int lettersTyped;
 
     private GameLogic gameLogic;
 
@@ -157,10 +158,10 @@ public class Controller {
                 break;
             case "<- BACKSPACE":
                 System.out.println("Pressed BACKSPACE in GameBoard");
-                if (numberOfGuessesMade < chosenMaxGuesses) {
-                    int currentGuessLength = gui.checkNumberOfFilledLetterBoxes(numberOfGuessesMade);
-                    if (currentGuessLength > 0) {
-                        gui.clearLetterBox(numberOfGuessesMade, currentGuessLength - 1);
+                if (isGuessRemaining()) {
+                    lettersTyped = gui.checkNumberOfFilledLetterBoxes(numberOfGuessesMade);
+                    if (lettersTyped > 0) {
+                        gui.clearLetterBox(numberOfGuessesMade, lettersTyped - 1);
                     }
                 }
                 break;
@@ -169,13 +170,13 @@ public class Controller {
 
                 //kolla om alla letterboxes fyllda
 
-                if (numberOfGuessesMade < chosenMaxGuesses) {
+                if (isGuessRemaining()) {
                     compareGuessToWord();
                 }
                 break;
             default:        //för alla bokstavsknappar i keyboard (i gameboard)
                 System.out.println("pressed button " + buttonName + " in GameBoard");
-                addLetterToGuess(buttonName);
+                updateNextFreeLetterBox(buttonName);
         }
     }
 
@@ -216,9 +217,13 @@ public class Controller {
 
         wordToGuess = generateNewWord(chosenWordLength, chosenLanguage);
         gameLogic.addWordToGuess(wordToGuess);
-        gameLogic.setIsWinnerToFalse(); //nollställer inför nytt spel i gameLogic
-        numberOfGuessesMade = 0;        //nollställer inför nytt spel
+        gameReset();
         gui.setPanel("GameBoard");
+    }
+
+    public void gameReset()  {
+        gameLogic.setIsWinnerToFalse();
+        numberOfGuessesMade = 0;
     }
 
     /**
@@ -291,18 +296,18 @@ public class Controller {
 
         String[] currentGuess = gui.getCurrentGuess(numberOfGuessesMade);
 
-        if (gameLogic.isNoWhitespaceInWord(currentGuess)){
+        if (gameLogic.isWhitespaceInWord(currentGuess)){
 
-            String[] newColorsForGameBoard = gameLogic.selectCorrectColorsForGameBoard(currentGuess);
+            String[] newColorsForKeyboard = gameLogic.selectCorrectColorsForGameBoard(currentGuess);
 
-            for (int i = 0; i < newColorsForGameBoard.length; i++){
-                changeKeyBoardButtonColor(currentGuess[i], newColorsForGameBoard[i]);
+            for (int i = 0; i < newColorsForKeyboard.length; i++){
+                changeKeyBoardButtonColor(currentGuess[i], newColorsForKeyboard[i]);
             }
 
             String[] newColorsForLetterBoxArray = new String[chosenWordLength];
 
-            for (int i = 0; i < newColorsForGameBoard.length; i++){
-                newColorsForLetterBoxArray[i] = newColorsForGameBoard[i];
+            for (int i = 0; i < newColorsForKeyboard.length; i++){
+                newColorsForLetterBoxArray[i] = newColorsForKeyboard[i];
             }
 
             gui.updateLetterBoxColors(numberOfGuessesMade++, newColorsForLetterBoxArray);
@@ -329,13 +334,26 @@ public class Controller {
      *
      * @author Frida Sjögren
      */
-    private void addLetterToGuess(String letter) {
-        if (numberOfGuessesMade < chosenMaxGuesses) {
+    private void updateNextFreeLetterBox (String letter) {
+        if (isGuessRemaining()) {
             int currentGuessLength = gui.checkNumberOfFilledLetterBoxes(numberOfGuessesMade);
             if (currentGuessLength < chosenWordLength) {        //om alla letterboxes är fulla så läggs inget till
                 gui.updateLetterBox(numberOfGuessesMade, currentGuessLength, letter);
             }
         }
+    }
+
+    /**
+     * Method used to check if user has any remaining guesses to make
+     *
+     * @return Boolean for if a guess is allowed or not
+     * @author Elin Piho
+     */
+    public boolean isGuessRemaining() {
+        if (numberOfGuessesMade < chosenMaxGuesses) {
+            return true;
+        }
+        return false;
     }
 
     public int getChosenWordLength() {

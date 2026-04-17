@@ -31,23 +31,41 @@ public class GameLogic {
      * @return              an array of Strings with the new colors for each letterbox.
      *
      * @author Isabell Persson
+     * @author Elin Piho
      */
-    public String[] selectCorrectColorsForGameBoard(String[] currentGuess){
+    public String[] selectCorrectColorsForGameBoard(String[] currentGuess) {
 
         colorArrayForLetterBox = new String[currentGuess.length];
-        for (int i = 0; i < wordToGuessInLetters.length; i++){
 
-           if (currentGuess[i].equals(wordToGuessInLetters[i])) {
-                colorArrayForLetterBox[i] = "GREEN";
-                amountOfCorrectLetters++;
-           }
-           else if (Arrays.asList(wordToGuessInLetters).contains(currentGuess[i])) {
-               colorArrayForLetterBox[i] = "YELLOW";
-           }
-           else {
-               colorArrayForLetterBox[i] = "GRAY";
-           }
+        int[] letterCount = new int[65536];
+        for (String letter : wordToGuessInLetters) {
+            letterCount[letter.charAt(0)]++;
         }
+
+        for (int i = 0; i < wordToGuessInLetters.length; i++) {
+            if (currentGuess[i].equals(wordToGuessInLetters[i])) {
+                colorArrayForLetterBox[i] = "GREEN";
+                letterCount[currentGuess[i].charAt(0)]--;
+                amountOfCorrectLetters++;
+            }
+        }
+
+        for (int i = 0; i < wordToGuessInLetters.length; i++) {
+            if (colorArrayForLetterBox[i] != null) {
+                continue;
+            }
+
+            char colorCheck = currentGuess[i].charAt(0);
+
+            if (letterCount[colorCheck] > 0) {
+                colorArrayForLetterBox[i] = "YELLOW";
+                letterCount[colorCheck]--;
+            }
+            else {
+                colorArrayForLetterBox[i] = "GRAY";
+            }
+        }
+
         if (amountOfCorrectLetters == wordToGuessInLetters.length){
             isWinner = true;
 
@@ -56,6 +74,9 @@ public class GameLogic {
 
         return colorArrayForLetterBox;
     }
+
+
+
 
     /**
      * Checks if all the letterboxes has a letter and returns true or false depending on result.
@@ -66,7 +87,7 @@ public class GameLogic {
      *
      * @author Isabell Persson
      */
-    public boolean isNoWhitespaceInWord(String[] currentGuess){
+    public boolean isWhitespaceInWord(String[] currentGuess){
         for (int i = 0; i < currentGuess.length; i++){
             if (currentGuess[i].isBlank()){
                 return false;
