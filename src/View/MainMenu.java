@@ -28,11 +28,21 @@ public class MainMenu extends JPanel {
         title.setForeground(Color.white);
         add(title);
 
-        JLabel isUserLoggedInLabel = new JLabel("Playing as GUEST (not logged in)");
-        isUserLoggedInLabel.setLocation(650,10);
-        isUserLoggedInLabel.setSize(300,50);
-        isUserLoggedInLabel.setForeground(Color.white);
-        add(isUserLoggedInLabel);
+        if (gui.isLoggedIn())  {
+            String username = gui.getUsername();
+            JLabel isUserLoggedInLabel = new JLabel("Logged in as " + username);
+            isUserLoggedInLabel.setLocation(650,10);
+            isUserLoggedInLabel.setSize(300,50);
+            isUserLoggedInLabel.setForeground(Color.white);
+            add(isUserLoggedInLabel);
+        }
+        else {
+            JLabel isUserLoggedInLabel = new JLabel("Playing as GUEST (not logged in)");
+            isUserLoggedInLabel.setLocation(650,10);
+            isUserLoggedInLabel.setSize(300,50);
+            isUserLoggedInLabel.setForeground(Color.white);
+            add(isUserLoggedInLabel);
+        }
 
         int[] buttonSize = {400,100};
         int startPositionY = 100;

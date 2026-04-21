@@ -1,11 +1,10 @@
 package View;
 
 import Controller.Controller;
+import Model.SecurityQuestion;
 
 import javax.swing.*;
 import java.awt.*;
-
-import static Controller.Controller.*;
 
 /**
  * This class contains and modifies the JPanels that makes up the different menus inside the game. This class handles
@@ -102,17 +101,17 @@ public class GUI extends JFrame {
         controller.gameBoardButtonPressed(buttonName);
     }
 
-    /**
-     * Called when a button in the Account panel is pressed. ("BACK TO MAIN MENU")
-     *
-     * @param buttonName,   a String, which is the text on the button
-     *
-     * @author Frida Sjögren
-     */
-    protected void accountButtonPressed(String buttonName) {
-        controller.accountButtonPressed(buttonName);
+    protected void createAccountButtonPressed(String buttonName)  {
+        controller.createAccountButtonPressed(buttonName);
     }
 
+    protected void logInButtonPressed(String buttonName) {
+        controller.logInButtonPressed(buttonName);
+    }
+
+    protected boolean isLoggedIn() {
+        return controller.IsUserLoggedIn();
+    }
 
     /**
      * Used when the user makes choices that updates which menu is showing. The menus are different JPanels, and the
@@ -177,10 +176,9 @@ public class GUI extends JFrame {
 //                        keyboardButtons[i][j].setBackground(new Color(255, 237, 67, 255) );
                     }
                     else if(color.equals("GRAY")) {
-                        if (!keyboardButtons[i][j].getBackground().equals(wordleGreen) ||
-                                keyboardButtons[i][j].getBackground().equals(wordleYellow) ) {
+                        if (!keyboardButtons[i][j].getBackground().equals(wordleGreen) &&
+                                !keyboardButtons[i][j].getBackground().equals(wordleYellow)) {
                             keyboardButtons[i][j].setBackground(wordleGray);
-//                        keyboardButtons[i][j].setBackground( new Color(67, 66, 74, 255) );
                         }
                     }
                     return;
@@ -316,5 +314,21 @@ public class GUI extends JFrame {
 
     protected String getCorrectWord() {
         return controller.getWordToGuess();
+    }
+
+    public String getUsername() {
+        return account.getUsername();
+    }
+
+    public String getPassword() {
+        return account.getPassword();
+    }
+
+    public SecurityQuestion getSelectedQuestion() {
+        return account.getSelectedQuestion();
+    }
+
+    public String getAnswer() {
+        return account.getAnswer();
     }
 }
