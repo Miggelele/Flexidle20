@@ -163,4 +163,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-.idea/
+config.properties

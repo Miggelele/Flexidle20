@@ -1,7 +1,13 @@
 package Controller;
 
+import Model.Database;
 import Model.GameLogic;
 import View.GUI;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
 
 /**
  * The Controller starts the GUI and handles communication with the view package. It should also handle the logic
@@ -12,6 +18,9 @@ import View.GUI;
  */
 public class Controller {
     private GUI gui;
+    private GameLogic gameLogic;
+    private Database db;
+
     public static final int[] MAX_GUESSES_OPTIONS = {5,6,7};
     public static final int[] WORD_LENGTH_OPTIONS = {4,5,6};
     public static final String[] LANGUAGE_OPTIONS = {"SWEDISH", "ENGLISH", "GERMAN"};
@@ -23,8 +32,6 @@ public class Controller {
     private String chosenLanguage;
     private int lettersTyped;
 
-    private GameLogic gameLogic;
-
     /**
      * In this constructor the GUI is started by initiating a JFrame object (the GUI class).
      *
@@ -33,6 +40,36 @@ public class Controller {
     public Controller() {
         gui = new GUI(this, 900, 750);
         gameLogic = new GameLogic();
+        db = new Database();
+
+        setupDatabaseConnection();
+    }
+
+    /**
+     * Loads data from the config file and sets up the correct information for a connection to the database
+     *
+     * @author Mikael Szalai
+     */
+    private void setupDatabaseConnection() {
+        Properties props = new Properties();
+        try {
+            props.load(new FileInputStream("config.properties"));
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("config.properties file not found");
+            System.out.println("Failed to run program");
+            System.exit(0);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        String url = props.getProperty("db.url");
+        String username = props.getProperty("db.username");
+        String password = props.getProperty("db.password");
+
+        db.setUrl(url);
+        db.setUsername(username);
+        db.setPassword(password);
     }
 
     /**
