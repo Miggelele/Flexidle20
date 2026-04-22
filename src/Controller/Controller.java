@@ -6,6 +6,7 @@ import Model.User;
 import View.GUI;
 import Model.SecurityQuestion;
 
+import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -98,7 +99,14 @@ public class Controller {
 
             case "STATISTICS":
                 System.out.println("Pressed STATISTICS in MainMenu.");
-                gui.setPanel("Statistics");
+
+                if(currentUser != null) {
+                    gui.setPanel("Statistics");
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "You are not logged in!", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+
                 break;
 
             default:
