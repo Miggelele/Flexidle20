@@ -43,8 +43,8 @@ public class Controller {
      */
     public Controller() {
         gui = new GUI(this, 900, 750);
-        gameLogic = new GameLogic();
         db = new Database();
+        gameLogic = new GameLogic(db);
 
         setupDatabaseConnection();
     }
@@ -58,11 +58,13 @@ public class Controller {
         Properties props = new Properties();
         try {
             props.load(new FileInputStream("config.properties"));
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             System.out.println("config.properties file not found");
             System.out.println("Failed to run program");
             System.exit(0);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         String url = props.getProperty("db.url");
@@ -72,6 +74,7 @@ public class Controller {
         db.setUrl(url);
         db.setUsername(username);
         db.setPassword(password);
+        db.connect();
     }
 
     /**
@@ -303,38 +306,11 @@ public class Controller {
      * @param wordLength an int, the length of the word to guess in the game.
      * @param language   a String, the language of the word to guess in the game.
      * @return a String, the word to guess in the game.
-     * @author Frida Sjögren
+     * @author Frida Sjögren, Mikael Szalai
      */
     private String generateNewWord(int wordLength, String language) {
         //ToDo should select a random word from our dictionaries
-        //gameLogic.selectNewWord(wordLength, language); // NOT IMPLEMENTED
-
-        if (language.equals("SWEDISH")) {
-            if (wordLength == 4) {
-                return "STOL";
-            } else if (wordLength == 5) {
-                return "KLUMP";
-            } else if (wordLength == 6) {
-                return "BOXARE";
-            }
-        } else if (language.equals("ENGLISH")) {
-            if (wordLength == 4) {
-                return "ROSE";
-            } else if (wordLength == 5) {
-                return "SILKY";
-            } else if (wordLength == 6) {
-                return "GOLDEN";
-            }
-        } else if (language.equals("GERMAN")) {
-            if (wordLength == 4) {
-                return "GRÜN";
-            } else if (wordLength == 5) {
-                return "HANDY";
-            } else if (wordLength == 6) {
-                return "STRAßE";
-            }
-        }
-        return "ÄPPLE";
+        return db.getRandomWord(language, wordLength);
     }
 
     /**

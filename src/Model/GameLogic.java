@@ -3,12 +3,17 @@ package Model;
 import java.util.Arrays;
 
 public class GameLogic {
+    private Database db;
 
     private String[] wordToGuessInLetters;
     private String[] colorArrayForLetterBox;
 
     private int amountOfCorrectLetters;
     private boolean isWinner = false;
+
+    public GameLogic(Database db) {
+        this.db = db;
+    }
 
     /**
      * Takes the correct word and break it up letter by letter.
