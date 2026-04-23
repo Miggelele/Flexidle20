@@ -324,6 +324,10 @@ public class GUI extends JFrame {
         return account.getPassword();
     }
 
+    public Controller getController() {
+        return controller;
+    }
+
     public SecurityQuestion getSelectedQuestion() {
         return account.getSelectedQuestion();
     }

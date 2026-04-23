@@ -227,10 +227,10 @@ public class Controller {
 
     /**
      * Button pressed in gui when creating an account
-     * Takes the input from the gui, and creates a new account
+     * Takes the input from the gui, and creates a new account if filled in correctly
      *
      * @param buttonName a String that is the name of the button pressed
-     * @author Elin Piho
+     * @author Elin Piho, Mikael Szalai
      */
     public void createAccountButtonPressed(String buttonName) {
         switch (buttonName) {
@@ -241,12 +241,14 @@ public class Controller {
                 SecurityQuestion securityQuestion = gui.getSelectedQuestion();
                 String securityAnswer = gui.getAnswer();
 
-                currentUser = new User(username, password, securityQuestion, securityAnswer);
-
-                String eventMessage = db.registerNewUser(currentUser);
-
-                System.out.println(eventMessage);
-
+                if (username.isEmpty() || password.isEmpty() ||securityAnswer.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please fill in the necessary fields to create an account", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+                else {
+                    currentUser = new User(username, password, securityQuestion, securityAnswer);
+                    String eventMessage = db.registerNewUser(currentUser);
+                    System.out.println(eventMessage);
+                }
                 break;
             default:
                 System.out.println("Invalid create account button name.");
@@ -257,7 +259,7 @@ public class Controller {
      * Button pressed in gui when logging in
      *
      * @param buttonName a String that is the name of the button pressed
-     * @author Elin Piho
+     * @author Elin Piho, Mikael Szalai
      */
     public void logInButtonPressed(String buttonName) {
         switch (buttonName) {
@@ -265,7 +267,19 @@ public class Controller {
                 String username = gui.getUsername();
                 String password = gui.getPassword();
 
+                if (username.isEmpty() || password.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please fill in login details", "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
                 currentUser = db.login(username, password);
+                if (currentUser == null) {
+                    JOptionPane.showMessageDialog(null, "Incorrect login details", "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                JOptionPane.showMessageDialog(null, "Welcome " + username + "!", "Welcome", JOptionPane.INFORMATION_MESSAGE);
+                gui.setPanel("MainMenu");
 
                 System.out.println("Pressed LOG IN in Account");
                 break;
@@ -427,6 +441,10 @@ public class Controller {
             return true;
         }
         return false;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
     }
 
     public int getChosenWordLength() {

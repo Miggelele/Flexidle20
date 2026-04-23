@@ -13,7 +13,6 @@ public class Database {
     private String username;
     private String password;
 
-
     /**
      * The constructor for the database where the objects in the class are instantiated
      *
@@ -68,6 +67,15 @@ public class Database {
         return wordList.get(randomIndex);
     }
 
+
+    /**
+     * Method is invoked when the login button is pressed from the gui and attempts to log in the user based on filled in information.
+     * @param username The inputted username from the active user
+     * @param password The inputted password from the active user
+     * @return A new instance of User to set as the current user for the program
+     *
+     * @author Mikael Szalai
+     */
     public User login(String username, String password) {
         String registeredName = "";
         String registeredPW = "";
@@ -93,15 +101,24 @@ public class Database {
                     String stringQuestion = rs.getString("s_question");
                     securityQuestion = SecurityQuestion.valueOf(stringQuestion);
                     securityAnswer = rs.getString("s_answer");
+
+                    return new User(registeredName, registeredPW, securityQuestion, securityAnswer);
                 }
             }
             catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        return new User(registeredName, registeredPW, securityQuestion, securityAnswer);
+        return null;
     }
 
+    /**
+     * Registers a new user in the database after the "create button" has been pressed in the gui
+     * @param user The instance of the User to register
+     * @return A String message for event logging
+     *
+     * @author Mikael Szalai
+     */
     public String registerNewUser(User user) {
         String username = user.getUsername();
         String password = user.getPassword();
@@ -129,6 +146,14 @@ public class Database {
         return "Account Is Already Registered";
     }
 
+
+    /**
+     * Checks if a user is already registered in the database
+     * @param username A username to try and match in the database
+     * @return Boolean depending on the outcome
+     *
+     * @author Mikael Szalai
+     */
     public boolean isUserRegistered(String username) {
         String selectQuery =
                 "SELECT COUNT(*) FROM flexidle.registered_user " +
@@ -148,6 +173,11 @@ public class Database {
         return false;
     }
 
+    /**
+     * Method is invoked when the program connects to the database
+     *
+     * @author Mikael Szalai
+     */
     public void connect() {
         try {
             conn = DriverManager.getConnection(url, username, password);

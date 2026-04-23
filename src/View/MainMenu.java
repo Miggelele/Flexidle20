@@ -29,7 +29,7 @@ public class MainMenu extends JPanel {
         add(title);
 
         if (gui.isLoggedIn())  {
-            String username = gui.getUsername();
+            String username = gui.getController().getCurrentUser().getUsername();
             JLabel isUserLoggedInLabel = new JLabel("Logged in as " + username);
             isUserLoggedInLabel.setLocation(650,10);
             isUserLoggedInLabel.setSize(300,50);
@@ -86,8 +86,5 @@ public class MainMenu extends JPanel {
         statisticsButton.setLocation( width/2-buttonSize[0]/2 , startPositionY  + spacingY*3 );
         statisticsButton.addActionListener(l -> gui.mainMenuButtonPressed(statisticsButton.getText()) );
         add(statisticsButton);
-
-
-
     }
 }
