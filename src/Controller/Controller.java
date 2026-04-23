@@ -245,9 +245,11 @@ public class Controller {
                     JOptionPane.showMessageDialog(null, "Please fill in the necessary fields to create an account", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
                 else {
+                    JOptionPane.showMessageDialog(null, "Registration successful! Enjoy the full experience of Flexidle " + username, "Registration", JOptionPane.INFORMATION_MESSAGE);
                     currentUser = new User(username, password, securityQuestion, securityAnswer);
                     String eventMessage = db.registerNewUser(currentUser);
                     System.out.println(eventMessage);
+                    gui.setPanel("MainMenu");
                 }
                 break;
             default:
