@@ -244,6 +244,9 @@ public class Controller {
                 if (username.isEmpty() || password.isEmpty() ||securityAnswer.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Please fill in the necessary fields to create an account", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
+                else if (db.isUserRegistered(username)) {
+                    JOptionPane.showMessageDialog(null, "Account with that username already exists", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
                 else {
                     JOptionPane.showMessageDialog(null, "Registration successful! Enjoy the full experience of Flexidle " + username, "Registration", JOptionPane.INFORMATION_MESSAGE);
                     currentUser = new User(username, password, securityQuestion, securityAnswer);
