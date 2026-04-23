@@ -96,7 +96,7 @@ public class Statistics extends JPanel {
                 {"0418-26:", "German",  "5", "5", "5", "HANDY"},
                 {"0420-26:", "English", "6", "3", "2", "STINKY"},
                 {"0420-26:", "German", "4", "7", "FAILED", "KEKS", },
-                {"0421-26:", "Swedish", "5", "5,", "3", "VAMPYR"}
+                {"0421-26:", "Swedish", "5", "5", "3", "VAMPYR"}
         };
 
         for (int i = 0; i < statistics.length; i++) {
