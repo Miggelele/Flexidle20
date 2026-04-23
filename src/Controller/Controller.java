@@ -242,6 +242,11 @@ public class Controller {
                 String securityAnswer = gui.getAnswer();
 
                 currentUser = new User(username, password, securityQuestion, securityAnswer);
+
+                String eventMessage = db.addNewUser(currentUser);
+
+                System.out.println(eventMessage);
+
                 break;
             default:
                 System.out.println("Invalid create account button name.");

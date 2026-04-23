@@ -68,6 +68,52 @@ public class Database {
         return wordList.get(randomIndex);
     }
 
+    public String addNewUser(User user) {
+        String username = user.getUsername();
+        String password = user.getPassword();
+        String securityQuestion = user.getSecurityQuestion();
+        String securityAnswer = user.getSecurityAnswer();
+
+        String insertQuery =
+                "INSERT INTO flexidle.registered_user (username, password, s_question, s_answer) " +
+                "VALUES (?,?,?,?)";
+
+        if (!isUserRegistered(username)) {
+            try (PreparedStatement stmt = conn.prepareStatement(insertQuery)) {
+                stmt.setString(1, username);
+                stmt.setString(2, password);
+                stmt.setString(3, securityQuestion);
+                stmt.setString(4, securityAnswer);
+
+                stmt.executeUpdate();
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return "New Account Registered";
+        }
+        return "Account Is Already Registered";
+    }
+
+    public boolean isUserRegistered(String username) {
+        String selectQuery =
+                "SELECT COUNT(*) FROM flexidle.registered_user " +
+                "WHERE username = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(selectQuery)) {
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public void connect() {
         try {
             conn = DriverManager.getConnection(url, username, password);

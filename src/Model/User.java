@@ -15,4 +15,20 @@ public class User {
         this.securityQuestion = securityQuestion;
         this.securityAnswer = securityAnswer;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getSecurityQuestion() {
+        return securityQuestion.toString();
+    }
+
+    public String getSecurityAnswer() {
+        return securityAnswer;
+    }
 }
