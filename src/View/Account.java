@@ -11,7 +11,7 @@ public class Account extends JPanel {
     private int height;
 
     JTextField usernameTextField;
-    JTextField passwordTextField;
+    JPasswordField passwordTextField;
 
     JComboBox<SecurityQuestion> questionDropdown;
     JTextField answerTextField;
@@ -63,7 +63,7 @@ public class Account extends JPanel {
         passwordLabel.setForeground(Color.white);
         add(passwordLabel);
 
-        passwordTextField = new JTextField();
+        passwordTextField = new JPasswordField();
         passwordTextField.setLocation(width/2-buttonSize[0]/2, startPositionY + spacingY + labelH);
         passwordTextField.setSize(buttonSize[0], buttonSize[1]);
         passwordTextField.setFont(buttonFont);

@@ -68,10 +68,44 @@ public class Database {
         return wordList.get(randomIndex);
     }
 
-    public String addNewUser(User user) {
+    public User login(String username, String password) {
+        String registeredName = "";
+        String registeredPW = "";
+        SecurityQuestion securityQuestion = null;
+        String securityAnswer = "";
+
+        String selectQuery =
+                "SELECT * FROM flexidle.registered_user " +
+                "WHERE username = ? " +
+                "AND password = ?";
+
+        if (isUserRegistered(username)) {
+            try (PreparedStatement stmt = conn.prepareStatement(selectQuery)) {
+                stmt.setString(1, username);
+                stmt.setString(2, password);
+
+                ResultSet rs = stmt.executeQuery();
+
+                while (rs.next()) {
+                    registeredName = rs.getString("username");
+                    registeredPW = rs.getString("password");
+
+                    String stringQuestion = rs.getString("s_question");
+                    securityQuestion = SecurityQuestion.valueOf(stringQuestion);
+                    securityAnswer = rs.getString("s_answer");
+                }
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return new User(registeredName, registeredPW, securityQuestion, securityAnswer);
+    }
+
+    public String registerNewUser(User user) {
         String username = user.getUsername();
         String password = user.getPassword();
-        String securityQuestion = user.getSecurityQuestion();
+        SecurityQuestion securityQuestion = user.getSecurityQuestion();
         String securityAnswer = user.getSecurityAnswer();
 
         String insertQuery =
@@ -82,7 +116,7 @@ public class Database {
             try (PreparedStatement stmt = conn.prepareStatement(insertQuery)) {
                 stmt.setString(1, username);
                 stmt.setString(2, password);
-                stmt.setString(3, securityQuestion);
+                stmt.setString(3, securityQuestion.name());
                 stmt.setString(4, securityAnswer);
 
                 stmt.executeUpdate();

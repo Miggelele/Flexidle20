@@ -243,7 +243,7 @@ public class Controller {
 
                 currentUser = new User(username, password, securityQuestion, securityAnswer);
 
-                String eventMessage = db.addNewUser(currentUser);
+                String eventMessage = db.registerNewUser(currentUser);
 
                 System.out.println(eventMessage);
 
@@ -262,6 +262,11 @@ public class Controller {
     public void logInButtonPressed(String buttonName) {
         switch (buttonName) {
             case "LOG IN":
+                String username = gui.getUsername();
+                String password = gui.getPassword();
+
+                currentUser = db.login(username, password);
+
                 System.out.println("Pressed LOG IN in Account");
                 break;
             default:

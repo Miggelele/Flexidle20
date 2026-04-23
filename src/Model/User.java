@@ -24,8 +24,8 @@ public class User {
         return password;
     }
 
-    public String getSecurityQuestion() {
-        return securityQuestion.toString();
+    public SecurityQuestion getSecurityQuestion() {
+        return securityQuestion;
     }
 
     public String getSecurityAnswer() {
