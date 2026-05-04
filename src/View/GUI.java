@@ -4,6 +4,7 @@ import Controller.Controller;
 import Model.SecurityQuestion;
 
 import javax.swing.*;
+import javax.swing.text.html.HTML;
 import java.awt.*;
 
 /**
@@ -51,6 +52,7 @@ public class GUI extends JFrame {
         this.height = height;
         this.setSize(width, height);
         this.mainMenu = new MainMenu(this, width, height);
+
         this.setContentPane(mainMenu);
         this.setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
