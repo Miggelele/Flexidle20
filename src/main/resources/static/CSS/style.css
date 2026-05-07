@@ -1,6 +1,30 @@
-.btn-dettaÄrEnPlaceholder {
+.btn-elinsTestFärg {
     background-color: pink;
     color: black;
-    border: none; !important;
-    outline: none; !important;
+    border: 2px solid black !important;
+    outline: none;
+    font-size: 20px;
 }
+
+/*Absolut inte perfekt, kan hitta bättre */
+.wordleFont {
+    color: #25af5c;
+    font-family: 'Playfair Display', serif;
+    font-size: 60px;
+}
+
+.btn-start  {
+    font-family: "Verdana";
+    color: black;
+    font-size: 40px;
+    border: 2px solid black !important;
+    outline: none;
+}
+
+.textFont  {
+    font-family: "Comic Sans MS";
+    color: hotpink;
+    font-size: 40px;
+}
+
+

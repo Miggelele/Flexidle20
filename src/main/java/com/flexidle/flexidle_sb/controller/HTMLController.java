@@ -11,4 +11,9 @@ public class HTMLController {
     public String index()  {
         return "index";
     }
+
+    @GetMapping("start")
+    public String start()  {
+        return "start";
+    }
 }
