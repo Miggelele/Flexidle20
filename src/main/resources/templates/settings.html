@@ -115,20 +115,24 @@
 
     <div class="wordLengthOptions">
         <div class="wordLengthoptionLabel">Word Length:</div>
+        <div class="wordLengthOption" data-len="4">4</div>
         <div class="wordLengthOption" data-len="5">5</div>
         <div class="wordLengthOption" data-len="6">6</div>
-        <div class="wordLengthOption" data-len="7">7</div>
     </div>
 
 
     <div class="nbrOfGuessesOptions">
         <div class="nbrOfGuessesOptionLabel">Number of guesses:</div>
+        <div class="nbrOfGuessesOption" data-len="4">4</div>
         <div class="nbrOfGuessesOption" data-len="5">5</div>
         <div class="nbrOfGuessesOption" data-len="6">6</div>
-        <div class="nbrOfGuessesOption" data-len="7">7</div>
     </div>
 
-    <button onclick="startGame()">Start Game</button>
+    <div class="buttonsPlayOrRandom">
+        <button onclick="startGame()">PLAY</button>
+        <button onclick="chooseRandomSettings()">RANDOMISE ⚄</button>
+    </div>
+
 </div>
 
 <script>
@@ -170,7 +174,7 @@
         });
     });
 
-    
+
 
     function startGame() {
         const bg = encodeURIComponent(document.getElementById("bgColor").value);
@@ -181,6 +185,12 @@
 
         window.location.href =
             `Flexidle.html?bg=${bg}&shape=${shape}&language=${language}&len=${length}&guesses=${guesses}`;
+    }
+
+    function chooseRandomSettings(){
+        //TODO: actually randomise this later
+        //so that random alternatives light up and you can choose to PLAY with random settings.
+
     }
 </script>
 

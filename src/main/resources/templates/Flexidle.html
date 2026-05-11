@@ -22,8 +22,8 @@
             margin-bottom: 20px;
         }
         .tile {
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             border: 2px solid #444;
             display: flex;
             align-items: center;
@@ -33,13 +33,13 @@
 
         }
         .correctLetter {
-            background: #6aaa64;
-            border-color: #6aaa64;
+            background: #25af5c;
+            border-color: #25af5c;
             color: #fff;
         }
         .existingLetter {
-            background: #c9b458;
-            border-color: #c9b458;
+            background: #ffc217;
+            border-color: #ffc217;
             color: #fff;
         }
         .wrongLetter {
@@ -50,17 +50,21 @@
 
         #keyboard {
             margin-top: 20px;
+
         }
 
-        .kb-row {
+        .keyboardRow {
             display: flex;
             justify-content: center;
             margin-bottom: 5px;
+
         }
 
         .key{
             background: #444;
             color: #fff;
+            height: 46px;
+            width: 46px;
             border: none;
             margin: 3px;
             padding: 12px 14px;
@@ -70,15 +74,18 @@
         }
 
         .action {
-            background: pink;
+            background: #444;
             padding: 12px 14px;
+            height: 46px;
+            width: 80px;
+
         }
 
 
     </style>
 </head>
 <body>
-<h1> Flexidle-logga?</h1>
+<h1> Flexidle-logga här</h1>
 <div id= "board"></div>
 <div id="keyboard"></div>
 
@@ -95,7 +102,7 @@
 
     document.body.style.background = bgColor;
 
-    //TODO: generate the word fitting here possibly???
+    //TODO: get the word from data base here. using above info.
 
     let answer = "";
     let currentRow = 0;
@@ -106,32 +113,30 @@
     const keyboard = document.getElementById("keyboard");
 
 
-    // Random word generator (replace later with language dictionary)
-    function randomWord(len) {
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        let w = "";
-        for (let i = 0; i < len; i++) {
-            w += letters[Math.floor(Math.random() * letters.length)];
-        }
-        return w;
-    }
-
     function startGame(){
-        answer = randomWord(wordLength);
+        //just for placeholder now:
+        if (wordLength === 4){
+            answer = "LINK";
+        } else if (wordLength === 5){
+            answer = "ZELDA";
+        }else {
+            answer = "HYRULE";
+        }
+
 
         board.innerHTML = "";
-        board.style.gridTemplateColumns = `repeat(${wordLength}, 50px)`;
-        board.style.gridTemplateRows = `repeat(${maxGuesses}, 50px)`;
+        board.style.gridTemplateColumns = `repeat(${wordLength}, 48px)`;
+        board.style.gridTemplateRows = `repeat(${maxGuesses}, 48px)`;
 
         for (let i = 0; i < wordLength *maxGuesses; i++){
             const tile = document.createElement("div");
             tile.className = "tile";
 
-            if (tileShape === "circle") tile.style.borderRadius = "50%"; //TODO: kolla denna
+            if (tileShape === "circle") tile.style.borderRadius = "50%";
             if (tileShape === "heart") tile.textContent = "💙";
-            if (tileShape === "dog") tile.textContent = "🐶";
             if (tileShape === "diamond") tile.textContent = "🔷";
             if (tileShape === "triangle") tile.textContent = "△";
+            if (tileShape === "dog") tile.textContent = "🐶";
 
             board.appendChild(tile);
         }
@@ -182,25 +187,29 @@
         });
     }
 
-    function pressedKey(){
-        if (gameOver) return;
+    function pressedKey(key, action){
+        if (gameOver) {
+            return;
+        }
 
-        if (action === "enter") return submitGuess();
-        if (action === "back") return deleteLetter();
+        if (action === "enter") {
+            makeGuess();
 
-        if (/^[A-Ö]$/.test(key)) addLetter(key);
+        } else if (action === "back") {
+            deleteLetter();
+
+        } else if (/^[A-Ö]$/.test(key)) addLetter(key);
     }
 
+
     function addLetter(letter){
-        if (currentCol >= wordLength) return;
+        if (currentCol >= wordLength){
+            return;
+        }
 
         const tile = board.children[currentRow * wordLength + currentCol];
+        tile.textContent = letter;
 
-        if (["heart","dog","diamond","triangle"].includes(tileShape)) {
-            tile.textContent = letter;
-        } else {
-            tile.textContent = letter;
-        }
         currentCol++;
     }
 
