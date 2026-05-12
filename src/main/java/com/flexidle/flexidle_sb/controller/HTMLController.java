@@ -2,6 +2,8 @@ package com.flexidle.flexidle_sb.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
 
 //en kontroller för att sköta mappings osv
 @Controller
@@ -24,6 +26,21 @@ public class HTMLController {
 
     @GetMapping("Flexidle")
     public String flexidle() {
-        return "Flexidle";
+        return "flexidle";
+    }
+
+    @GetMapping("/flexidle")
+    public String game(@RequestParam(required = false) String bg,
+                       @RequestParam(required = false) String shape,
+                       @RequestParam(required = false) String language,
+                       @RequestParam(required = false) Integer length,
+                       @RequestParam(required = false) Integer guesses,
+                       Model model) {
+        model.addAttribute("bg", bg);
+        model.addAttribute("shape", shape);
+        model.addAttribute("language", language);
+        model.addAttribute("length", length);
+        model.addAttribute("guesses", guesses);
+        return "flexidle";
     }
 }
