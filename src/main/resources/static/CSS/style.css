@@ -1,3 +1,12 @@
+/*Global*/
+
+
+
+/*
+author: Elin Piho
+section: Home Page
+*/
+
 .btn-elinsTestFärg {
     background-color: pink;
     color: black;
@@ -6,7 +15,6 @@
     font-size: 20px;
 }
 
-/*Absolut inte perfekt, kan hitta bättre */
 .wordleFont {
     color: #25af5c;
     font-family: 'Playfair Display', serif;
@@ -27,4 +35,8 @@
     font-size: 40px;
 }
 
+/*
+author: Cecilia Raalas
+section: Gameboard
+*/
 
