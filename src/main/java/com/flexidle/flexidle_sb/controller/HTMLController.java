@@ -20,6 +20,10 @@ public class HTMLController {
     @GetMapping("settings")
     public String settings() {
         return "settings";
+    }
 
+    @GetMapping("Flexidle")
+    public String flexidle() {
+        return "Flexidle";
     }
 }
