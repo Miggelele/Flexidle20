@@ -16,4 +16,10 @@ public class HTMLController {
     public String start()  {
         return "start";
     }
+
+    @GetMapping("settings")
+    public String settings() {
+        return "settings";
+
+    }
 }
