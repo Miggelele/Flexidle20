@@ -115,12 +115,41 @@
 
     function startGame(){
         //just for placeholder now:
+        // Random integer between min and max (inclusive)
+
+        const randomNumber = Math.floor(Math.random() * 3); //borde vara 0-2
+
         if (wordLength === 4){
-            answer = "LINK";
+            if (randomNumber === 0){
+                answer = "GIRL";
+            }
+            else if (randomNumber === 1){
+                answer = "LOVE";
+            }
+            else{
+                answer = "LINK";
+            }
+
         } else if (wordLength === 5){
-            answer = "ZELDA";
+            if (randomNumber === 0){
+                answer = "HANDY";
+            }
+            else if (randomNumber === 1){
+                answer = "APPLE";
+            }
+            else{
+                answer = "ZELDA";
+            }
         }else {
-            answer = "HYRULE";
+            if (randomNumber === 0){
+                answer = "GOLDEN";
+            }
+            else if (randomNumber === 1){
+                answer = "HANDLA";
+            }
+            else{
+                answer = "HYRULE";
+            }
         }
 
 
