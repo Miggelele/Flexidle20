@@ -40,6 +40,83 @@ author: Cecilia Raalas
 section: Gameboard
 */
 
+.gameboard {
+    font-family: "Times New Roman", sans-serif;
+    background: #111;
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+
+h1 { margin-bottom: 10px; }
+
+#board{
+    display: grid;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+.tile {
+    width: 48px;
+    height: 48px;
+    border: 2px solid #444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    text-transform: uppercase;
+
+}
+.correctLetter {
+    background: #25af5c;
+    border-color: #25af5c;
+    color: #fff;
+}
+.existingLetter {
+    background: #ffc217;
+    border-color: #ffc217;
+    color: #fff;
+}
+.wrongLetter {
+    background: #3a3a3c;
+    border-color: #3a3a3c;
+    color: #fff;
+}
+
+#keyboard {
+    margin-top: 20px;
+
+}
+
+.keyboardRow {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+
+}
+
+.key{
+    background: #444;
+    color: #fff;
+    height: 46px;
+    width: 46px;
+    border: none;
+    margin: 3px;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.action {
+    background: #444;
+    padding: 12px 14px;
+    height: 46px;
+    width: 80px;
+
+}
+
 /*
 author: Isabell Persson
 section: Statistics
