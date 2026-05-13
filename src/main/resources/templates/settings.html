@@ -3,90 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Settings</title>
-    <style>
-        body {
-            font-family: "Times New Roman", sans-serif;
-            background: #111;
-            color: #eee;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
-        #settings {
-            background: #222;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        label { display: block; margin: 10px 0; }
-        button { margin-top: 15px; padding: 10px 20px; cursor: pointer; }
-
-        .shapeOption {
-            display: inline-block;
-            font-size: 40px;
-            margin: 5px;
-            padding: 10px;
-            cursor: pointer;
-            border: 2px solid #555;
-            border-radius: 8px;
-        }
-
-        .shapeOption.selected {
-            border-color: blue;
-            background: #333;
-        }
-
-        .wordLengthOption {
-            display: inline-block;
-            padding: 10px 15px;
-            margin: 5px;
-            border: 2px solid #555;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 20px;
-        }
-
-        .wordLengthOption.selected {
-            border-color: blue;
-            background: #333;
-
-        }
-
-        .nbrOfGuessesOption {
-            display: inline-block;
-            padding: 10px 15px;
-            margin: 5px;
-            border: 2px solid #555;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 20px;
-        }
-
-        .nbrOfGuessesOption.selected {
-            border-color: blue;
-            background: #333;
-
-        }
-
-        .countryOption {
-            display: inline-block;
-            padding: 10px 15px;
-            margin: 5px;
-            border: 2px solid #555;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 20px;
-        }
-
-        .countryOption.selected {
-            border-color: blue;
-            background: #333;
-        }
-
-
-    </style>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body class="settingsPage">
 
 <h1> Settings </h1>
 <div id="settings">
@@ -135,64 +54,7 @@
 
 </div>
 
-<script>
-    let selectedShape = "square";
-    let selectedWordLength = 5;
-    let selectedNbrOfGuesses = 5;
-    let selectedCountry = "german";
-
-    document.querySelectorAll(".shapeOption").forEach(btn => {
-        btn.addEventListener("click", () => {
-            document.querySelectorAll(".shapeOption").forEach(b => b.classList.remove("selected"));
-            btn.classList.add("selected");
-            selectedShape = btn.dataset.value;
-        });
-    });
-
-    document.querySelectorAll(".countryOption").forEach(btn => {
-        btn.addEventListener("click", () => {
-            document.querySelectorAll(".countryOption").forEach(b => b.classList.remove("selected"));
-            btn.classList.add("selected");
-            selectedCountry = btn.dataset.value;
-        });
-    });
-
-
-    document.querySelectorAll(".wordLengthOption").forEach(btn => {
-        btn.addEventListener("click", () => {
-            document.querySelectorAll(".wordLengthOption").forEach(b => b.classList.remove("selected"));
-            btn.classList.add("selected");
-            selectedWordLength = parseInt(btn.dataset.len);
-        });
-    });
-
-    document.querySelectorAll(".nbrOfGuessesOption").forEach(btn => {
-        btn.addEventListener("click", () => {
-            document.querySelectorAll(".nbrOfGuessesOption").forEach(b => b.classList.remove("selected"));
-            btn.classList.add("selected");
-            selectedNbrOfGuesses = parseInt(btn.dataset.len);
-        });
-    });
-
-
-
-    function startGame() {
-        const bg = encodeURIComponent(document.getElementById("bgColor").value);
-        const shape = selectedShape;
-        const length = selectedWordLength;
-        const guesses = selectedNbrOfGuesses;
-        const language = selectedCountry;
-
-        window.location.href =
-            `/flexidle?bg=${bg}&shape=${shape}&language=${language}&length=${length}&guesses=${guesses}`;
-    }
-
-    function chooseRandomSettings(){
-        //TODO: actually randomise this later
-        //so that random alternatives light up and you can choose to PLAY with random settings.
-
-    }
-</script>
+<script src="/js/settings.js"></script>
 
 </body>
 </html>

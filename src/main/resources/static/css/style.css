@@ -34,6 +34,89 @@ section: Home Page
     color: hotpink;
     font-size: 40px;
 }
+/*
+author: Cecilia Raalas
+section: Settings
+ */
+
+.settingsPage {
+    font-family: "Times New Roman", sans-serif;
+    background: #111;
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+#settings {
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+}
+label { display: block; margin: 10px 0; }
+button { margin-top: 15px; padding: 10px 20px; cursor: pointer; }
+
+.shapeOption {
+    display: inline-block;
+    font-size: 40px;
+    margin: 5px;
+    padding: 10px;
+    cursor: pointer;
+    border: 2px solid #555;
+    border-radius: 8px;
+}
+
+.shapeOption.selected {
+    border-color: blue;
+    background: #333;
+}
+
+.wordLengthOption {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    border: 2px solid #555;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.wordLengthOption.selected {
+    border-color: blue;
+    background: #333;
+
+}
+
+.nbrOfGuessesOption {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    border: 2px solid #555;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.nbrOfGuessesOption.selected {
+    border-color: blue;
+    background: #333;
+
+}
+
+.countryOption {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    border: 2px solid #555;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.countryOption.selected {
+    border-color: blue;
+    background: #333;
+}
 
 /*
 author: Cecilia Raalas
