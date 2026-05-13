@@ -40,3 +40,58 @@ author: Cecilia Raalas
 section: Gameboard
 */
 
+/*
+author: Isabell Persson
+section: Statistics
+*/
+
+.text-font-statistics {
+    font-family: "Times New Roman";
+    color: antiquewhite;
+    font-size: 40px;
+}
+
+.statistics-style {
+    font-family: "Times New Roman";
+    font-size: 20px;
+    background-color: black !important;
+    color: white !important;
+}
+
+.statistics-flag-bar {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    border: 2px solid #555;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.statistics-circle-diagram {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(
+            #4caf50 0% 38%,
+            #555 38% 55%,
+            #eeeeee 55% 78%,
+            #ffc217 78% 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.statistics-diagram-bar {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 6px;
+}
+
+.statistics-diagram-bar-text {
+    margin:0;
+}
