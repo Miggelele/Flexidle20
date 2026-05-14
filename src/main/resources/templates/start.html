@@ -13,15 +13,12 @@
 
 <body class="background">
 <div class="start-display">
-    <img th:src="@{/images/logo-prototype.png}" alt="Flexidle" width="400px" class="margins-home">
+    <img th:src="@{/images/logo-prototype.png}" alt="Flexidle" width="400px">
     <a href="/settings" class="btn btn-start">PLAY</a>
     <button class="btn btn-start" data-bs-toggle="modal" data-bs-target="#log-in">
         LOG IN
     </button>
-    <a href="/statistics" class="btn btn-start">STATISTICS REAL :D</a>
-    <button class="btn btn-start" data-bs-toggle="modal" data-bs-target="#statistics">
-        STATISTICS
-    </button>
+    <a href="/statistics" class="btn btn-start">STATISTICS</a>
 </div>
 
 <div class="bottom-left">
@@ -34,7 +31,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="wordle-font2">STATISTICS</h5>
+                <h5 class="wordle-font2">LOG IN</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             
@@ -49,24 +46,6 @@
                 <button class="btn btn-start" onclick="showView('test1')">Tillbaka</button>
             </div>
 
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="statistics" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="wordle-font2">STATISTICS</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                <h1 class="text-font">DU ÄR BÄST OCH VANN ALLA SPEL</h1>
-                <br>
-
-            </div>
         </div>
     </div>
 </div>
