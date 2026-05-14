@@ -44,7 +44,6 @@ section: Gameboard
 author: Isabell Persson
 section: Statistics
 */
-
 .text-font-statistics {
     font-family: "Times New Roman";
     color: antiquewhite;
@@ -58,7 +57,7 @@ section: Statistics
     color: white !important;
 }
 
-.statistics-flag-bar {
+.statistics-flag {
     display: inline-block;
     padding: 10px 15px;
     margin: 5px;
@@ -66,6 +65,17 @@ section: Statistics
     border-radius: 6px;
     cursor: pointer;
     font-size: 20px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.statistics-flag.selected {
+    border-color: blue;
+    background: #333;
 }
 
 .statistics-circle-diagram {
