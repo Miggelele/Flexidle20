@@ -10,6 +10,21 @@ document.body.style.background = bgColor;
 
 //TODO: get the word from data base here. using above info.
 
+//console.log(`/game_word/${wordLength}/${language}`);
+
+fetch(`/game_word/${wordLength}/${language}`)
+    .then(response => response.text())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error("Fel:", error);
+    });
+
+
+
+
+
 let answer = "";
 let currentRow = 0;
 let currentCol = 0;
