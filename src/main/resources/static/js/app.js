@@ -8,8 +8,6 @@ const maxGuesses = parseInt(paramsInput.get("guesses"));
 
 document.body.style.background = bgColor;
 
-//TODO: get the word from data base here. using above info.
-
 let answer = "";
 let currentRow = 0;
 let currentCol = 0;
@@ -18,11 +16,25 @@ let gameOver = false;
 const board = document.getElementById("board");
 const keyboard = document.getElementById("keyboard");
 
+//Debug. Prints the selected settings in console (F12)
+console.log(`Wordlength:   ${wordLength}      Language:   ${language}`);
+
+//fetches a word from backend with the given settings, saves it, then prints the word in the console F12
+fetch(`/game_word/${wordLength}/${language}`)
+    .then(response => response.text())
+    .then(data => {
+        answer = data;
+        console.log(data);
+    })
+    .catch(error => {
+        console.error("Fel:", error);
+    });
+
 
 function startGame(){
     //just for placeholder now:
     // Random integer between min and max (inclusive)
-
+/*
     const randomNumber = Math.floor(Math.random() * 3); //borde vara 0-2
 
     if (wordLength === 4){
@@ -57,7 +69,7 @@ function startGame(){
             answer = "HYRULE";
         }
     }
-
+*/
 
     board.innerHTML = "";
     board.style.gridTemplateColumns = `repeat(${wordLength}, 48px)`;
@@ -83,7 +95,7 @@ function buildKeyboard(){
     keyboard.innerHTML = "";
 
     //TODO: beroende på vilket språk, olika keyboards!?
-    const keyboardRows = ["QWERTYUIOPÅ", "ASDFGHJKLÖÄ", "ZXCVBNM"];
+    const keyboardRows = ["QWERTYUIOPÅ", "ASDFGHJKLÖÄ", "ZXCVBNMẞ"];
 
     keyboardRows.forEach((row, idx) => {
         const rowDiv = document.createElement("div");
@@ -133,7 +145,7 @@ function pressedKey(key, action){
     } else if (action === "back") {
         deleteLetter();
 
-    } else if (/^[A-Ö]$/.test(key)) addLetter(key);
+    } else if (/^[A-Öẞ]$/.test(key)) addLetter(key);
 }
 
 
@@ -195,6 +207,7 @@ function makeGuess(){
     if (guessStr === answer) {
         gameOver = true;
         //TODO: skapa popuppp
+        //ToDo: Skicka resultatet till backend
         return;
     }
     currentRow++;
@@ -203,6 +216,7 @@ function makeGuess(){
     if (currentRow >= maxGuesses) {
         gameOver = true;
         //TODO: skapa popuppp
+        //ToDo: Skicka resultatet till backend
     }
 }
 
