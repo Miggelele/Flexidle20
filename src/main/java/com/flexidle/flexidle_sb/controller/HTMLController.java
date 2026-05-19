@@ -16,7 +16,7 @@ public class HTMLController {
 
     @GetMapping("start")
     public String start()  {
-        return "start";
+        return "index";
     }
 
     @GetMapping("settings")
