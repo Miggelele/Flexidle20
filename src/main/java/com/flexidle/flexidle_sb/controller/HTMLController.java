@@ -34,6 +34,11 @@ public class HTMLController {
         return "statistics";
     }
 
+    @GetMapping("rules")
+    public String rules() {
+        return "rules";
+    }
+
     @GetMapping("/flexidle")
     public String game(@RequestParam(required = false) String bg,
                        @RequestParam(required = false) String shape,
