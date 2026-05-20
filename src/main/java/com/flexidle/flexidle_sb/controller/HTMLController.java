@@ -39,6 +39,16 @@ public class HTMLController {
         return "rules";
     }
 
+    @GetMapping("result-pop-up-won")
+    public String resultPopUpWon() {
+        return "result-pop-up-won";
+    }
+
+    @GetMapping("result-pop-up-lost")
+    public String resultPopUpLost() {
+        return "result-pop-up-lost";
+    }
+
     @GetMapping("/flexidle")
     public String game(@RequestParam(required = false) String bg,
                        @RequestParam(required = false) String shape,

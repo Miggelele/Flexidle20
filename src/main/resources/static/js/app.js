@@ -206,7 +206,8 @@ function makeGuess(){
 
     if (guessStr === answer) {
         gameOver = true;
-        //TODO: skapa popuppp
+        //TODO: skapa popuppp av resultWon
+        showResultWon(answer, currentRow+1);
         //ToDo: Skicka resultatet till backend
         return;
     }
@@ -215,7 +216,8 @@ function makeGuess(){
 
     if (currentRow >= maxGuesses) {
         gameOver = true;
-        //TODO: skapa popuppp
+        //TODO: skapa popuppp av resultLost
+        showResultLost(answer)
         //ToDo: Skicka resultatet till backend
     }
 }
@@ -227,5 +229,13 @@ document.addEventListener("keydown", e => {
     else if (e.key === "Backspace") deleteLetter();
     else if (/^[a-öA-Ö]$/.test(e.key)) addLetter(e.key.toUpperCase());
 });
+
+function showResultWon(word, tries) {
+    window.location.href = `result-pop-up-won?word=${encodeURIComponent(word)}&tries=${tries}`
+}
+
+function showResultLost(word) {
+    window.location.href = `result-pop-up-lost?word=${encodeURIComponent(word)}` 
+}
 
 startGame();
