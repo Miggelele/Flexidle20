@@ -97,30 +97,30 @@ function buildKeyboard(){
     //TODO: beroende på vilket språk, olika keyboards!?
     const keyboardRows = ["QWERTYUIOPÅ", "ASDFGHJKLÖÄ", "ZXCVBNMẞ"];
 
-    keyboardRows.forEach((row, idx) => {
+    keyboardRows.forEach((keyboardRow, index) => {
         const rowDiv = document.createElement("div");
         rowDiv.className = "keyboardRow";
 
-        if (idx === 2) {
+        if (index === 2) {
             const enter = document.createElement("button");
-            enter.className = "key action";
+            enter.className = "key actionKey";
             enter.textContent = "ENTER";
-            enter.dataset.action = "enter";
+            enter.dataset.actionKey = "enter";
             rowDiv.appendChild(enter);
         }
 
-        row.split("").forEach(letter => {
+        keyboardRow.split("").forEach(letter => {
             const btn = document.createElement("button");
             btn.className = "key";
             btn.textContent = letter;
             rowDiv.appendChild(btn);
         });
 
-        if (idx === 2) {
+        if (index === 2) {
             const back = document.createElement("button");
-            back.className = "key action";
+            back.className = "key actionKey";
             back.textContent = "⌫";
-            back.dataset.action = "back";
+            back.dataset.actionKey = "back";
             rowDiv.appendChild(back);
         }
 
@@ -129,20 +129,20 @@ function buildKeyboard(){
     });
 
     document.querySelectorAll(".key").forEach(btn => {
-        btn.addEventListener("click", () => pressedKey(btn.textContent, btn.dataset.action));
+        btn.addEventListener("click", () => pressedKey(btn.textContent, btn.dataset.actionKey));
 
     });
 }
 
-function pressedKey(key, action){
+function pressedKey(key, actionKey){
     if (gameOver) {
         return;
     }
 
-    if (action === "enter") {
+    if (actionKey === "enter") {
         makeGuess();
 
-    } else if (action === "back") {
+    } else if (actionKey === "back") {
         deleteLetter();
 
     } else if (/^[A-Öẞ]$/.test(key)) addLetter(key);
@@ -181,30 +181,30 @@ function makeGuess(){
         guess.push(board.children[currentRow * wordLength + i].textContent);
     }
 
-    const guessStr = guess.join("");
-    const answerArr = answer.split("");
-    const guessArr = guess.slice();
+    const guessString = guess.join("");
+    const answerArray = answer.split("");
+    const guessArray = guess.slice();
 
     for (let i = 0; i < wordLength; i++) {
         const tile = board.children[currentRow * wordLength + i];
-        if (guessArr[i] === answerArr[i]) {
+        if (guessArray[i] === answerArray[i]) {
             tile.classList.add("correctLetter");
-            answerArr[i] = null;
-            guessArr[i] = null;
+            answerArray[i] = null;
+            guessArray[i] = null;
         }
     }
 
     for (let i = 0; i < wordLength; i++) {
         const tile = board.children[currentRow * wordLength + i];
-        if (guessArr[i] && answerArr.includes(guessArr[i])) {
+        if (guessArray[i] && answerArray.includes(guessArray[i])) {
             tile.classList.add("existingLetter");
-            answerArr[answerArr.indexOf(guessArr[i])] = null;
-        } else if (guessArr[i]) {
+            answerArray[answerArray.indexOf(guessArray[i])] = null;
+        } else if (guessArray[i]) {
             tile.classList.add("wrongLetter");
         }
     }
 
-    if (guessStr === answer) {
+    if (guessString === answer) {
         gameOver = true;
         //TODO: skapa popuppp av resultWon
         showResultWon(answer, currentRow+1);
