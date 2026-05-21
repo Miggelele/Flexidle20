@@ -184,11 +184,14 @@ function makeGuess(){
     const guessString = guess.join("");
     const answerArray = answer.split("");
     const guessArray = guess.slice();
+    const keyboardGreenArray = ["A"];
 
     for (let i = 0; i < wordLength; i++) {
         const tile = board.children[currentRow * wordLength + i];
         if (guessArray[i] === answerArray[i]) {
             tile.classList.add("correctLetter");
+
+            //keyboardGreenArray.add(guessArray[i]);
             answerArray[i] = null;
             guessArray[i] = null;
         }
@@ -198,11 +201,38 @@ function makeGuess(){
         const tile = board.children[currentRow * wordLength + i];
         if (guessArray[i] && answerArray.includes(guessArray[i])) {
             tile.classList.add("existingLetter");
+
             answerArray[answerArray.indexOf(guessArray[i])] = null;
         } else if (guessArray[i]) {
             tile.classList.add("wrongLetter");
         }
     }
+
+    //HÄR ändra keyboardet
+
+    document.querySelectorAll(".key").forEach(btn => {
+        //Get the
+        for (let i = 0; i <keyboardGreenArray.length; i++){
+            console.log("minArray: " + keyboardGreenArray + "  och btn.textcontent: " + btn.textContent);
+            if (btn.textContent === keyboardGreenArray[i]){
+                //btn.className += " correctGuessedKey";
+                console.log("btn: " + btn );
+                //gives another class on top, hopefully making it green
+                btn.classList.add("correctGuessedKey");
+            }
+        }
+        //if (btn.textContent === "A"){
+          //  btn.className = "correctGuessedKey";
+
+        //}
+
+        //TODO: Om bokstaven redan är grön ska den INTE bli annan färg!
+
+
+    });
+
+
+
 
     if (guessString === answer) {
         gameOver = true;
