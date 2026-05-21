@@ -342,6 +342,18 @@ h1 { margin-bottom: 10px; }
     font-size: 16px;
     cursor: pointer;
 }
+.correctGuessedKey{
+    background: #25af5c;
+    color: #fff;
+    height: 46px;
+    width: 46px;
+    border: none;
+    margin: 3px;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 16px;
+
+}
 
 .actionKey {
     background: #444;
