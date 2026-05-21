@@ -1,15 +1,15 @@
 /*Global*/
 .background {
-    background-color: #f9f9f9;
-    color: black;
+    background-color: #333;
+    color: white;
 }
 
-@media (prefers-color-scheme: dark) {
+/*@media (prefers-color-scheme: light) {
     .background {
-        background-color: #333;
-        color: white;
+        background-color: #f9f9f9;
+        color: black;
     }
-}
+}*/
 
 .wordle-green {
     background: #25af5c;
@@ -91,10 +91,18 @@ section: Home Page
     margin-top: 40px;
 }
 
+.start-display img {
+    margin-bottom: -100px;
+}
+
 /*
 author: Elin Piho
 section: home page modal
 */
+.modal-style  {
+    display: none;
+    color: black;
+}
 
 .modal-dialog {
     max-width: 600px;
@@ -107,6 +115,7 @@ section: home page modal
     border-radius: 15px;
     border: none;
     background-color: #f9f9f9;
+    color: black;
 }
 
 .modal-header {
@@ -243,24 +252,29 @@ section: Gameboard
 
 .gameboard {
     font-family: "Times New Roman", sans-serif;
-    background: #f9f9f9;
-    color: black;
+    background: #333;
+    color: #eee;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 40px;
 }
 
-@media (prefers-color-scheme: dark) {
+
+/*@media (prefers-color-scheme: light) {
     .gameboard {
-        font-family: "Times New Roman", sans-serif;
-        background: #333;
-        color: #eee;
+        ffont-family: "Times New Roman", sans-serif;
+        background: #f9f9f9;
+        color: black;
         display: flex;
         flex-direction: column;
         align-items: center;
         margin-top: 40px;
     }
+}*/
+
+.gameboard img {
+    margin-bottom: -100px;
 }
 
 h1 { margin-bottom: 10px; }
@@ -343,18 +357,18 @@ section: Statistics
 .statistics-style {
     font-family: "Times New Roman";
     font-size: 20px;
-    background-color: #f9f9f9;
-    color: black;
+    background-color: #333;
+    color: white;
 }
 
-@media (prefers-color-scheme: dark) {
+/*@media (prefers-color-scheme: light) {
     .statistics-style {
         font-family: "Times New Roman";
         font-size: 20px;
-        background-color: #333;
-        color: white;
+        background-color: #f9f9f9;
+        color: black;
     }
-}
+}*/
 
 .statistics-flag {
     display: inline-block;

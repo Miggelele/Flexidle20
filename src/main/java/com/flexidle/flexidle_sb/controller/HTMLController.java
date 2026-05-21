@@ -14,11 +14,6 @@ public class HTMLController {
         return "index";
     }
 
-    @GetMapping("start")
-    public String start()  {
-        return "index";
-    }
-
     @GetMapping("settings")
     public String settings() {
         return "settings";

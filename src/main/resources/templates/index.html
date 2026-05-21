@@ -17,16 +17,11 @@
 
 <body class="background">
 <div class="start-display">
-    <img th:src="@{/images/logo-prototype.png}" alt="Flexidle" width="400px">
+    <img th:src="@{/images/logo.png}" alt="Flexidle" width="400px">
     <a href="/settings" class="btn btn-start">PLAY</a>
     <a href="#" class="btn btn-start" data-bs-toggle="modal" data-bs-target="#log-in">LOG IN</a>
     <a href="/statistics" class="btn btn-start">STATISTICS</a>
 </div>
-
-<div class="bottom-left">
-    <a href="/" class="btn btn-elinsTestFärg">Ta dig tillbaka till index (för testning)</a>
-</div>
-
 
 <<div class="modal fade" id="log-in" tabindex="-1">
     <div class="modal-dialog">
@@ -47,7 +42,7 @@
                 </div>
 
                 <!-- Skriva in lösenord (användaren finns) -->
-                <div id="view-password" style="display: none;">
+                <div id="view-password" class="modal-style">
                     <p>Enter your pasword:</p>
                     <input type="password" id="passwordInput" class="form-control mb-3" placeholder="Password">
                     <button class="btn btn-start w-100" onclick="login()">LOGGA IN</button>
@@ -55,7 +50,7 @@
                 </div>
 
                 <!-- Skapa konto (användaren finns inte) -->
-                <div id="view-create" style="display: none;">
+                <div id="view-create" class="modal-style">
                     <p>No account found, enter a password:</p>
                     <input type="password" id="newPassword" class="form-control mb-3" placeholder="Password">
                     <select id="securityQuestion" class="form-control mb-3">
