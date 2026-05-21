@@ -184,14 +184,14 @@ function makeGuess(){
     const guessString = guess.join("");
     const answerArray = answer.split("");
     const guessArray = guess.slice();
-    const keyboardGreenArray = ["A"];
+    const keyboardGreenArray = [];
 
     for (let i = 0; i < wordLength; i++) {
         const tile = board.children[currentRow * wordLength + i];
         if (guessArray[i] === answerArray[i]) {
             tile.classList.add("correctLetter");
 
-            //keyboardGreenArray.add(guessArray[i]);
+            keyboardGreenArray.push(guessArray[i]);
             answerArray[i] = null;
             guessArray[i] = null;
         }
