@@ -1,4 +1,3 @@
-// TODO fetch actual values from a game
 
 function showResultMessageWon() {
     const params = new URLSearchParams(window.location.search);

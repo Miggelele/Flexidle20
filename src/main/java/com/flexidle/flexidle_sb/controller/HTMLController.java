@@ -44,6 +44,11 @@ public class HTMLController {
         return "result-pop-up-lost";
     }
 
+    @GetMapping("test")
+    public String test() {
+        return "test";
+    }
+
     @GetMapping("/flexidle")
     public String game(@RequestParam(required = false) String bg,
                        @RequestParam(required = false) String shape,

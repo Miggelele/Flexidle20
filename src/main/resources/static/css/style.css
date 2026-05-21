@@ -429,7 +429,7 @@ button {
 }
 
 .statistics-diagram-bar-text {
-    margin:0;
+    margin: 0;
 }
 
 
@@ -474,4 +474,150 @@ section: Rules
     border-radius: 6px;
     font-size: 16px;
     font-family: "Times New Roman";
+}
+
+/*
+author: Isabell Persson
+section: Toolbar
+*/
+.toolbar-style{
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 5px;
+    display: flex;
+    background: #757575;
+}
+
+.triangle-test{
+    clip-path: polygon(
+            50% 0%,
+            0% 100%,
+            100% 100%
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+
+
+
+
+
+.toolbar-cogwheel-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: #eeeeee;
+    position: relative;
+    margin: 5px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.toolbar-cogwheel-button::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    background: #757575;
+    border-radius: 50%;
+}
+
+.toolbar-cogwheel-button::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background:
+            repeating-conic-gradient(
+                    #eeeeee 0deg 28deg,
+                    #757575 28deg 60deg
+            );
+    border-radius: 50%;
+
+    -webkit-mask: radial-gradient(circle, transparent 45%, black 46%);
+    mask: radial-gradient(circle, transparent 45%, black 46%);
+}
+
+
+
+
+
+
+.toolbar-rules-button{
+    font-family: "Times New Roman";
+    font-size: 30px;
+    background: #757575;
+    color: #eeeeee;
+    border: 2px solid white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.toolbar-return-button{
+    font-family: "Times New Roman";
+    font-size: 30px;
+    background: #757575;
+    border: none;
+    color: #eeeeee;
+    margin: -5px;
+    cursor: pointer;
+}
+
+
+.toolbar-statistics-button {
+    width: 40px;
+    height: 40px;
+    background: #757575;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.toolbar-button-area {
+    position: relative;
+    width: 26px;
+    height: 18px;
+}
+
+.seg {
+    position: absolute;
+    height: 2px;
+    background: #eeeeee;
+    border-radius: 1px;
+}
+
+.s1 {
+    width: 17px;
+    right: -3px;
+    top: 10px;
+    transform: rotate(-50deg);
+    transform-origin: left center;
+}
+
+.s2 {
+    width: 14px;
+    left: -4px;
+    top: -4px;
+    transform: rotate(38deg);
+    transform-origin: left center;
+}
+
+.s3 {
+    width: 20px;
+    left: 8px;
+    top: 4px;
+    transform: rotate(-50deg);
+    transform-origin: left center;
 }
