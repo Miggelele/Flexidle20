@@ -16,6 +16,10 @@ let gameOver = false;
 const board = document.getElementById("board");
 const keyboard = document.getElementById("keyboard");
 
+const keyboardGreenArray = [];
+const keyboardYellowArray = [];
+const keyboardGrayArray = [];
+
 //Debug. Prints the selected settings in console (F12)
 console.log(`Wordlength:   ${wordLength}      Language:   ${language}`);
 
@@ -129,7 +133,11 @@ function buildKeyboard(){
     });
 
     document.querySelectorAll(".key").forEach(btn => {
-        btn.addEventListener("click", () => pressedKey(btn.textContent, btn.dataset.actionKey));
+        btn.addEventListener("click", () => {
+            pressedKey(btn.textContent, btn.dataset.actionKey);
+            btn.blur();
+            
+        });
 
     });
 }
@@ -185,10 +193,13 @@ function makeGuess(){
     const answerArray = answer.split("");
     const guessArray = guess.slice();
 
+
     for (let i = 0; i < wordLength; i++) {
         const tile = board.children[currentRow * wordLength + i];
         if (guessArray[i] === answerArray[i]) {
             tile.classList.add("correctLetter");
+
+            keyboardGreenArray.push(guessArray[i]);
             answerArray[i] = null;
             guessArray[i] = null;
         }
@@ -198,11 +209,72 @@ function makeGuess(){
         const tile = board.children[currentRow * wordLength + i];
         if (guessArray[i] && answerArray.includes(guessArray[i])) {
             tile.classList.add("existingLetter");
+            keyboardYellowArray.push(guessArray[i]);
+
             answerArray[answerArray.indexOf(guessArray[i])] = null;
         } else if (guessArray[i]) {
             tile.classList.add("wrongLetter");
+            keyboardGrayArray.push(guessArray[i]);
         }
     }
+
+
+    //Change colors of the on-screen-keyboard
+    document.querySelectorAll(".key").forEach(btn => {
+
+        if (keyboardGreenArray.includes(btn.textContent)){
+            btn.classList.remove("existingGuessedKey");
+            btn.classList.remove("wrongGuessedKey");
+            btn.classList.add("correctGuessedKey");
+        }
+        else if (keyboardYellowArray.includes(btn.textContent)){
+            btn.classList.remove("correctGuessedKey");
+            btn.classList.remove("wrongGuessedKey");
+            btn.classList.add("existingGuessedKey");
+        }
+        else if (keyboardGrayArray.includes(btn.textContent)){
+            btn.classList.remove("existingGuessedKey");
+            btn.classList.remove("correctGuessedKey");
+            btn.classList.add("wrongGuessedKey");
+        }
+
+
+        /*
+        for (let i = 0; i < keyboardGrayArray.length; i++){
+            if (btn.textContent === keyboardGrayArray[i]){
+                btn.classList.add("wrongGuessedKey");
+            }
+        }
+
+        for (let i = 0; i< keyboardYellowArray.length; i++){
+            if (btn.textContent === keyboardYellowArray[i]){
+                //If the btn is NOT already green
+                if (!btn.classList.contains("correctGuessedKey")){
+                    btn.classList.add("existingGuessedKey");
+                    console.log("hejhej inte grön guessed");
+                }
+                else {
+                    console.log("hejhej, den är redan correct");
+                }
+            }
+        }
+
+
+        for (let i = 0; i <keyboardGreenArray.length; i++){
+            if (btn.textContent === keyboardGreenArray[i]){
+                btn.classList.add("correctGuessedKey");
+                //alreadyRepaintedButton.push(keyboardGreenArray[i])
+            }
+        }
+
+*/
+
+
+
+    });
+
+
+
 
     if (guessString === answer) {
         gameOver = true;
@@ -223,10 +295,15 @@ function makeGuess(){
 }
 
 document.addEventListener("keydown", e => {
-    if (gameOver) return;
-
-    if (e.key === "Enter") makeGuess();
-    else if (e.key === "Backspace") deleteLetter();
+    if (gameOver) {
+        return;
+    }
+    if (e.key === "Enter") {
+        makeGuess();
+    }
+    else if (e.key === "Backspace") {
+        deleteLetter();
+    }
     else if (/^[a-öA-Ö]$/.test(e.key)) addLetter(e.key.toUpperCase());
 });
 
