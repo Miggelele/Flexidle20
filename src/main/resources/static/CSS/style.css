@@ -331,7 +331,7 @@ h1 { margin-bottom: 10px; }
 }
 
 .key{
-    background: #444;
+    background: #575757;
     color: #fff;
     height: 46px;
     width: 46px;
@@ -366,7 +366,7 @@ h1 { margin-bottom: 10px; }
 }
 
 .wrongGuessedKey{
-    background: #262628;
+    background: #232326;
     color: #fff;
     height: 46px;
     width: 46px;

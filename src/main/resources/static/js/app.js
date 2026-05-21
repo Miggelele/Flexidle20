@@ -133,7 +133,11 @@ function buildKeyboard(){
     });
 
     document.querySelectorAll(".key").forEach(btn => {
-        btn.addEventListener("click", () => pressedKey(btn.textContent, btn.dataset.actionKey));
+        btn.addEventListener("click", () => {
+            pressedKey(btn.textContent, btn.dataset.actionKey);
+            btn.blur();
+            
+        });
 
     });
 }
@@ -259,13 +263,12 @@ function makeGuess(){
         for (let i = 0; i <keyboardGreenArray.length; i++){
             if (btn.textContent === keyboardGreenArray[i]){
                 btn.classList.add("correctGuessedKey");
-                //TODO: alreadyRepaintedButton.push(keyboardGreenArray[i])
+                //alreadyRepaintedButton.push(keyboardGreenArray[i])
             }
         }
 
 */
 
-        //TODO: Om bokstaven redan är grön ska den INTE bli annan färg!
 
 
     });
@@ -292,10 +295,15 @@ function makeGuess(){
 }
 
 document.addEventListener("keydown", e => {
-    if (gameOver) return;
-
-    if (e.key === "Enter") makeGuess();
-    else if (e.key === "Backspace") deleteLetter();
+    if (gameOver) {
+        return;
+    }
+    if (e.key === "Enter") {
+        makeGuess();
+    }
+    else if (e.key === "Backspace") {
+        deleteLetter();
+    }
     else if (/^[a-öA-Ö]$/.test(e.key)) addLetter(e.key.toUpperCase());
 });
 
