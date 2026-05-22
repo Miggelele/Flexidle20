@@ -85,8 +85,9 @@ function startGame(){
 
         if (tileShape === "circle") tile.style.borderRadius = "50%";
         if (tileShape === "heart") tile.textContent = "💙";
-        if (tileShape === "diamond") tile.textContent = "🔷";
+        /*if (tileShape === "diamond") tile.textContent = "🔷";*/
         if (tileShape === "triangle") tile.textContent = "△";
+        if (tileShape === "diamond") {tile.classList.add("rhomb");}
         if (tileShape === "dog") tile.textContent = "🐶";
 
         board.appendChild(tile);
@@ -163,7 +164,22 @@ function addLetter(letter){
     }
 
     const tile = board.children[currentRow * wordLength + currentCol];
-    tile.textContent = letter;
+
+    if (tileShape === "diamond") {
+
+        const span = document.createElement("span");
+        span.textContent = letter;
+
+        tile.innerHTML = "";
+        tile.appendChild(span);
+
+    }
+    else {
+
+        tile.textContent = letter;
+    }
+
+    /*tile.textContent = letter;*/
 
     currentCol++;
 }
@@ -176,8 +192,8 @@ function deleteLetter() {
 
     if (tileShape === "heart") tile.textContent = "💙";
     else if (tileShape === "dog") tile.textContent = "🐶";
-    else if (tileShape === "diamond") tile.textContent = "🔷";
-    else if (tileShape === "triangle") tile.textContent = "△";
+    /*else if (tileShape === "diamond") tile.textContent = "🔷";
+    else if (tileShape === "triangle") tile.textContent = "△";*/
     else tile.textContent = "";
 }
 

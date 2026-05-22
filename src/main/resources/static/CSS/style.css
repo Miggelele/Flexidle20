@@ -302,6 +302,18 @@ h1 { margin-bottom: 10px; }
     text-transform: uppercase;
 
 }
+.rhomb{
+    width: 34px;
+    height: 34px;
+    border: 2px solid #eeeeee;
+    transform: rotate(45deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.rhomb span{
+    transform: rotate(-45deg);
+}
 .correctLetter {
     background: #25af5c;
     border-color: #25af5c;
@@ -527,22 +539,6 @@ section: Toolbar
     background: #757575;
 }
 
-.triangle-test{
-    clip-path: polygon(
-            50% 0%,
-            0% 100%,
-            100% 100%
-    );
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 5px;
-}
-
-
-
-
-
 .toolbar-cogwheel-button {
     width: 40px;
     height: 40px;
@@ -657,3 +653,103 @@ section: Toolbar
     transform: rotate(-50deg);
     transform-origin: left center;
 }
+
+/* ATTEMPT TO DO TRANGLES
+.triangle-test-ish-working{
+    clip-path: polygon(
+            50% 0%,
+            0% 100%,
+            100% 100%
+    );
+
+    background: #eeeeee;
+    color: #1a1a1b;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 6px;
+}
+
+
+.triangle-test {
+    position: relative;
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    padding-bottom: 5px;
+}
+
+.triangle-test svg{
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+}
+
+.triangle-test polygon{
+    fill: none;
+    stroke: #eeeeee;
+    stroke-width: 4;
+}
+
+.triangle-test span{
+    position: relative;
+    z-index: 1;
+
+    color: #eeeeee;
+}
+
+
+.triangle-test-2{
+    width: 48px;
+    height: 48px;
+
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    padding-bottom: 6px;
+
+    color: #eeeeee;
+
+    clip-path: polygon(
+            50% 0%,
+            0% 100%,
+            100% 100%
+    );
+
+    background: transparent;
+}
+
+.triangle-test-2::before{
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    clip-path: inherit;
+
+    outline: 2px solid #eeeeee;
+    outline-offset: -2px;
+
+    pointer-events: none;
+}
+
+.triangle-test-2 span{
+    position: relative;
+
+    transform: translateY(6px);
+
+    z-index: 1;
+}
+ */
+
