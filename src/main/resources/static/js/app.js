@@ -23,6 +23,10 @@ const keyboardGrayArray = [];
 //Debug. Prints the selected settings in console (F12)
 console.log(`Wordlength:   ${wordLength}      Language:   ${language}`);
 
+/**
+ * @Author Frida
+ * @section fetch
+ */
 //fetches a word from backend with the given settings, saves it, then prints the word in the console F12
 fetch(`/game_word/${wordLength}/${language}`)
     .then(response => response.text())
@@ -43,45 +47,11 @@ fetch(`/game_word/${wordLength}/${language}`)
     });
 
 
+/**
+ * @Author: Cecilia Raalas
+ * @Section: startGame()
+ */
 function startGame(){
-    //just for placeholder now:
-    // Random integer between min and max (inclusive)
-/*
-    const randomNumber = Math.floor(Math.random() * 3); //borde vara 0-2
-
-    if (wordLength === 4){
-        if (randomNumber === 0){
-            answer = "GIRL";
-        }
-        else if (randomNumber === 1){
-            answer = "LOVE";
-        }
-        else{
-            answer = "LINK";
-        }
-
-    } else if (wordLength === 5){
-        if (randomNumber === 0){
-            answer = "HANDY";
-        }
-        else if (randomNumber === 1){
-            answer = "APPLE";
-        }
-        else{
-            answer = "ZELDA";
-        }
-    }else {
-        if (randomNumber === 0){
-            answer = "GOLDEN";
-        }
-        else if (randomNumber === 1){
-            answer = "HANDLA";
-        }
-        else{
-            answer = "HYRULE";
-        }
-    }
-*/
 
     //checks if maxGuesses is invalid, possibly due to user interference in url.
     if (maxGuesses < 4 || maxGuesses > 6 ) {
@@ -110,11 +80,28 @@ function startGame(){
     buildKeyboard();
 }
 
+/**
+ * @Author: Cecilia Raalas
+ * @Section: buildKeyboard()
+ */
 function buildKeyboard(){
     keyboard.innerHTML = "";
+    const keyboardRows = [];
 
-    //TODO: beroende på vilket språk, olika keyboards!?
-    const keyboardRows = ["QWERTYUIOPÅ", "ASDFGHJKLÖÄ", "ZXCVBNMẞ"];
+    switch (language){
+        case "swedish":
+            keyboardRows.push("QWERTYUIOPÅ", "ASDFGHJKLÖÄ", "ZXCVBNM");
+            break;
+        case "german":
+            keyboardRows.push("QWERTZUIOPÜ", "ASDFGHJKLÖÄ", "YXCVBNMẞ");
+            break;
+        case "english":
+        default:
+            keyboardRows.push("QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM");
+            break;
+    }
+
+
 
     keyboardRows.forEach((keyboardRow, index) => {
         const rowDiv = document.createElement("div");
@@ -157,9 +144,23 @@ function buildKeyboard(){
     });
 }
 
-function pressedKey(key, actionKey){
+/**
+ * @Author: Cecilia Raalas
+ * @Section: pressedKey()
+ */
+function pressedKey(key, actionKey) {
+    let languageString;
     if (gameOver) {
         return;
+    }
+    if (language === "german"){
+        languageString = /^[A-ZÖÄÜẞa-zäößü]$/;
+    }
+    else if (language === "swedish"){
+        languageString = /^[A-ZÅÄÖa-zåäö]$/;
+    }
+    else if (language === "english"){
+        languageString = /^[A-Za-z]$/;
     }
 
     if (actionKey === "enter") {
@@ -168,10 +169,14 @@ function pressedKey(key, actionKey){
     } else if (actionKey === "back") {
         deleteLetter();
 
-    } else if (/^[A-Öẞ]$/.test(key)) addLetter(key);
+    } else if (languageString.test(key)) addLetter(key);
+
 }
 
-
+/**
+ * @Author: Cecilia Raalas
+ * @Section: addLetter()
+ */
 function addLetter(letter){
     if (currentCol >= wordLength){
         return;
@@ -189,15 +194,16 @@ function addLetter(letter){
 
     }
     else {
-
         tile.textContent = letter;
     }
-
-    /*tile.textContent = letter;*/
 
     currentCol++;
 }
 
+/**
+ * @Author: Cecilia Raalas
+ * @Section: deleteLetter()
+ */
 function deleteLetter() {
     if (currentCol === 0) return;
     currentCol--;
@@ -211,6 +217,10 @@ function deleteLetter() {
     else tile.textContent = "";
 }
 
+/**
+ * @Author: Cecilia Raalas
+ * @Section: makeGuess()
+ */
 function makeGuess(){
     if (currentCol < wordLength) return;
 
@@ -268,43 +278,7 @@ function makeGuess(){
             btn.classList.add("wrongGuessedKey");
         }
 
-
-        /*
-        for (let i = 0; i < keyboardGrayArray.length; i++){
-            if (btn.textContent === keyboardGrayArray[i]){
-                btn.classList.add("wrongGuessedKey");
-            }
-        }
-
-        for (let i = 0; i< keyboardYellowArray.length; i++){
-            if (btn.textContent === keyboardYellowArray[i]){
-                //If the btn is NOT already green
-                if (!btn.classList.contains("correctGuessedKey")){
-                    btn.classList.add("existingGuessedKey");
-                    console.log("hejhej inte grön guessed");
-                }
-                else {
-                    console.log("hejhej, den är redan correct");
-                }
-            }
-        }
-
-
-        for (let i = 0; i <keyboardGreenArray.length; i++){
-            if (btn.textContent === keyboardGreenArray[i]){
-                btn.classList.add("correctGuessedKey");
-                //alreadyRepaintedButton.push(keyboardGreenArray[i])
-            }
-        }
-
-*/
-
-
-
     });
-
-
-
 
     if (guessString === answer) {
         gameOver = true;
@@ -325,22 +299,42 @@ function makeGuess(){
 }
 
 document.addEventListener("keydown", e => {
+    let languageString;
     if (gameOver) {
         return;
     }
+
+    if (language === "german"){
+        languageString = /^[A-ZÖÄÜẞa-zäößü]$/;
+    }
+    else if (language === "swedish"){
+        languageString = /^[A-ZÅÄÖa-zåäö]$/;
+    }
+    else if (language === "english"){
+        languageString = /^[A-Za-z]$/;
+    }
+
     if (e.key === "Enter") {
         makeGuess();
     }
     else if (e.key === "Backspace") {
         deleteLetter();
     }
-    else if (/^[a-öA-Ö]$/.test(e.key)) addLetter(e.key.toUpperCase());
+    else if (languageString.test(e.key)) addLetter(e.key.toUpperCase());
 });
 
+/**
+ * @Author:
+ * @Section: showResultWon()
+ */
 function showResultWon(word, tries) {
     window.location.href = `result-pop-up-won?word=${encodeURIComponent(word)}&tries=${tries}`
 }
 
+/**
+ * @Author:
+ * @Section: showResultLost()
+ */
 function showResultLost(word) {
     window.location.href = `result-pop-up-lost?word=${encodeURIComponent(word)}` 
 }
