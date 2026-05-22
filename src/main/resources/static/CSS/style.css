@@ -170,7 +170,7 @@ section: Settings
     margin-top: 20px;
 }
 
-@media (prefers-color-scheme: dark) {
+/*@media (prefers-color-scheme: dark) {
     .settingsPage {
         background-color: #333;
         color: white;
@@ -179,7 +179,7 @@ section: Settings
         align-items: center;
         margin-top: 20px;
     }
-}
+}*/
 
 #settings {
     background: #222;
@@ -202,7 +202,7 @@ button { margin-top: 15px; padding: 10px 20px; cursor: pointer; }
 
 .shapeOption.selected {
     border-color: blue;
-    background: #333;
+    background: #757575;
 }
 
 .wordLengthOption {
@@ -217,7 +217,7 @@ button { margin-top: 15px; padding: 10px 20px; cursor: pointer; }
 
 .wordLengthOption.selected {
     border-color: blue;
-    background: #333;
+    background: #757575;
 
 }
 
@@ -233,7 +233,7 @@ button { margin-top: 15px; padding: 10px 20px; cursor: pointer; }
 
 .nbrOfGuessesOption.selected {
     border-color: blue;
-    background: #333;
+    background: #757575;
 
 }
 
@@ -249,7 +249,7 @@ button { margin-top: 15px; padding: 10px 20px; cursor: pointer; }
 
 .countryOption.selected {
     border-color: blue;
-    background: #333;
+    background: #757575;
 }
 
 /*
@@ -412,8 +412,8 @@ section: Statistics
 .statistics-style {
     font-family: "Times New Roman";
     font-size: 20px;
-    background-color: #333;
-    color: white;
+    background-color: #f9f9f9;
+    color: black;
 }
 
 /*@media (prefers-color-scheme: light) {

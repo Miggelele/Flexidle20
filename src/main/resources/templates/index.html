@@ -11,18 +11,17 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/js/statistics.js" defer></script>
-<script src="/js/home.js"></script>
+
 
 <body class="background">
 <div class="start-display">
     <img th:src="@{/images/logo.png}" alt="Flexidle" width="400px">
-    <a href="/settings" class="btn btn-start">PLAY</a>
+    <a href="#" class="btn btn-start" data-bs-toggle="modal" data-bs-target="#settings">PLAY</a>
     <a href="#" class="btn btn-start" data-bs-toggle="modal" data-bs-target="#log-in">LOG IN</a>
     <a href="#" class="btn btn-start" data-bs-toggle="modal" data-bs-target="#stats">STATISTICS</a>
 </div>
 
+        <!--LOG IN PAGE -->
 <div class="modal fade" id="log-in" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -70,6 +69,8 @@
     </div>
 </div>
 
+
+        <!--STATISTICS PAGE -->
 <div class="modal fade" id="stats" tabindex="-1">
     <div class="modal-dialog modal-stats">
         <div class="modal-content">
@@ -131,7 +132,73 @@
         </div>
     </div>
   </div>
-
 </div>
+
+
+        <!--SETTINGS PAGE FOR PLAY GAME BUTTON -->
+    <div class="modal fade" id="settings" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">GAME SETTINGS</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="settingsPage">
+
+                        <label>Background Color:
+                            <input type="color" id="bgColor" value="#111111">
+                        </label>
+
+                        <div class="shape options">
+                            <div class="optionsLabel">Shapes:</div>
+                            <div class="shapeOption" data-value="circle">⚪</div>
+                            <div class="shapeOption" data-value="square">◻️</div>
+                            <div class="shapeOption" data-value="heart">💙</div>
+                            <div class="shapeOption" data-value="dog">🐶</div>
+                            <div class="shapeOption" data-value="diamond">🔷</div>
+                            <div class="shapeOption" data-value="triangle">△</div>
+                        </div>
+
+                        <div class="country options">
+                            <div class="countryOptionLabel">Language:</div>
+                            <div class="countryOption" data-value="swedish">🇸🇪</div>
+                            <div class="countryOption" data-value="english">🇬🇧</div>
+                            <div class="countryOption" data-value="german">🇩🇪</div>
+
+                        </div>
+
+
+                        <div class="wordLengthOptions">
+                            <div class="wordLengthoptionLabel">Word Length:</div>
+                            <div class="wordLengthOption" data-len="4">4</div>
+                            <div class="wordLengthOption" data-len="5">5</div>
+                            <div class="wordLengthOption" data-len="6">6</div>
+                        </div>
+
+
+                        <div class="nbrOfGuessesOptions">
+                            <div class="nbrOfGuessesOptionLabel">Number of guesses:</div>
+                            <div class="nbrOfGuessesOption" data-len="4">4</div>
+                            <div class="nbrOfGuessesOption" data-len="5">5</div>
+                            <div class="nbrOfGuessesOption" data-len="6">6</div>
+                        </div>
+
+                        <div class="buttonsPlayOrRandom">
+                            <button onclick="startGame()">PLAY</button>
+                            <button onclick="chooseRandomSettings()">RANDOMISE ⚄</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/statistics.js" defer></script>
+<script src="/js/home.js"></script>
+<script src="/js/settings.js"></script>
+
 </body>
 </html>
