@@ -25,18 +25,41 @@ public class GameWordController {
         return gameWordService.getGameWordById(id);
     }
 
+    /**
+     * This method is called when frontend requests a word for a new game, with the selected settings
+     * as parameters. This method randomly queries the database table game_word until a word matching
+     * the settings is found and returned. If parameters are invalid (possibly from user tampering
+     * with url), a default message ("INVALID REQUEST") is returned to frontend.
+     *
+     * @param length        an int, the selected length of the word.
+     * @param language      a String, the selected
+     *
+     * @return              a String, a randomly selected word from the database that matches the given
+     *                      setting parameters.
+     *
+     * @author Frida Sjögren
+     */
     @GetMapping("/{length}/{language}")
     public String getWordWithParameters(@PathVariable int length, @PathVariable String language) {
+        //verifies parameters first.
+        if (length < 4 || length > 6) {
+            System.out.println("DEBUG in getWordWithParameters. Length out of range");
+            return "INVALID REQUEST";
+        }
+
+        if ( !(language.equalsIgnoreCase("SWEDISH") || language.equalsIgnoreCase("ENGLISH") || language.equalsIgnoreCase("GERMAN")) ) {
+            System.out.println("DEBUG in getWordWithParameters. Language invalid");
+            return "INVALID REQUEST";
+        }
+
         List<GameWord> allGameWords = gameWordService.getAllGameWords();
 
         Random random = new Random();
         int randomIndex;
         GameWord randomGameWord;
 
-        boolean wordSelected = false;
-
-        // will loop until a random word with correct properties is found in the full list of words
-        while (!wordSelected) {
+        // will loop until a random word with correct properties is found in the full list of words from db
+        for (int i = 0; i < allGameWords.size(); i++) {
             randomIndex = random.nextInt(allGameWords.size());
             randomGameWord = allGameWords.get(randomIndex);
 
@@ -47,18 +70,9 @@ public class GameWordController {
             }
         }
 
-        //just nu tar den första bästa som stämmer bara
-//        for (int i = 0; i < allGameWords.size(); i++) {
-//            int entryLength = allGameWords.get(i).getWord().length();
-//            String entryLanguage = allGameWords.get(i).getLanguage();
-//
-//            if ( entryLength == length && entryLanguage.equalsIgnoreCase(language) ) {
-//                System.out.println("DEBUG i getWordWithParameters, output blev " + allGameWords.get(i).getWord());
-//                return allGameWords.get(i).getWord();
-//            }
-//        }
-
-        return null;
+        //if nothing matching was found in whole database table.
+        System.out.println("DEBUG in getWordWithParameters, no matches found in database");
+        return "INVALID REQUEST";
     }
 
 
