@@ -83,6 +83,14 @@ function startGame(){
     }
 */
 
+    //första koll om inloggning fungerar!
+    let currentUser = sessionStorage.getItem("currentUser");
+    if (currentUser=== "UNKNOWN") {
+        console.log(`Game started. not logged in!`)
+    } else {
+        console.log(`Game started. logged in as: ` + currentUser);
+    }
+
     //checks if maxGuesses is invalid, possibly due to user interference in url.
     //if invalid it redirects user back to settings page.
     if (maxGuesses < 4 || maxGuesses > 6 ) {
