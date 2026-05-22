@@ -84,6 +84,7 @@ function startGame(){
 */
 
     //checks if maxGuesses is invalid, possibly due to user interference in url.
+    //if invalid it redirects user back to settings page.
     if (maxGuesses < 4 || maxGuesses > 6 ) {
         window.location.href = "/settings";
         return;

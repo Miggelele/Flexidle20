@@ -15,7 +15,7 @@ public class GameWordService {
         return gameWordRepository.findAll();
     }
 
-    public GameWord getGameWordById(Long id) {
+    public GameWord getGameWordById(int id) {
         return gameWordRepository.findById(id).orElse(null);
     }
 
@@ -23,19 +23,19 @@ public class GameWordService {
         return gameWordRepository.save(gameword);
     }
 
-    public GameWord updateGameWord(Long id, GameWord gameword) {
+    public GameWord updateGameWord(int id, GameWord newGameword) {
         GameWord existingGameword = gameWordRepository.findById(id).orElse(null);
         if (existingGameword != null) {
-            existingGameword.setWord(gameword.getWord());
-            existingGameword.setLanguage(gameword.getLanguage());
-            existingGameword.setDescription(gameword.getDescription());
+            existingGameword.setWord(newGameword.getWord());
+            existingGameword.setLanguage(newGameword.getLanguage());
+            existingGameword.setDescription(newGameword.getDescription());
             return gameWordRepository.save(existingGameword);
         } else {
             return null;
         }
     }
 
-    public void deleteGameWord(Long id) {
+    public void deleteGameWord(int id) {
         gameWordRepository.deleteById(id);
     }
 }
