@@ -27,6 +27,14 @@ console.log(`Wordlength:   ${wordLength}      Language:   ${language}`);
 fetch(`/game_word/${wordLength}/${language}`)
     .then(response => response.text())
     .then(data => {
+
+        //if parameters are invalid backend will send this message (possibly due to user meddling with url)
+        //user will be sent back to settings if parameters were bad.
+        if (data === "INVALID REQUEST") {
+            window.location.href = "/settings";
+            return;
+        }
+
         answer = data;
         console.log(data);
     })
@@ -74,6 +82,12 @@ function startGame(){
         }
     }
 */
+
+    //checks if maxGuesses is invalid, possibly due to user interference in url.
+    if (maxGuesses < 4 || maxGuesses > 6 ) {
+        window.location.href = "/settings";
+        return;
+    }
 
     board.innerHTML = "";
     board.style.gridTemplateColumns = `repeat(${wordLength}, 48px)`;
