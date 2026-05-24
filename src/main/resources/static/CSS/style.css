@@ -347,7 +347,7 @@ h1 { margin-bottom: 10px; }
 }
 
 .key{
-    background: #575757;
+    background: #5b5b5b;
     color: #fff;
     height: 46px;
     width: 46px;
@@ -396,7 +396,7 @@ h1 { margin-bottom: 10px; }
 
 
 .actionKey {
-    background: #444;
+    background: #5b5b5b;
     padding: 12px 14px;
     height: 46px;
     width: 80px;
