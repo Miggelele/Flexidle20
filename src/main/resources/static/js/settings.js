@@ -1,7 +1,11 @@
+/**
+ * @author: Cecilia Raalas
+ * @section: settings.js
+ */
 let selectedShape = "square";
 let selectedWordLength = 5;
 let selectedNbrOfGuesses = 5;
-let selectedCountry = "german";
+let selectedCountry = "english";
 
 document.querySelectorAll(".shapeOption").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -50,7 +54,35 @@ function startGame() {
 }
 
 function chooseRandomSettings(){
-    //TODO: actually randomise this later
-    //so that random alternatives light up and you can choose to PLAY with random settings.
+
+    //language remove current highlight
+    document.querySelectorAll(".countryOption").forEach(btn => btn.classList.remove("selected"));
+    //language randomize one
+    let languageLength = document.querySelectorAll(".countryOption").length;
+    let randomLanguage = Math.floor(Math.random() * languageLength);
+    let languageBtn = document.querySelectorAll(".countryOption").item(randomLanguage);
+    languageBtn.classList.add("selected");
+    selectedCountry = languageBtn.dataset.value;
+
+    //wordLength remove current highlight
+    document.querySelectorAll(".wordLengthOption").forEach(btn => btn.classList.remove("selected"));
+    //randomize it
+    let wordLengthLength = document.querySelectorAll(".wordLengthOption").length;
+    let randomWordLength = Math.floor(Math.random() * wordLengthLength);
+    let wordLengthBtn = document.querySelectorAll(".wordLengthOption").item(randomWordLength);
+    wordLengthBtn.classList.add("selected");
+    selectedWordLength = parseInt(wordLengthBtn.dataset.len);
+
+
+    //nbrOfGuesses remove current highlight
+    document.querySelectorAll(".nbrOfGuessesOption").forEach(btn => btn.classList.remove("selected"));
+    //randomize it
+    let nbrOfGuessesLength = document.querySelectorAll(".nbrOfGuessesOption").length;
+    let randomNbrGuesses = Math.floor(Math.random() * nbrOfGuessesLength);
+    let nbrGuessesBtn = document.querySelectorAll(".nbrOfGuessesOption").item(randomNbrGuesses);
+    nbrGuessesBtn.classList.add("selected");
+    selectedNbrOfGuesses = parseInt(nbrGuessesBtn.dataset.len);
+
+
 
 }
