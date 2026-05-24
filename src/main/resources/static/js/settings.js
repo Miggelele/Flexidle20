@@ -62,15 +62,16 @@ function chooseRandomSettings(){
     let randomLanguage = Math.floor(Math.random() * languageLength);
     let languageBtn = document.querySelectorAll(".countryOption").item(randomLanguage);
     languageBtn.classList.add("selected");
-    selectedCountry = languageBtn.dataset.value; //ERROR
+    selectedCountry = languageBtn.dataset.value;
 
     //wordLength remove current highlight
     document.querySelectorAll(".wordLengthOption").forEach(btn => btn.classList.remove("selected"));
     //randomize it
     let wordLengthLength = document.querySelectorAll(".wordLengthOption").length;
     let randomWordLength = Math.floor(Math.random() * wordLengthLength);
-    document.querySelectorAll(".wordLengthOption").item(randomWordLength).classList.add("selected");
-
+    let wordLengthBtn = document.querySelectorAll(".wordLengthOption").item(randomWordLength);
+    wordLengthBtn.classList.add("selected");
+    selectedWordLength = parseInt(wordLengthBtn.dataset.len);
 
 
     //nbrOfGuesses remove current highlight
@@ -78,7 +79,9 @@ function chooseRandomSettings(){
     //randomize it
     let nbrOfGuessesLength = document.querySelectorAll(".nbrOfGuessesOption").length;
     let randomNbrGuesses = Math.floor(Math.random() * nbrOfGuessesLength);
-    document.querySelectorAll(".nbrOfGuessesOption").item(randomNbrGuesses).classList.add("selected");
+    let nbrGuessesBtn = document.querySelectorAll(".nbrOfGuessesOption").item(randomNbrGuesses);
+    nbrGuessesBtn.classList.add("selected");
+    selectedNbrOfGuesses = parseInt(nbrGuessesBtn.dataset.len);
 
 
 
