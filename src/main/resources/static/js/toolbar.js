@@ -1,15 +1,17 @@
+const cog = document.getElementById("cogwheel-button");
+if (cog) cog.addEventListener("click", settingsPressed);
 
-document.getElementById("cogwheel-button")
-    .addEventListener("click", () => settingsPressed());
+const stats = document.getElementById("statistics-button");
+if (stats) stats.addEventListener("click", statisticsPressed);
 
-document.getElementById("statistics-button")
-    .addEventListener("click", () => statisticsPressed());
+const rules = document.getElementById("rules-button");
+if (rules) rules.addEventListener("click", rulesPressed);
 
-document.getElementById("rules-button")
-    .addEventListener("click", () => rulesPressed());
+const ret = document.getElementById("return-button");
+if (ret) ret.addEventListener("click", returnPressed);
 
-document.getElementById("return-button")
-    .addEventListener("click", () => returnPressed());
+const acc = document.getElementById("account-button");
+if (acc) acc.addEventListener("click", accountPressed);
 
 function settingsPressed() {
     console.log("SETTINGS PRESSED")
@@ -25,4 +27,8 @@ function rulesPressed() {
 
 function returnPressed() {
     window.location.href = '/';
+}
+
+function accountPressed() {
+    console.log("ACCOUNT PRESSED")
 }

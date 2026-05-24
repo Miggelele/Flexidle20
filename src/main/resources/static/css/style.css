@@ -576,15 +576,10 @@ section: Toolbar
     mask: radial-gradient(circle, transparent 45%, black 46%);
 }
 
-
-
-
-
-
 .toolbar-rules-button{
     font-family: "Times New Roman";
     font-size: 30px;
-    background: #757575;
+    background: none;
     color: #eeeeee;
     border: 2px solid white;
     width: 40px;
@@ -606,7 +601,6 @@ section: Toolbar
     margin: -5px;
     cursor: pointer;
 }
-
 
 .toolbar-statistics-button {
     width: 40px;
@@ -654,6 +648,55 @@ section: Toolbar
     top: 4px;
     transform: rotate(-50deg);
     transform-origin: left center;
+}
+
+.toolbar-account-button {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.toolbar-account-button::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    transform: translateX(-50%);
+    border: 2px solid #eeeeee;
+    border-radius: 50%;
+    background: none;
+}
+
+.toolbar-account-button::after {
+    content: "";
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    width: 24px;
+    height: 12px;
+    transform: translateX(-50%);
+    border: 2px solid #eeeeee;
+    border-bottom: none;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background: none;
+}
+
+.toolbar-place-left {
+    display: flex;
+    align-items: center;
+}
+
+.toolbar-place-right {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding: 10px;
 }
 
 /* ATTEMPT TO DO TRANGLES
