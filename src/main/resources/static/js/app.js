@@ -328,7 +328,12 @@ document.addEventListener("keydown", e => {
  * @Section: showResultWon()
  */
 function showResultWon(word, tries) {
-    window.location.href = `result-pop-up-won?word=${encodeURIComponent(word)}&tries=${tries}`
+    const wonMessage = document.getElementById('message-won');
+    if (wonMessage) {
+        wonMessage.textContent = `You guessed the right word "${word}" in ${tries} tries!`;
+    }
+    const modal = new bootstrap.Modal(document.getElementById('result-won'));
+    modal.show()
 }
 
 /**
@@ -336,7 +341,12 @@ function showResultWon(word, tries) {
  * @Section: showResultLost()
  */
 function showResultLost(word) {
-    window.location.href = `result-pop-up-lost?word=${encodeURIComponent(word)}` 
+    const lostMessage = document.getElementById('message-lost');
+    if (lostMessage) {
+        lostMessage.textContent = `The correct word was: ${word}`;
+    }
+    const modal = new bootstrap.Modal(document.getElementById('result-lost'));
+    modal.show();
 }
 
 startGame();
