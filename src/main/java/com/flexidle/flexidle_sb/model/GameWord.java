@@ -2,13 +2,21 @@ package com.flexidle.flexidle_sb.model;
 
 import jakarta.persistence.*;
 
+/**
+ * PRIMARY KEY word_id int, auto-generated.
+ *
+ * word_id      int
+ * word         max 6 char
+ * language     max 12 char
+ * description  max 50 char
+ */
 @Entity
 @Table(name = "game_word", schema = "flexidle" )
 public class GameWord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long word_id;
+    private int word_id;
     private String word;
     private String language;
     private String description;
@@ -29,7 +37,7 @@ public class GameWord {
     }
 
     //GETTERS
-    public Long getWord_id() {
+    public int getWord_id() {
         return word_id;
     }
 

@@ -44,11 +44,12 @@
                     <p>Enter username:</p>
                     <input type="text" id="usernameInput" class="form-control mb-3" placeholder="Username">
                     <button class="btn btn-start w-100" onclick="checkUsername()">NEXT</button>
+                    <p>To start a new account, begin by entering a username.</p>
                 </div>
 
                 <!-- Skriva in lösenord (användaren finns) -->
                 <div id="view-password" class="modal-style">
-                    <p>Enter your pasword:</p>
+                    <p>Enter your password:</p>
                     <input type="password" id="passwordInput" class="form-control mb-3" placeholder="Password">
                     <button class="btn btn-start w-100" onclick="login()">LOGGA IN</button>
                     <button class="btn btn-secondary w-100 mt-2" onclick="showView('view-username')">Back</button>
@@ -56,7 +57,7 @@
 
                 <!-- Skapa konto (användaren finns inte) -->
                 <div id="view-create" class="modal-style">
-                    <p>No account found, enter a password:</p>
+                    <p>No account found, enter a password to start new account:</p>
                     <input type="password" id="newPassword" class="form-control mb-3" placeholder="Password">
                     <select id="securityQuestion" class="form-control mb-3">
                         <option value="" disabled selected>Choose a security question</option>

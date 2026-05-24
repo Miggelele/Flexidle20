@@ -21,7 +21,7 @@ public class GameWordController {
     }
 
     @GetMapping("/{id}")
-    public GameWord getGameWordById(@PathVariable Long id) {
+    public GameWord getGameWordById(@PathVariable int id) {
         return gameWordService.getGameWordById(id);
     }
 
@@ -82,12 +82,12 @@ public class GameWordController {
     }
 
     @PutMapping("/{id}")
-    public GameWord updateGameWord(@PathVariable Long id, @RequestBody GameWord gameword) {
+    public GameWord updateGameWord(@PathVariable int id, @RequestBody GameWord gameword) {
         return gameWordService.updateGameWord(id, gameword);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteGameWord(@PathVariable Long id) {
+    public void deleteGameWord(@PathVariable int id) {
         gameWordService.deleteGameWord(id);
     }
 
