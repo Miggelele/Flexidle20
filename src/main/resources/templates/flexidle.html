@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Flexidle</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="gameboard">
@@ -25,10 +26,129 @@
     </div>
 </span>
 
-<img th:src="@{/images/logo.png}" alt="Flexidle" width="400px">
+<img class="logo-game" th:src="@{/images/flex-logo.png}" alt="Flexidle">
     <div id= "board"></div>
     <div id="keyboard"></div>
 
+<!--STATISTICS PAGE -->
+<div class="modal fade" id="stats" tabindex="-1">
+    <div class="modal-dialog modal-stats">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">STATISTICS</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body statistics-style">
+
+                <div>
+                    <h3>Language</h3>
+                    <br>
+                    <div class="statistics-flag" data-value="swedish">🇸🇪</div>
+                    <div class="statistics-flag" data-value="english">🇬🇧</div>
+                    <div class="statistics-flag" data-value="german">🇩🇪</div>
+                </div>
+                <br>
+
+                <div>
+                    <h3>Global statistics</h3>
+                    <br>
+                    <div class="statistics-diagram-bar">
+                        <div class="statistics-diagram-item">
+                            <h5 class="statistics-diagram-bar-text">Wordlength: 4</h5>
+                            <div class="statistics-circle-diagram" id="g4"></div>
+                        </div>
+                        <div class="statistics-diagram-item">
+                            <h5 class="statistics-diagram-bar-text">Wordlength: 5</h5>
+                            <div class="statistics-circle-diagram" id="g5"></div>
+                        </div>
+                        <div class="statistics-diagram-item">
+                            <h5 class="statistics-diagram-bar-text">Wordlength: 6</h5>
+                            <div class="statistics-circle-diagram" id="g6"></div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div>
+                        <h3>Personal statistics</h3>
+                        <br>
+                        <div class="statistics-diagram-bar">
+                            <div class="statistics-diagram-item">
+                                <h5 class="statistics-diagram-bar-text">Wordlength: 4</h5>
+                                <div class="statistics-circle-diagram" id="p4"></div>
+                            </div>
+                            <div class="statistics-diagram-item">
+                                <h5 class="statistics-diagram-bar-text">Wordlength: 5</h5>
+                                <div class="statistics-circle-diagram" id="p5"></div>
+                            </div>
+                            <div class="statistics-diagram-item">
+                                <h5 class="statistics-diagram-bar-text">Wordlength: 6</h5>
+                                <div class="statistics-circle-diagram" id="p6"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="rules" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">HOW TO PLAY</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <h2>Flexidle - a guessing game where you have to guess the correct word with color-clues.</h2>
+
+                <p>The <b>length</b> of each row is corresponding to <b>wordlength</b>, and the <b>amount</b> of rows shows how many <b>guesses</b> you have.</p>
+
+                <h2>But what about the colors-clues, then? </h2>
+
+                <p>A <b>gray</b> color on your guessed letter means that it is <b>not a part of the correct word:</b></p>
+                <div>
+                    <button class="rules-fake-key-gray">W</button>
+                    <button class="rules-fake-key-gray">O</button>
+                    <button class="rules-fake-key-gray">R</button>
+                    <button class="rules-fake-key-gray">D</button>
+                </div>
+
+                <p><b>Yellow</b>, however, means that the letter you guessed is <b>in the word but in the wrong spot:</b></p>
+                <div>
+                    <button class="rules-fake-key-gray">I</button>
+                    <button class="rules-fake-key-gray">D</button>
+                    <button class="rules-fake-key-yellow">E</button>
+                    <button class="rules-fake-key-yellow">A</button>
+                </div>
+
+                <p>When your guessed letter turns <b>green</b> you have made a <b>correct placement of that letter:</b></p>
+                <div>
+                    <button class="rules-fake-key-yellow">M</button>
+                    <button class="rules-fake-key-green">A</button>
+                    <button class="rules-fake-key-gray">K</button>
+                    <button class="rules-fake-key-green">E</button>
+                </div>
+
+                <p>When your guessed the right word - <b>everything is green:</b></p>
+                <div>
+                    <button class="rules-fake-key-green">G</button>
+                    <button class="rules-fake-key-green">A</button>
+                    <button class="rules-fake-key-green">M</button>
+                    <button class="rules-fake-key-green">E</button>
+                </div>
+
+                <h2>Good luck!</h2>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/app.js"></script>
     <script src="/js/toolbar.js"></script>
 </body>

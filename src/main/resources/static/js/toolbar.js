@@ -18,11 +18,13 @@ function settingsPressed() {
 }
 
 function statisticsPressed() {
-    window.location.href = 'statistics';
+    const rulesModal = new bootstrap.Modal(document.getElementById('stats'));
+    rulesModal.show();
 }
 
 function rulesPressed() {
-    window.location.href = 'rules';
+    const rulesModal = new bootstrap.Modal(document.getElementById('rules'));
+    rulesModal.show();
 }
 
 function returnPressed() {

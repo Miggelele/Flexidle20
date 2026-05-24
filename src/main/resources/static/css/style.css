@@ -24,10 +24,16 @@
 }
 
 
+
 /*
 author: Elin Piho
 section: Home Page
 */
+
+.logo-home  {
+    width: 400px;
+    margin-top: 50px;
+}
 
 .btn-elinsTestFärg {
     background-color: #faa4d5;
@@ -282,10 +288,6 @@ section: Gameboard
     }
 }*/
 
-.gameboard img {
-    margin-bottom: -100px;
-}
-
 h1 { margin-bottom: 10px; }
 
 #board{
@@ -398,7 +400,12 @@ h1 { margin-bottom: 10px; }
     padding: 12px 14px;
     height: 46px;
     width: 80px;
+}
 
+.logo-game  {
+    width: 400px;
+    margin-top: 50px;
+    margin-bottom: 35px;
 }
 
 /*
