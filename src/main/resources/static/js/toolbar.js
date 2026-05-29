@@ -20,8 +20,8 @@ function settingsPressed() {
 }
 
 function statisticsPressed() {
-    const rulesModal = new bootstrap.Modal(document.getElementById('stats'));
-    rulesModal.show();
+    const statsModal = new bootstrap.Modal(document.getElementById('stats'));
+    statsModal.show();
 }
 
 function rulesPressed() {
@@ -34,5 +34,6 @@ function returnPressed() {
 }
 
 function accountPressed() {
-    console.log("ACCOUNT PRESSED")
+    const accountModal = new bootstrap.Modal(document.getElementById('log-in'));
+    accountModal.show();
 }

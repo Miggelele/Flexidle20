@@ -1,7 +1,6 @@
 //sätter default för vem som är inloggad, ändras om man loggar in.
 //används för att lagra username i frontend
-const currentUser = "UNKNOWN";
-sessionStorage.setItem("currentUser", currentUser);
+sessionStorage.setItem("currentUser", "UNKNOWN");
 
 function showView(viewId) {
     document.querySelectorAll('#view-username, #view-password, #view-create')
@@ -22,7 +21,7 @@ function checkUsername() {
 
     //kollar med backend om username finns, skickar till olika views beroende på svaret
     let usernameExists;
-    fetch(`registered_user/checkUsername/${username}`)
+    fetch(`/registered_user/checkUsername/${username}`)
         .then(response => response.json())
         .then(data => {
             usernameExists = data;
