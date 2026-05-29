@@ -40,18 +40,7 @@ public class GameWordController {
      * @author Frida Sjögren
      */
     @GetMapping("/{length}/{language}")
-    public String getWordWithParameters(@PathVariable int length, @PathVariable String language) {
-        //verifies parameters first.
-        if (length < 4 || length > 6) {
-            System.out.println("DEBUG in getWordWithParameters. Length out of range");
-            return "INVALID REQUEST";
-        }
-
-        if ( !(language.equalsIgnoreCase("SWEDISH") || language.equalsIgnoreCase("ENGLISH") || language.equalsIgnoreCase("GERMAN")) ) {
-            System.out.println("DEBUG in getWordWithParameters. Language invalid");
-            return "INVALID REQUEST";
-        }
-
+    public GameWord getWordWithParameters(@PathVariable int length, @PathVariable String language) {
         List<GameWord> allGameWords = gameWordService.getAllGameWords();
 
         Random random = new Random();
@@ -66,15 +55,14 @@ public class GameWordController {
             if ( randomGameWord.getWord().length() == length && randomGameWord.getLanguage().equalsIgnoreCase(language) ) {
                 System.out.println("DEBUG i getWordWithParameters, output blev " + randomGameWord.getWord());
                 //ToDo Fundera om det är bäst att returnera bara String eller om hela objektet är bättre?
-                return randomGameWord.getWord();
+                return randomGameWord;
             }
         }
 
         //if nothing matching was found in whole database table.
         System.out.println("DEBUG in getWordWithParameters, no matches found in database");
-        return "INVALID REQUEST";
+        return null;
     }
-
 
     @PostMapping("")
     public GameWord createGameWord(@RequestBody GameWord gameword) {

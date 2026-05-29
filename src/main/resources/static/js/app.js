@@ -8,7 +8,9 @@ const maxGuesses = parseInt(paramsInput.get("guesses"));
 
 document.body.style.background = bgColor;
 
+let currentUser = sessionStorage.getItem("currentUser");
 let answer = "";
+let wordId = null;
 let currentRow = 0;
 let currentCol = 0;
 let gameOver = false;
@@ -29,18 +31,12 @@ console.log(`Wordlength:   ${wordLength}      Language:   ${language}`);
  */
 //fetches a word from backend with the given settings, saves it, then prints the word in the console F12
 fetch(`/game_word/${wordLength}/${language}`)
-    .then(response => response.text())
+    .then(response => response.json())
     .then(data => {
 
-        //if parameters are invalid backend will send this message (possibly due to user meddling with url)
-        //user will be sent back to settings if parameters were bad.
-        if (data === "INVALID REQUEST") {
-            window.location.href = "/settings";
-            return;
-        }
-
-        answer = data;
-        console.log(data);
+        answer = data.word;
+        wordId = data.word_id;
+        console.log(answer);
     })
     .catch(error => {
         console.error("Fel:", error);
@@ -54,7 +50,6 @@ fetch(`/game_word/${wordLength}/${language}`)
 function startGame(){
 
     //första koll om inloggning fungerar!
-    let currentUser = sessionStorage.getItem("currentUser");
     if (currentUser=== "UNKNOWN") {
         console.log(`Game started. not logged in!`)
     } else {
@@ -294,6 +289,9 @@ function makeGuess(){
         //TODO: skapa popuppp av resultWon
         showResultWon(answer, currentRow+1);
         //ToDo: Skicka resultatet till backend
+        if (currentUser != null && currentUser !== "UNKNOWN") {
+            saveResult(wordId, currentRow, maxGuesses, true);
+        }
         return;
     }
     currentRow++;
@@ -302,8 +300,12 @@ function makeGuess(){
     if (currentRow >= maxGuesses) {
         gameOver = true;
         //TODO: skapa popuppp av resultLost
-        showResultLost(answer)
+        showResultLost(answer);
+
         //ToDo: Skicka resultatet till backend
+        if (currentUser != null && currentUser !== "UNKNOWN") {
+            saveResult(wordId, currentRow, maxGuesses, false);
+        }
     }
 }
 
@@ -356,6 +358,39 @@ function showResultLost(word) {
     }
     const modal = new bootstrap.Modal(document.getElementById('result-lost'));
     modal.show();
+}
+
+function saveResult(wordId, madeGuesses, maxGuesses, gameWon) {
+    const gameRecord = {
+        made_guesses: madeGuesses,
+        max_guesses: maxGuesses,
+        game_won: gameWon
+    };
+
+    fetch("/game_record", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(gameRecord)
+    })
+        .then(response => response.json())
+        .then(savedGameRecord => {
+
+            const usedWord = {
+                game_id: savedGameRecord.game_id,
+                username: sessionStorage.getItem("currentUser"),
+                word_id: wordId
+            };
+
+            fetch("/used_word", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(usedWord)
+            })
+    })
 }
 
 startGame();

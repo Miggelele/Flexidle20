@@ -25,11 +25,11 @@ public class GameRecord {
 
     public GameRecord() {}
 
-    public GameRecord(int max_guesses, int made_guesses, boolean game_won, LocalDate date) {
+    public GameRecord(int max_guesses, int made_guesses, boolean game_won) {
         this.max_guesses = max_guesses;
         this.made_guesses = made_guesses;
         this.game_won = game_won;
-        this.date = date;
+        this.date = LocalDate.now();
     }
 
     //GETTERS
