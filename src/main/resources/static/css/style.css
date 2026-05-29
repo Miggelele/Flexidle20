@@ -605,16 +605,21 @@ section: Toolbar
 .toolbar-return-button{
     font-family: "Times New Roman";
     font-size: 30px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: #757575;
     border: none;
     color: #eeeeee;
-    margin: -5px;
+    margin: 5px;
     cursor: pointer;
 }
 
 .toolbar-statistics-button {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     background: #757575;
     border: none;
     display: flex;
@@ -685,7 +690,7 @@ section: Toolbar
 .toolbar-account-button::after {
     content: "";
     position: absolute;
-    bottom: 10px;
+    bottom: 15px;
     left: 50%;
     width: 24px;
     height: 12px;
