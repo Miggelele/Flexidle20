@@ -290,7 +290,7 @@ function makeGuess(){
         showResultWon(answer, currentRow+1);
         //ToDo: Skicka resultatet till backend
         if (currentUser != null && currentUser !== "UNKNOWN") {
-            saveResult(wordId, currentRow, maxGuesses, true);
+            saveResult(wordId, currentRow+1, maxGuesses, true);
         }
         return;
     }
