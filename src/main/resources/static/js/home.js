@@ -1,6 +1,8 @@
 //sätter default för vem som är inloggad, ändras om man loggar in.
 //används för att lagra username i frontend
-sessionStorage.setItem("currentUser", "UNKNOWN");
+if (!sessionStorage.getItem("currentUser")) {
+    sessionStorage.setItem("currentUser", "UNKNOWN");
+}
 
 function showView(viewId) {
     document.querySelectorAll('#view-username, #view-password, #view-create')
@@ -111,12 +113,105 @@ function createAccount() {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('log-in');
+    updateAccountButton();
 
+    const modal = document.getElementById('log-in');
     if (modal) {
         modal.addEventListener('hidden.bs.modal', () => {
             showView('view-username');
             document.getElementById('usernameInput').value = '';
         });
+
+        modal.addEventListener('hidden.bs.modal', () => {
+            updateAccountButton();
+        });
     }
 });
+
+//Uppdaterar knappen på index för om du är inloggad eller inte
+function updateAccountButton() {
+    const user = sessionStorage.getItem("currentUser");
+    const isLoggedIn = user && user !== "UNKNOWN";
+
+    const loginBtn = document.querySelector('[data-bs-target="#log-in"], [data-bs-target="#logged-in"]');
+    if (loginBtn) {
+        if (isLoggedIn) {
+            loginBtn.textContent = "LOG OUT";
+            loginBtn.setAttribute('data-bs-target', '#logged-in');
+        } else {
+            loginBtn.textContent = "LOG IN";
+            loginBtn.setAttribute('data-bs-target', '#log-in');
+        }
+    }
+
+    const accountBtn = document.getElementById('account-button');
+    if (accountBtn) {
+        const newBtn = accountBtn.cloneNode(true);
+        accountBtn.parentNode.replaceChild(newBtn, accountBtn);
+
+        newBtn.onclick = () => {
+            if (isLoggedIn) {
+                // Visa toast när man är inloggad
+                const toastMsg = document.getElementById('toast-message');
+                if (toastMsg) toastMsg.textContent = `Logged in as: ${user}`;
+
+                const toast = new bootstrap.Toast(document.getElementById('account-toast'));
+                toast.show();
+            } else {
+                const modal = new bootstrap.Modal(document.getElementById('log-in'));
+                modal.show();
+            }
+        };
+    }
+
+    const loggedInModal = document.getElementById('logged-in');
+    if (loggedInModal) {
+        // Ta bort gamla lyssnare genom att klona
+        const newModal = loggedInModal.cloneNode(true);
+        loggedInModal.parentNode.replaceChild(newModal, loggedInModal);
+
+        newModal.addEventListener('show.bs.modal', () => {
+            const msg = document.getElementById('logged-in-message');
+            const currentUser = sessionStorage.getItem("currentUser");
+            if (msg && currentUser && currentUser !== "UNKNOWN") {
+                msg.textContent = `You are logged in as: ${currentUser}`;
+            }
+        });
+    }
+}
+
+//Bekräfta om user vill logga ut
+function confirmLogout() {
+    const loggedInModal = bootstrap.Modal.getInstance(document.getElementById('logged-in'));
+    if (loggedInModal) loggedInModal.hide();
+
+    //Backdrop ville inte FÖRSVINNA
+    document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+    document.body.classList.remove('modal-open');
+
+    setTimeout(() => {
+        const confirmModal = new bootstrap.Modal(document.getElementById('confirm-logout'));
+        confirmModal.show();
+    }, 300);
+}
+
+function logout() {
+    sessionStorage.setItem("currentUser", "UNKNOWN");
+
+    const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirm-logout'));
+    if (confirmModal) confirmModal.hide();
+
+    // Backdrop ville inte försvinna...
+    document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+    document.body.classList.remove('modal-open');
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+
+    updateAccountButton();
+
+    setTimeout(() => {
+        showView('view-username');
+        const loginModal = new bootstrap.Modal(document.getElementById('log-in'));
+        loginModal.show();
+    }, 300);
+}

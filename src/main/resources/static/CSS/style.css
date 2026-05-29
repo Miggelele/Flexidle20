@@ -261,7 +261,7 @@ button { margin-top: 15px; padding: 10px 20px; cursor: pointer; }
 }
 
 /*
-author: Cecilia Raalas
+author: Cecilia Raalas, Elin Piho
 section: Gameboard
 */
 
@@ -490,6 +490,28 @@ button {
 
 .statistics-diagram-bar-text {
     margin: 0;
+}
+
+.toast {
+    background-color: #f9f9f9;
+    border: none;
+}
+
+.toast-header {
+    background-color: #e0dfdf;
+    color: black;
+    border: none;
+    font-family: 'Playfair Display', serif;
+}
+
+.toast-body {
+    color: black;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+}
+
+.toast-header .btn-close {
+    filter: invert(1);  /* gör stäng-knappen vit */
 }
 
 

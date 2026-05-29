@@ -77,6 +77,39 @@
     </div>
 </div>
 
+<!-- INLOGGAD MODAL -->
+<div class="modal fade" id="logged-in" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ACCOUNT</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p id="logged-in-message"></p>
+                <button class="btn btn-start w-100" onclick="confirmLogout()">LOG OUT</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CONFIRM LOGOUT MODAL -->
+<div class="modal fade" id="confirm-logout" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">LOG OUT</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to log out?</p>
+                <button class="btn btn-start w-100" onclick="logout()">YES, LOG OUT</button>
+                <button class="btn btn-secondary w-100 mt-2" data-bs-dismiss="modal">CANCEL</button>
+            </div>
+        </div>
+    </div>
+</div>C
+
 
 <!--STATISTICS PAGE -->
 <div class="modal fade" id="stats" tabindex="-1">
@@ -290,15 +323,14 @@
                     <div class="shapeOption" data-value="diamond">🔷</div>
                     <div class="shapeOption" data-value="triangle">△</div>
                 </div>
-
             </div>
 
                 <br>
                 <br>
 
-            </div>
         </div>
     </div>
+</div>
 </div>
 </div>
 

@@ -226,6 +226,7 @@ function deleteLetter() {
  * @Section: makeGuess()
  */
 function makeGuess(){
+    console.log(currentUser);
     if (currentCol < wordLength) return;
 
     const guess = [];
