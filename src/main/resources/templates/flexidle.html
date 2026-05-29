@@ -8,6 +8,7 @@
 </head>
 <body class="gameboard">
 
+<!--TOOLBAR -->
 <span class="toolbar-style">
     <div class="toolbar-place-left">
         <button class="toolbar-return-button" id="return-button">←</button>
@@ -26,6 +27,7 @@
     </div>
 </span>
 
+<!--LOGO, BOARD AND KEYBOARD -->
 <img class="logo-game" th:src="@{/images/flex-logo.png}" alt="Flexidle">
     <div id= "board"></div>
     <div id="keyboard"></div>
@@ -94,6 +96,7 @@
     </div>
 </div>
 
+<!--RULES -->
 <div class="modal fade" id="rules" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -148,6 +151,7 @@
     </div>
 </div>
 
+<!--RESULT MODAL WON -->
 <div class="modal fade" id="result-won" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -165,6 +169,7 @@
     </div>
 </div>
 
+<!--RESULT MODAL LOST -->
 <div class="modal fade" id="result-lost" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -181,6 +186,43 @@
             </div>
         </div>
     </div>
+</div>
+
+<!--SETTINGS PAGE FOR FLEXINGSTYLE -->
+<div class="modal fade" id="settingsCostumize" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">COSTUMIZE YOUR GAME</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="settingsCostumizePage">
+
+                <label>Background Color:
+                    <input type="color" id="bgColor" value="#111111">
+                </label>
+
+                <div class="shape options">
+                    <div class="optionsLabel">Shapes:</div>
+                    <div class="shapeOption" data-value="circle">⚪</div>
+                    <div class="shapeOption" data-value="square">◻️</div>
+                    <div class="shapeOption" data-value="heart">💙</div>
+                    <div class="shapeOption" data-value="dog">🐶</div>
+                    <div class="shapeOption" data-value="diamond">🔷</div>
+                    <div class="shapeOption" data-value="triangle">△</div>
+                </div>
+
+            </div>
+
+            <br>
+            <br>
+
+        </div>
+    </div>
+</div>
+</div>
 </div>
 
 
