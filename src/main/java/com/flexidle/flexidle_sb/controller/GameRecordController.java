@@ -14,7 +14,9 @@ public class GameRecordController {
 
     @Autowired
     private GameRecordService gameRecordService;
+    @Autowired
     private UsedWordService usedWordService;
+    @Autowired
     private GameWordService gameWordService;
 
     @GetMapping("")
@@ -42,62 +44,75 @@ public class GameRecordController {
      *                      guesses.
      *
      * @author Frida Sjögren
+     * @author Isabell Perrson (re-wrote it, but keept the function intact)
      */
     @GetMapping("/global/{language}/{wordLength}/{maxGuesses}")
-    public int[] getGlobalStatistics(@PathVariable String language,  @PathVariable int wordLength, @PathVariable int maxGuesses) {
+    public int[] getGlobalStatistics(@PathVariable String language, @PathVariable int wordLength, @PathVariable int maxGuesses) {
+
         List<GameRecord> allGameRecords = gameRecordService.getAllGameRecords();
 
-        //keeps track of how many games were won at different number of guesses
         double[] winsInAmount = new double[maxGuesses];
 
-        for (int i  = 0; i < allGameRecords.size(); i++) {
-            //Checks for games matching the maxGuesses parameter
-            if (allGameRecords.get(i).getMax_guesses() == maxGuesses) {
+        for (GameRecord gameRecord : allGameRecords) {
 
-                //Gets the word used in the game_record.
-                int gameId = allGameRecords.get(i).getGame_id();
-                UsedWord usedWord = usedWordService.getUsedWordById(gameId);
-                GameWord gameWord = gameWordService.getGameWordById(gameId);
+            if (gameRecord.getMax_guesses() != maxGuesses) {
+                continue;
+            }
 
-                //Checks for matching language parameter
-                if (gameWord.getLanguage().equalsIgnoreCase(language)) {
+            int gameId = gameRecord.getGame_id();
 
-                    //Checks for matching word length
-                    if (gameWord.getWord().length() == wordLength) {
+            GameWord gameWord = gameWordService.getGameWordById(gameId);
 
-                        //if the game_record matches then an index matching the made guesses is increased by one.
-                        winsInAmount[allGameRecords.get(i).getMade_guesses()]++;
-                    }
-                }
+            if (gameWord == null) {
+                continue;
+            }
+
+            if (!gameWord.getLanguage().equalsIgnoreCase(language)) {
+                continue;
+            }
+
+            if (gameWord.getWord().length() != wordLength) {
+                continue;
+            }
+
+            int madeGuesses = gameRecord.getMade_guesses();
+
+            if (madeGuesses >= 1 && madeGuesses <= maxGuesses) {
+                winsInAmount[madeGuesses - 1]++;
             }
         }
 
         int totalGames = 0;
-        for (int i = 0; i < winsInAmount.length; i++) {
-            totalGames += winsInAmount[i];
+
+        for (double wins : winsInAmount) {
+            totalGames += wins;
         }
 
         int[] winStatsInPercentages = new int[maxGuesses];
 
-        for (int i  = 0; i < winStatsInPercentages.length; i++) {
-            double percentage = winsInAmount[i] * 100 / totalGames;
-            winStatsInPercentages[i] = Math.toIntExact(Math.round(percentage));
+        if (totalGames == 0) {
+            return winStatsInPercentages;
         }
 
-        //sums the percentages to see if they add up to 100.
+        for (int i = 0; i < winsInAmount.length; i++) {
+
+            double percentage =
+                    (winsInAmount[i] * 100.0) / totalGames;
+
+            winStatsInPercentages[i] =
+                    (int) Math.round(percentage);
+        }
+
         int sumPercentages = 0;
-        for (int i  = 0; i < winStatsInPercentages.length; i++) {
-            sumPercentages += winStatsInPercentages[i];
+
+        for (int percentage : winStatsInPercentages) {
+            sumPercentages += percentage;
         }
 
-        //if a rounding error has occurred the first index is adjusted
-        if (sumPercentages > 100) {
-            winStatsInPercentages[0] -= (sumPercentages-100);
-        } else if (sumPercentages < 100) {
-            winStatsInPercentages[1] += (sumPercentages-100);
+        if (sumPercentages != 100) {
+            winStatsInPercentages[0] += (100 - sumPercentages);
         }
 
-        System.out.println("winStatsInPercentages: " + Arrays.toString(winStatsInPercentages));
         return winStatsInPercentages;
     }
 
