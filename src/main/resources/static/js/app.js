@@ -312,6 +312,12 @@ function makeGuess(){
 
 document.addEventListener("keydown", e => {
     let languageString;
+
+    //checkar att där du skriver in, inte är ett input fält (för logga in pop-up)
+    if (e.target.tagName === 'INPUT') {
+        return;
+    }
+
     if (gameOver) {
         return;
     }
