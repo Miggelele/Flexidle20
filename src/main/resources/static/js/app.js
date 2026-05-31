@@ -401,3 +401,11 @@ function saveResult(wordId, madeGuesses, maxGuesses, gameWon) {
 }
 
 startGame();
+
+function playAgain() {
+    window.location.href = `/flexidle?bg=${encodeURIComponent(bgColor)}&shape=${tileShape}&language=${language}&length=${wordLength}&guesses=${maxGuesses}`;
+}
+
+function goToSettings() {
+    window.location.href = `/?openSettings=true`;
+}

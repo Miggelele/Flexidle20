@@ -161,14 +161,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <div>
-                <h1>Congratulations!</h1>
+            <div class="modal-body">
+                <h5 class="wordle-font2">You guessed the correct word!</h5>
                 <p id="message-won"></p>
+                <button class="btn btn-start w-100 mb-2" onclick="playAgain()">PLAY AGAIN</button>
+                <button class="btn btn-start w-100" onclick="goToSettings()">PLAY WITH DIFFERENT SETTINGS</button>
             </div>
+
         </div>
     </div>
 </div>
-
 <!--RESULT MODAL LOST -->
 <div class="modal fade" id="result-lost" tabindex="-1">
     <div class="modal-dialog">
@@ -178,12 +180,15 @@
                 <h5 class="modal-title">NO MORE GUESSES</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-                <h1>Oh no, you have no guesses left</h1>
+
+            <div class="modal-body">
+                <h5 class="wordle-font2">You have run out of guesses</h5>
                 <p id="message-lost"></p>
                 <p>Better luck next round!</p>
-            <div>
-
+                <button class="btn btn-start w-100 mb-2" onclick="playAgain()">TRY AGAIN</button>
+                <button class="btn btn-start w-100" onclick="goToSettings()">TRY WITH DIFFERENT SETTINGS</button>
             </div>
+
         </div>
     </div>
 </div>
@@ -283,6 +288,7 @@
         </div>
     </div>
 </div>
+
 
 </div>
 </div>
