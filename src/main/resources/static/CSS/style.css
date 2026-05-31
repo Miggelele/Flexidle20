@@ -175,7 +175,8 @@ section: Settings
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 /*@media (prefers-color-scheme: dark) {
@@ -208,56 +209,30 @@ button { margin-top: 15px; padding: 10px 20px; cursor: pointer; }
     border-radius: 8px;
 }
 
+.wordLengthOption,
+.nbrOfGuessesOption,
+.countryOption {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 60px;
+    height: 50px;
+
+    margin: 5px;
+    border: 2px solid #555;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 0;
+}
+.wordLengthOption.selected,
+.nbrOfGuessesOption.selected,
+.countryOption.selected,
 .shapeOption.selected {
     border-color: blue;
     background: #757575;
-}
 
-.wordLengthOption {
-    display: inline-block;
-    padding: 10px 15px;
-    margin: 5px;
-    border: 2px solid #555;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-.wordLengthOption.selected {
-    border-color: blue;
-    background: #757575;
-
-}
-
-.nbrOfGuessesOption {
-    display: inline-block;
-    padding: 10px 15px;
-    margin: 5px;
-    border: 2px solid #555;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-.nbrOfGuessesOption.selected {
-    border-color: blue;
-    background: #757575;
-
-}
-
-.countryOption {
-    display: inline-block;
-    padding: 10px 15px;
-    margin: 5px;
-    border: 2px solid #555;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-.countryOption.selected {
-    border-color: blue;
-    background: #757575;
 }
 
 /*
