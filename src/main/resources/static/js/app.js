@@ -346,6 +346,14 @@ document.addEventListener("keydown", e => {
  * @Section: showResultWon()
  */
 function showResultWon(word, tries) {
+    // Visa fyrverkerier
+    document.getElementById('fireworks-container').style.display = 'block';
+
+    //jag tycker dem ska vara kvar tills man stänger fönstret
+    setTimeout(() => {
+        document.getElementById('fireworks-container').style.display = 'none';
+    }, 100000000);
+
     const wonMessage = document.getElementById('message-won');
     if (wonMessage) {
         wonMessage.textContent = `You guessed the right word "${word}" in ${tries} tries!`;
@@ -359,6 +367,7 @@ function showResultWon(word, tries) {
  * @Section: showResultLost()
  */
 function showResultLost(word) {
+    startRain();
     const lostMessage = document.getElementById('message-lost');
     if (lostMessage) {
         lostMessage.textContent = `The correct word was: ${word}`;
@@ -408,4 +417,25 @@ function playAgain() {
 
 function goToSettings() {
     window.location.href = `/?openSettings=true`;
+}
+
+function startRain() {
+    const container = document.getElementById('rain-container');
+    container.style.display = 'block';
+    container.innerHTML = '';
+
+    for (let i = 0; i < 80; i++) {
+        const drop = document.createElement('div');
+        drop.className = 'raindrop';
+        drop.style.left = Math.random() * 100 + 'vw';
+        drop.style.height = Math.random() * 60 + 40 + 'px';
+        drop.style.animationDuration = Math.random() * 1 + 0.5 + 's';
+        drop.style.animationDelay = Math.random() * 2 + 's';
+        container.appendChild(drop);
+    }
+
+    setTimeout(() => {
+        container.style.display = 'none';
+        container.innerHTML = '';
+    }, 10000000);
 }

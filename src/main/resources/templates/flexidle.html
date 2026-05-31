@@ -6,6 +6,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
+
+<div id="fireworks-container" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999;">
+    <div class="firework"></div>
+    <div class="firework"></div>
+    <div class="firework"></div>
+</div>
+
+<div id="rain-container" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999; overflow:hidden;">
+</div>
+
 <body class="gameboard">
 
 <!--TOOLBAR -->
@@ -168,6 +178,7 @@
                 <button class="btn btn-start w-100" onclick="goToSettings()">PLAY WITH DIFFERENT SETTINGS</button>
             </div>
 
+
         </div>
     </div>
 </div>
@@ -243,7 +254,7 @@
                 <div id="view-username">
                     <p>Enter username:</p>
                     <input type="text" id="usernameInput" class="form-control mb-3" placeholder="Username">
-                    <button class="btn btn-start w-100" onclick="checkUsername()">NEXT</button>
+                    <button class="btn btn-start w-100" onclick="startFireworks()">NEXT</button>
                     <p>To start a new account, begin by entering a username.</p>
                 </div>
 
