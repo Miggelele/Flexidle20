@@ -134,6 +134,69 @@ public class GameRecordController {
      *
      * @author Frida Sjögren
      */
+//    @GetMapping("/personal/{username}/{language}/{wordLength}/{maxGuesses}")
+//    public int[] getPersonalStatistics(@PathVariable String username, @PathVariable String language, @PathVariable int wordLength, @PathVariable int maxGuesses) {
+//        List<GameRecord> allGameRecords = gameRecordService.getAllGameRecords();
+//
+//        //keeps track of how many games were won at different number of guesses
+//        double[] winsInAmount = new double[maxGuesses];
+//
+//        for (int i  = 0; i < allGameRecords.size(); i++) {
+//            //Checks for games matching the maxGuesses parameter
+//            if (allGameRecords.get(i).getMax_guesses() == maxGuesses) {
+//
+//                //Gets the word used in the game_record.
+//                int gameId = allGameRecords.get(i).getGame_id();
+//                UsedWord usedWord = usedWordService.getUsedWordById(gameId);
+//
+//                //checks if the username matches
+//                if (usedWord.getUsername().equals(username)) {
+//
+//                    GameWord gameWord = gameWordService.getGameWordById(gameId);
+//
+//                    //Checks for matching language parameter
+//                    if (gameWord.getLanguage().equalsIgnoreCase(language)) {
+//
+//                        //Checks for matching word length
+//                        if (gameWord.getWord().length() == wordLength) {
+//
+//                            //if the game_record matches then an index matching the made guesses is increased by one.
+//                            winsInAmount[allGameRecords.get(i).getMade_guesses()]++;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//
+//        int totalGames = 0;
+//        for (int i = 0; i < winsInAmount.length; i++) {
+//            totalGames += winsInAmount[i];
+//        }
+//
+//        int[] winStatsInPercentages = new int[maxGuesses];
+//
+//        for (int i  = 0; i < winStatsInPercentages.length; i++) {
+//            double percentage = winsInAmount[i] * 100 / totalGames;
+//            winStatsInPercentages[i] = Math.toIntExact(Math.round(percentage));
+//        }
+//
+//        //sums the percentages to see if they add up to 100.
+//        int sumPercentages = 0;
+//        for (int i  = 0; i < winStatsInPercentages.length; i++) {
+//            sumPercentages += winStatsInPercentages[i];
+//        }
+//
+//        //if a rounding error has occurred the first index is adjusted
+//        if (sumPercentages > 100) {
+//            winStatsInPercentages[0] -= (sumPercentages-100);
+//        } else if (sumPercentages < 100) {
+//            winStatsInPercentages[1] += (sumPercentages-100);
+//        }
+//
+//        System.out.println("winStatsInPercentages: " + Arrays.toString(winStatsInPercentages));
+//        return winStatsInPercentages;
+//    }
+
     @GetMapping("/personal/{username}/{language}/{wordLength}/{maxGuesses}")
     public int[] getPersonalStatistics(@PathVariable String username, @PathVariable String language, @PathVariable int wordLength, @PathVariable int maxGuesses) {
         List<GameRecord> allGameRecords = gameRecordService.getAllGameRecords();
@@ -141,56 +204,72 @@ public class GameRecordController {
         //keeps track of how many games were won at different number of guesses
         double[] winsInAmount = new double[maxGuesses];
 
-        for (int i  = 0; i < allGameRecords.size(); i++) {
-            //Checks for games matching the maxGuesses parameter
-            if (allGameRecords.get(i).getMax_guesses() == maxGuesses) {
+        for (GameRecord record : allGameRecords) {
 
-                //Gets the word used in the game_record.
-                int gameId = allGameRecords.get(i).getGame_id();
-                UsedWord usedWord = usedWordService.getUsedWordById(gameId);
-
-                //checks if the username matches
-                if (usedWord.getUsername().equals(username)) {
-
-                    GameWord gameWord = gameWordService.getGameWordById(gameId);
-
-                    //Checks for matching language parameter
-                    if (gameWord.getLanguage().equalsIgnoreCase(language)) {
-
-                        //Checks for matching word length
-                        if (gameWord.getWord().length() == wordLength) {
-
-                            //if the game_record matches then an index matching the made guesses is increased by one.
-                            winsInAmount[allGameRecords.get(i).getMade_guesses()]++;
-                        }
-                    }
-                }
+            if (record.getMade_guesses() != maxGuesses){
+                continue;
             }
+
+            int gameId = record.getGame_id();
+
+            UsedWord usedWord = usedWordService.getUsedWordById(gameId);
+            GameWord gameWord = gameWordService.getGameWordById(gameId);
+
+            // checks for 500 errors
+            if (usedWord == null || gameWord == null) {
+                continue;
+            }
+            if (record.getMade_guesses() < 0) {
+                continue;
+            }
+
+            // checks statistics for the right person and language
+            if (!usedWord.getUsername().equals(username)) {
+                continue;
+            }
+            if (!gameWord.getLanguage().equalsIgnoreCase(language)) {
+                continue;
+            }
+            if (gameWord.getWord().length() != wordLength) {
+                continue;
+            }
+
+            int guesses = record.getMade_guesses();
+
+            if (guesses >= 0 && guesses < winsInAmount.length) {
+                winsInAmount[guesses]++;
+            }
+
         }
 
-        int totalGames = 0;
-        for (int i = 0; i < winsInAmount.length; i++) {
-            totalGames += winsInAmount[i];
+        double totalGames = 0;
+        for (double game : winsInAmount) {
+            totalGames += game;
         }
 
         int[] winStatsInPercentages = new int[maxGuesses];
 
+        // if 0 return now to prevent division by 0
+        if (totalGames == 0) {
+            System.out.println("winStatsInPercentages: " + Arrays.toString(winStatsInPercentages));
+            return winStatsInPercentages;
+        }
+
         for (int i  = 0; i < winStatsInPercentages.length; i++) {
-            double percentage = winsInAmount[i] * 100 / totalGames;
-            winStatsInPercentages[i] = Math.toIntExact(Math.round(percentage));
+            double percentage = (winsInAmount[i] * 100) / totalGames;
+            winStatsInPercentages[i] = (int) Math.round(percentage);
         }
 
         //sums the percentages to see if they add up to 100.
         int sumPercentages = 0;
-        for (int i  = 0; i < winStatsInPercentages.length; i++) {
-            sumPercentages += winStatsInPercentages[i];
+        for (int value : winStatsInPercentages) {
+            sumPercentages += value;
         }
 
         //if a rounding error has occurred the first index is adjusted
-        if (sumPercentages > 100) {
-            winStatsInPercentages[0] -= (sumPercentages-100);
-        } else if (sumPercentages < 100) {
-            winStatsInPercentages[1] += (sumPercentages-100);
+        if (sumPercentages != 100 && totalGames > 0) {
+            int difference = 100 - sumPercentages;
+            winStatsInPercentages[0] += difference;
         }
 
         System.out.println("winStatsInPercentages: " + Arrays.toString(winStatsInPercentages));

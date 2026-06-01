@@ -26,19 +26,19 @@ document.querySelectorAll(".statistics-flag").forEach(flag => {
 });
 
 async function checkUserLoggedIn() {
-    try {
 
-        const userState = sessionStorage.getItem("currentUser");
-        if (!userState || userState === "UNKNOWN") {
-            throw new Error("NO USER");
-        }
-        currentUser = JSON.parse(userState);
-        userLoggedIn = true;
-
-    } catch (error) {
+    const userState = sessionStorage.getItem("currentUser");
+    console.log("User: " + userState);
+    if (!userState || userState === "UNKNOWN") {
         userLoggedIn = false;
         currentUser = null;
+    } else {
+        currentUser = userState;
+        userLoggedIn = true;
     }
+
+    console.log("currentUser:", currentUser);
+    console.log("loggedIn:", userLoggedIn);
 }
 
 async function updateView(language) {
@@ -47,36 +47,53 @@ async function updateView(language) {
 
     await Promise.all(wordLengths.map(async (wordLength) => {
 
-        // global stats
-        const gStats = await fetchAllSlices(language, wordLength, "global");
+        const gStats = await fetchAllSlices(
+            language,
+            wordLength,
+            "global"
+        );
 
-        const gSegment = gStats.map((value, index) => ({
-            value,
-            color: getColor(index)
-        }));
+        const gSegment = buildSegments(gStats);
 
         updateCircleDiagram("g"+wordLength, gSegment);
 
         // personal stats
-        if (userLoggedIn && currentUser?.username) {
-
+        if (userLoggedIn && currentUser) {
             const pStats = await fetchAllSlices(
                 language,
                 wordLength,
                 "personal",
-                currentUser.username
+                currentUser
             );
 
-            const pSegments = pStats.map((value, index) => ({
-                value,
-                color: getColor(index)
-            }));
+            const pSegments = buildSegments(pStats);
 
-            updateCircleDiagram("p"+wordLength, pSegments)
+            updateCircleDiagram("p"+wordLength, pSegments);
 
         } else {
             clearDiagram("p"+wordLength);
         }
+    }));
+}
+
+function buildSegments(stats) {
+    const clean = stats.map(value => {
+        const number = Number(value);
+        return Number.isFinite(number) && number > 0 ? number : 0;
+    })
+
+    const totalSegment = clean.reduce((sum, value) => sum + value, 0);
+
+    if (totalSegment === 0) {
+        return clean.map((_, index) => ({
+            value: 0,
+            color: getColor(index)
+        }));
+    }
+
+    return clean.map((value, index) => ({
+        value: (value/totalSegment) * 100,
+        color: getColor(index)
     }));
 }
 
@@ -96,13 +113,15 @@ async function fetchAllSlices(language, wordLength, type, username = null) {
 
         slices.push(
             fetch(url)
-                .then(result => {
+                .then(async (result) => {
                     if (!result.ok) {
-                        throw new Error(result.status);
+                        throw new Error("HTTP "+result.status);
                     }
-                    return result.json();
+
+                    const data = await result.json();
+                    console.log(`Data (${selCountry}): `+data);
+                    return Array.isArray(data) ? (data[0] ?? 0) : 0;
                 })
-                .then(slice => slice[0] ?? 0)
                 .catch(() => 0)
         );
     }
@@ -118,7 +137,7 @@ function getColor(index) {
         "#8fbc8f",
         "#eeeeee",
     ];
-    return colors[index] || "#ccc";
+    return colors[index] || "#757575";
 }
 
 function updateCircleDiagram(id, segments) {
