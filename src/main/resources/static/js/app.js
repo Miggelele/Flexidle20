@@ -246,7 +246,7 @@ function makeGuess(){
         setTimeout(() => {
             tile.classList.add("flip");
 
-            //adds correctcolour to flip
+            //adds correctcolour to flip and to the keyboard-keys-array.
             setTimeout(() => {
                 if (guessArray[i] === answerArray[i]) {
                     tile.classList.add("correctLetter");
@@ -264,49 +264,15 @@ function makeGuess(){
                 }
 
 
-        }, 250);
+        }, 250); //half the time of the flip so that it changes color mid-flip.
 
-        }, i * 200);
+        }, i * 200); //so the flips happen in order.
+        //waits for all the animations to happen and the logic so the keyboard can correctly change colours.
+        setTimeout(() => {
+            applyKeyboardColors();
+        }, wordLength * 200 + 300); //time for the last tile to start flipping + extra.
     }
 
-    //for (let i = 0; i < wordLength; i++) {
-      //  const tile = board.children[currentRow * wordLength + i];
-
-        //delay so flip can happen
-        //setTimeout(() => {
-          //  tile.classList().add("flip");
-
-            //adds correct colour midflip
-            //setTimeout(() => {
-
-
-
-            //}, 250);
-        //}, i * 200);
-
-    //}
-
-
-    //Change colors of the on-screen-keyboard
-    document.querySelectorAll(".key").forEach(btn => {
-
-        if (keyboardGreenArray.includes(btn.textContent)){
-            btn.classList.remove("existingGuessedKey");
-            btn.classList.remove("wrongGuessedKey");
-            btn.classList.add("correctGuessedKey");
-        }
-        else if (keyboardYellowArray.includes(btn.textContent)){
-            btn.classList.remove("correctGuessedKey");
-            btn.classList.remove("wrongGuessedKey");
-            btn.classList.add("existingGuessedKey");
-        }
-        else if (keyboardGrayArray.includes(btn.textContent)){
-            btn.classList.remove("existingGuessedKey");
-            btn.classList.remove("correctGuessedKey");
-            btn.classList.add("wrongGuessedKey");
-        }
-
-    });
 
     if (guessString === answer) {
         gameOver = true;
@@ -461,4 +427,30 @@ function startRain() {
         container.style.display = 'none';
         container.innerHTML = '';
     }, 10000000);
+}
+/**
+ * @Author: Cecilia R
+ * @Section: applyKeyboardColors()
+ */
+function applyKeyboardColors(){
+    //Change colors of the on-screen-keyboard
+    document.querySelectorAll(".key").forEach(btn => {
+
+        if (keyboardGreenArray.includes(btn.textContent)){
+            btn.classList.remove("existingGuessedKey");
+            btn.classList.remove("wrongGuessedKey");
+            btn.classList.add("correctGuessedKey");
+        }
+        else if (keyboardYellowArray.includes(btn.textContent)){
+            btn.classList.remove("correctGuessedKey");
+            btn.classList.remove("wrongGuessedKey");
+            btn.classList.add("existingGuessedKey");
+        }
+        else if (keyboardGrayArray.includes(btn.textContent)){
+            btn.classList.remove("existingGuessedKey");
+            btn.classList.remove("correctGuessedKey");
+            btn.classList.add("wrongGuessedKey");
+        }
+
+    });
 }
