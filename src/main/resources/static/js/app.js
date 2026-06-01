@@ -241,27 +241,50 @@ function makeGuess(){
 
     for (let i = 0; i < wordLength; i++) {
         const tile = board.children[currentRow * wordLength + i];
-        if (guessArray[i] === answerArray[i]) {
-            tile.classList.add("correctLetter");
 
-            keyboardGreenArray.push(guessArray[i]);
-            answerArray[i] = null;
-            guessArray[i] = null;
-        }
+        //delay so that the flipflops happen at same time
+        setTimeout(() => {
+            tile.classList.add("flip");
+
+            //adds correctcolour to flip
+            setTimeout(() => {
+                if (guessArray[i] === answerArray[i]) {
+                    tile.classList.add("correctLetter");
+                    keyboardGreenArray.push(guessArray[i]);
+                    answerArray[i] = null;
+                    guessArray[i] = null;
+                } else if (guessArray[i] && answerArray.includes(guessArray[i])) {
+                    tile.classList.add("existingLetter");
+                    keyboardYellowArray.push(guessArray[i]);
+
+                    answerArray[answerArray.indexOf(guessArray[i])] = null;
+                } else if (guessArray[i]) {
+                    tile.classList.add("wrongLetter");
+                    keyboardGrayArray.push(guessArray[i]);
+                }
+
+
+        }, 250);
+
+        }, i * 200);
     }
 
-    for (let i = 0; i < wordLength; i++) {
-        const tile = board.children[currentRow * wordLength + i];
-        if (guessArray[i] && answerArray.includes(guessArray[i])) {
-            tile.classList.add("existingLetter");
-            keyboardYellowArray.push(guessArray[i]);
+    //for (let i = 0; i < wordLength; i++) {
+      //  const tile = board.children[currentRow * wordLength + i];
 
-            answerArray[answerArray.indexOf(guessArray[i])] = null;
-        } else if (guessArray[i]) {
-            tile.classList.add("wrongLetter");
-            keyboardGrayArray.push(guessArray[i]);
-        }
-    }
+        //delay so flip can happen
+        //setTimeout(() => {
+          //  tile.classList().add("flip");
+
+            //adds correct colour midflip
+            //setTimeout(() => {
+
+
+
+            //}, 250);
+        //}, i * 200);
+
+    //}
 
 
     //Change colors of the on-screen-keyboard
