@@ -168,7 +168,8 @@ author: Cecilia Raalas
 section: Settings
  */
 
-.settingsPage {
+.settingsPage,
+.settingsCostumizePage{
     font-family: "Times New Roman", sans-serif;
     background-color: #f9f9f9;
     color: black;
@@ -196,8 +197,31 @@ section: Settings
     border-radius: 10px;
     color: white;
 }
-label { display: block; margin: 10px 0; }
-button { margin-top: 15px; padding: 10px 20px; cursor: pointer; }
+label {
+    display: inline-block;
+    margin: 10px 0;
+}
+
+button{
+    /*margin-top: 15px;*/
+    /*padding: 10px 20px;*/
+    /*cursor: pointer;*/
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    /*width: 120px;*/
+    width: auto;
+    height: 50px;
+
+    margin-top: 15px;
+    border: 2px solid #555;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 10px 20px;
+}
 
 .shapeOption {
     display: inline-block;
@@ -211,7 +235,8 @@ button { margin-top: 15px; padding: 10px 20px; cursor: pointer; }
 
 .wordLengthOption,
 .nbrOfGuessesOption,
-.countryOption {
+.countryOption
+{
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -297,6 +322,7 @@ h1 { margin-bottom: 10px; }
     background: #25af5c;
     border-color: #25af5c;
     color: #fff;
+
 }
 .existingLetter {
     background: #ffc217;
@@ -345,7 +371,7 @@ h1 { margin-bottom: 10px; }
     margin: 3px;
     padding: 12px 14px;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 20px;
 }
 .existingGuessedKey{
     background: #ffc217;
@@ -356,7 +382,7 @@ h1 { margin-bottom: 10px; }
     margin: 3px;
     padding: 12px 14px;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .wrongGuessedKey{
@@ -368,7 +394,7 @@ h1 { margin-bottom: 10px; }
     margin: 3px;
     padding: 12px 14px;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 

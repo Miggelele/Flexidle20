@@ -7,6 +7,16 @@ let selectedWordLength = 5;
 let selectedNbrOfGuesses = 5;
 let selectedCountry = "english";
 
+let startLanguageOptionSelected = document.querySelectorAll(".countryOption").item(1);
+startLanguageOptionSelected.classList.add("selected");
+
+let startNbrOfGuessesSelected = document.querySelectorAll(".nbrOfGuessesOption").item(1);
+startNbrOfGuessesSelected.classList.add("selected");
+
+let startLengthOptionSelected = document.querySelectorAll(".wordLengthOption").item(1);
+startLengthOptionSelected.classList.add("selected");
+
+
 document.querySelectorAll(".shapeOption").forEach(btn => {
     btn.addEventListener("click", () => {
         document.querySelectorAll(".shapeOption").forEach(b => b.classList.remove("selected"));

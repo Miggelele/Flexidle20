@@ -268,7 +268,7 @@
 
                 <div class="buttonsPlayOrRandom">
                     <button onclick="startGame()">PLAY</button>
-                    <button onclick="chooseRandomSettings()">RANDOMISE ⚄</button>
+                    <button onclick="chooseRandomSettings()">RANDOMISE</button>
                 </div>
 
                 <br>
@@ -294,12 +294,13 @@
 
             <div class="settingsCostumizePage">
 
+                <label> Costumizations will be shown ingame</label>
                 <label>Background Color:
                     <input type="color" id="bgColor" value="#111111">
                 </label>
 
                 <div class="shape options">
-                    <div class="optionsLabel">Shapes:</div>
+                    <div class="optionsLabel">Shape of your gametiles:</div>
                     <div class="shapeOption" data-value="circle">⚪</div>
                     <div class="shapeOption" data-value="square">◻️</div>
                     <div class="shapeOption" data-value="heart">💙</div>
@@ -307,6 +308,11 @@
                     <div class="shapeOption" data-value="diamond">🔷</div>
                     <div class="shapeOption" data-value="triangle">△</div>
                 </div>
+
+                <div class="applyBtn">
+                    <button class="closeBtn" data-bs-dismiss="modal">APPLY</button>
+                </div>
+
             </div>
 
                 <br>
