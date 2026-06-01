@@ -7,6 +7,7 @@ let selectedWordLength = 5;
 let selectedNbrOfGuesses = 5;
 let selectedCountry = "english";
 
+
 let startLanguageOptionSelected = document.querySelectorAll(".countryOption").item(1);
 startLanguageOptionSelected.classList.add("selected");
 
@@ -21,9 +22,11 @@ document.querySelectorAll(".shapeOption").forEach(btn => {
     btn.addEventListener("click", () => {
         document.querySelectorAll(".shapeOption").forEach(b => b.classList.remove("selected"));
         btn.classList.add("selected");
-        selectedShape = btn.dataset.value;
+        //selectedShape = btn.dataset.value;
+        sessionStorage.setItem("shapeOption", btn.dataset.value);
     });
 });
+
 
 document.querySelectorAll(".countryOption").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -53,11 +56,20 @@ document.querySelectorAll(".nbrOfGuessesOption").forEach(btn => {
 
 
 function startGame() {
-    const bg = encodeURIComponent(document.getElementById("bgColor").value);
-    const shape = selectedShape;
+
+
+    const bg = sessionStorage.getItem("bgColour");
+
+    if (!sessionStorage.getItem("shapeOption")){
+        sessionStorage.setItem("shapeOption", "square");
+    }
+    const shape = sessionStorage.getItem("shapeOption");
+
     const length = selectedWordLength;
     const guesses = selectedNbrOfGuesses;
     const language = selectedCountry;
+
+
 
     window.location.href =
         `/flexidle?bg=${bg}&shape=${shape}&language=${language}&length=${length}&guesses=${guesses}`;
@@ -92,5 +104,12 @@ function chooseRandomSettings(){
     let nbrGuessesBtn = document.querySelectorAll(".nbrOfGuessesOption").item(randomNbrGuesses);
     nbrGuessesBtn.classList.add("selected");
     selectedNbrOfGuesses = parseInt(nbrGuessesBtn.dataset.len);
+
+}
+
+function appliedSettings(){
+    let bg = "";
+    bg = encodeURIComponent(document.getElementById("bgColor").value);
+    sessionStorage.setItem("bgColour", bg);
 
 }
