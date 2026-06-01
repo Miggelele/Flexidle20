@@ -83,6 +83,4 @@ function chooseRandomSettings(){
     nbrGuessesBtn.classList.add("selected");
     selectedNbrOfGuesses = parseInt(nbrGuessesBtn.dataset.len);
 
-
-
 }

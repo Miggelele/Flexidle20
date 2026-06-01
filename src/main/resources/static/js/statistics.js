@@ -3,27 +3,128 @@ author: Isabell Persson
 section: Statistics
 */
 
-// select country + logs in console
-let selectedCountry = "swedish";
+let selCountry = "swedish";
+let userLoggedIn = false;
+let currentUser = null;
+
+window.addEventListener("DOMContentLoaded", async () => {
+    await checkUserLoggedIn();
+    await updateView(selCountry)
+});
 
 document.querySelectorAll(".statistics-flag").forEach(flag => {
-    flag.addEventListener("click", () => {
+
+    flag.addEventListener("click", async () => {
         document.querySelectorAll(".statistics-flag")
             .forEach(f => f.classList.remove("selected"));
 
         flag.classList.add("selected");
-        selectedCountry = flag.dataset.value;
+        selCountry = flag.dataset.value;
 
-        console.log("Selected country:", selectedCountry);
+        await updateView(selCountry);
     });
 });
 
-// function to update values in circle diagram
+async function checkUserLoggedIn() {
+    try {
+
+        const userState = sessionStorage.getItem("currentUser");
+        if (!userState || userState === "UNKNOWN") {
+            throw new Error("NO USER");
+        }
+        currentUser = JSON.parse(userState);
+        userLoggedIn = true;
+
+    } catch (error) {
+        userLoggedIn = false;
+        currentUser = null;
+    }
+}
+
+async function updateView(language) {
+
+    const wordLengths = [4, 5, 6];
+
+    await Promise.all(wordLengths.map(async (wordLength) => {
+
+        // global stats
+        const gStats = await fetchAllSlices(language, wordLength, "global");
+
+        const gSegment = gStats.map((value, index) => ({
+            value,
+            color: getColor(index)
+        }));
+
+        updateCircleDiagram("g"+wordLength, gSegment);
+
+        // personal stats
+        if (userLoggedIn && currentUser?.username) {
+
+            const pStats = await fetchAllSlices(
+                language,
+                wordLength,
+                "personal",
+                currentUser.username
+            );
+
+            const pSegments = pStats.map((value, index) => ({
+                value,
+                color: getColor(index)
+            }));
+
+            updateCircleDiagram("p"+wordLength, pSegments)
+
+        } else {
+            clearDiagram("p"+wordLength);
+        }
+    }));
+}
+
+async function fetchAllSlices(language, wordLength, type, username = null) {
+
+    const slices = [];
+
+    for (let maxGuesses = 1; maxGuesses <= 6; maxGuesses++) {
+
+        let url;
+
+        if (type === "global") {
+            url = `/game_record/global/${language}/${wordLength}/${maxGuesses}`;
+        } else {
+            url = `/game_record/personal/${username}/${language}/${wordLength}/${maxGuesses}`;
+        }
+
+        slices.push(
+            fetch(url)
+                .then(result => {
+                    if (!result.ok) {
+                        throw new Error(result.status);
+                    }
+                    return result.json();
+                })
+                .then(slice => slice[0] ?? 0)
+                .catch(() => 0)
+        );
+    }
+    return Promise.all(slices);
+}
+
+function getColor(index) {
+    const colors = [
+        "#4caf50",
+        "#f0e130",
+        "#555",
+        "#ffc217",
+        "#8fbc8f",
+        "#eeeeee",
+    ];
+    return colors[index] || "#ccc";
+}
+
 function updateCircleDiagram(id, segments) {
     const circle = document.getElementById(id);
 
     if (!circle) {
-        console.error(`Element with id "${id}" not found.`);
         return;
     }
 
@@ -40,62 +141,14 @@ function updateCircleDiagram(id, segments) {
 
         currentPercent = end;
     });
-
     circle.style.background = `conic-gradient(${gradientParts.join(', ')})`;
 }
 
-// updating diagrams
-// (id = first letter in global or personal + wordlength) so personal data on wordlength 4 makes the id p4
-updateCircleDiagram("g4", [
-    { color: "#4caf50", value: 10 },
-    { color: "#f0e130", value: 10 },
-    { color: "#555", value: 25 },
-    { color: "#ffc217", value: 35 },
-    { color: "#8fbc8f", value: 15 },
-    { color: "#eeeeee", value: 5 },
-]);
+function clearDiagram(id) {
+    const circle = document.getElementById(id);
 
-updateCircleDiagram("g5", [
-    { color: "red", value: 25 },
-    { color: "blue", value: 15 },
-    { color: "yellow", value: 20 },
-    { color: "magenta", value: 15 },
-    { color: "orange", value: 10 },
-    { color: "cyan", value: 15 },
-]);
-
-updateCircleDiagram("g6", [
-    { color: "#e9967a", value: 12 },
-    { color: "#e75480", value: 15 },
-    { color: "#ffbcd9", value: 22 },
-    { color: "#f88379", value: 8 },
-    { color: "#fbcce7", value: 16 },
-    { color: "#de3163", value: 27 },
-]);
-
-updateCircleDiagram("p4", [
-    { color: "#ff0000", value: 25 },
-    { color: "#ffa500", value: 15 },
-    { color: "#ffff00", value: 15 },
-    { color: "#00ff00", value: 10 },
-    { color: "#0000ff", value: 25 },
-    { color: "#800080", value: 10 },
-]);
-
-updateCircleDiagram("p5", [
-    { color: "#5d8aa8", value: 10 },
-    { color: "#007fff", value: 15 },
-    { color: "#a1caf1", value: 25 },
-    { color: "#21abcd", value: 30 },
-    { color: "#6699cc", value: 15 },
-    { color: "#2a52be", value: 5 },
-]);
-
-updateCircleDiagram("p6", [
-    { color: "#03c03c", value: 17 },
-    { color: "#ffff31", value: 17 },
-    { color: "#555", value: 17 },
-    { color: "#ffa700", value: 17 },
-    { color: "#7fff00", value: 17 },
-    { color: "#eeeeee", value: 17 },
-]);
+    if (!circle) {
+        return;
+    }
+    circle.style.background = "conic-gradient(#ddd 0% 100%)";
+}

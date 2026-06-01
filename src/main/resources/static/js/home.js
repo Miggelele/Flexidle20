@@ -115,6 +115,12 @@ function createAccount() {
 document.addEventListener('DOMContentLoaded', () => {
     updateAccountButton();
 
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('openSettings') === 'true') {
+        const modal = new bootstrap.Modal(document.getElementById('settings'));
+        modal.show();
+    }
+
     const modal = document.getElementById('log-in');
     if (modal) {
         modal.addEventListener('hidden.bs.modal', () => {
