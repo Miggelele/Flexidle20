@@ -29,6 +29,49 @@ public class GameRecordController {
         return gameRecordService.getGameRecordById(id);
     }
 
+
+    @GetMapping("/allPersonalStatistics/{username}")
+    public int[][] getAllPersonalStatistics(@PathVariable String username) {
+        int[][] stats = new int[][] {{}, {}, {}, {}, {}, {}, {}, {}, {}}; //plats för 9 diagram
+
+        //TODO felhantering av username när riktiga funktionen implementeras
+        //personal
+        //swedish
+        stats[0] = new int[]{10, 15, 35, 35, 5};
+        stats[1] = new int[]{10, 12, 15, 25, 30, 8};
+        stats[2] = new int[]{6, 8, 14, 18, 22, 25, 7};
+        //english
+        stats[3] = new int[]{8, 10, 20, 40, 22};
+        stats[4] = new int[]{7, 8, 17, 25, 28, 15};
+        stats[5] = new int[]{8, 8, 12, 15, 22, 25, 10};
+        //german
+        stats[6] = new int[]{7, 10, 20, 43, 20};
+        stats[7] = new int[]{8, 8, 14, 25, 30, 15};
+        stats[8] = new int[]{7, 8, 10, 15, 20, 20, 20};
+
+        return stats;
+    }
+
+    @GetMapping("/allGlobalStatistics")
+    public int[][] getAllGlobalStatistics() {
+        int[][] stats = new int[][] {{}, {}, {}, {}, {}, {}, {}, {}, {}}; //plats för 9 diagram
+        //global
+        //swedish
+        stats[0] = new int[] { 5,10,30,45,10};
+        stats[1] = new int[] { 5,10,20,20,35,10};
+        stats[2] = new int[] { 3,7,10,15,20,30,15};
+        //english
+        stats[3] = new int[] { 3,5,15,45,32};
+        stats[4] = new int[] { 2,3,12,35,25,23};
+        stats[5] = new int[] { 3,3,10,19,20,20,25};
+        //german
+        stats[6] = new int[] { 2,5,15,38,40};
+        stats[7] = new int[] { 3,3,15,30,29,20};
+        stats[8] = new int[] { 2,3,5,15,25,25,25};
+
+        return stats;
+    }
+
     /**
      * Finds statistics from game records in database for a given language and wordlength, for all users.
      * Used in frontend to generate circle diagrams in statistics menu.
