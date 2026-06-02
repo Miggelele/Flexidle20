@@ -55,6 +55,7 @@ function login() {
                 sessionStorage.setItem("currentUser",username);
                 console.log(`inloggad som: ` + sessionStorage.getItem("currentUser"));
                 const modal = bootstrap.Modal.getInstance(document.getElementById('log-in'));
+                alert('Welcome back! ' + username);
                 modal.hide();
             } else {
                 //TODO ge feedback att lösenord var fel!
