@@ -135,6 +135,8 @@ async function updateView(selLanguage) {
         }
 
         //TODO lägg till förklaring av diagrammen
+        //updateLegend("g6-legend", 6);
+        updateLegend("statistics-legend", 6);
     }));
 }
 
@@ -300,4 +302,50 @@ function clearDiagram(id) {
         return;
     }
     circle.style.background = "conic-gradient(#ddd 0% 100%)";
+}
+
+//färgförklaringen
+function updateLegend(id, wordLength) {
+
+    const legend = document.getElementById(id);
+
+    if (!legend) {
+        return;
+    }
+
+    legend.innerHTML = "";
+
+    for (let i = 0; i < wordLength; i++) {
+
+        const row = document.createElement("div");
+        row.className = "legend-item";
+
+        const colorBox = document.createElement("span");
+        colorBox.className = "legend-color";
+        colorBox.style.backgroundColor = getColor(i, wordLength);
+
+        const text = document.createElement("span");
+        text.textContent = `= ${i + 1} guess`;
+
+        row.appendChild(colorBox);
+        row.appendChild(text);
+
+        legend.appendChild(row);
+    }
+
+    // röd = misslyckades
+    const failRow = document.createElement("div");
+    failRow.className = "legend-item";
+
+    const failColor = document.createElement("span");
+    failColor.className = "legend-color";
+    failColor.style.backgroundColor = "#f44336";
+
+    const failText = document.createElement("span");
+    failText.textContent = "= Fail";
+
+    failRow.appendChild(failColor);
+    failRow.appendChild(failText);
+
+    legend.appendChild(failRow);
 }
