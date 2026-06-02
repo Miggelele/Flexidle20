@@ -97,15 +97,13 @@ function buildKeyboard(){
             keyboardRows.push("QWERTYUIOPÅ", "ASDFGHJKLÖÄ", "ZXCVBNM");
             break;
         case "german":
-            keyboardRows.push("QWERTZUIOPÜ", "ASDFGHJKLÖÄ", "YXCVBNMẞ");
+            keyboardRows.push("QWERTZUIOPÜ", "ASDFGHJKLÖÄ", "YXCVBNMß");
             break;
         case "english":
         default:
             keyboardRows.push("QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM");
             break;
     }
-
-
 
     keyboardRows.forEach((keyboardRow, index) => {
         const rowDiv = document.createElement("div");
@@ -122,6 +120,7 @@ function buildKeyboard(){
         keyboardRow.split("").forEach(letter => {
             const btn = document.createElement("button");
             btn.className = "key";
+            btn.dataset.letter = letter;
             btn.textContent = letter;
             rowDiv.appendChild(btn);
         });
