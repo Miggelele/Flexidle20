@@ -37,3 +37,23 @@ function accountPressed() {
     const accountModal = new bootstrap.Modal(document.getElementById('log-in'));
     accountModal.show();
 }
+
+const params = new URLSearchParams(window.location.search);
+const currentLanguage = params.get('language');
+
+function setLanguageFlag() {
+    const flagBtn = document.getElementById('language-flag');
+    if (!flagBtn) return;
+
+    const flags = {
+        'swedish': '/images/swe-flag.png',
+        'english': '/images/uk-flag.png',
+        'german': '/images/ger-flag.png'
+    };
+
+    const flagSrc = flags[currentLanguage] || flags['english'];
+    flagBtn.src = flagSrc;
+    flagBtn.alt = currentLanguage;
+}
+
+setLanguageFlag();
