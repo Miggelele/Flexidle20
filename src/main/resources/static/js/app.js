@@ -238,7 +238,31 @@ function makeGuess(){
     const answerArray = answer.split("");
     const guessArray = guess.slice();
 
+    const result = Array(wordLength).fill("gray");
 
+    //Check for Green letters
+    for (let i = 0; i < wordLength; i++) {
+        if (guessArray[i] === answerArray[i]) {
+            result[i] = "green";
+            answerArray[i] = null;
+            guessArray[i] = null;
+        }
+    }
+
+    //Check for Yellow letters
+    for (let i = 0; i < wordLength; i++) {
+        if (guessArray[i] === null) {
+            continue;
+        }
+
+        const index = answerArray.indexOf(guessArray[i]);
+        if (index !== -1) {
+            result[i] = "yellow";
+            answerArray[index] = null;
+        }
+    }
+
+    //FLip all letters to corresponding color
     for (let i = 0; i < wordLength; i++) {
         const tile = board.children[currentRow * wordLength + i];
 
@@ -248,22 +272,16 @@ function makeGuess(){
 
             //adds correctcolour to flip and to the keyboard-keys-array.
             setTimeout(() => {
-                if (guessArray[i] === answerArray[i]) {
+                if (result[i] === "green") {
                     tile.classList.add("correctLetter");
-                    keyboardGreenArray.push(guessArray[i]);
-                    answerArray[i] = null;
-                    guessArray[i] = null;
-                } else if (guessArray[i] && answerArray.includes(guessArray[i])) {
+                    keyboardGreenArray.push(guess[i]);
+                } else if (result[i] === "yellow") {
                     tile.classList.add("existingLetter");
-                    keyboardYellowArray.push(guessArray[i]);
-
-                    answerArray[answerArray.indexOf(guessArray[i])] = null;
-                } else if (guessArray[i]) {
+                    keyboardYellowArray.push(guess[i]);
+                } else {
                     tile.classList.add("wrongLetter");
-                    keyboardGrayArray.push(guessArray[i]);
+                    keyboardGrayArray.push(guess[i]);
                 }
-
-
         }, 250); //half the time of the flip so that it changes color mid-flip.
 
         }, i * 200); //so the flips happen in order.
@@ -272,7 +290,6 @@ function makeGuess(){
             applyKeyboardColors();
         }, wordLength * 200 + 300); //time for the last tile to start flipping + extra.
     }
-
 
     if (guessString === answer) {
         gameOver = true;
