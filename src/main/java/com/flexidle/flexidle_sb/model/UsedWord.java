@@ -26,7 +26,6 @@ public class UsedWord {
         this.word_id = word_id;
     }
 
-    //GETTERS
     public int getGame_id() {
         return game_id;
     }
@@ -39,7 +38,6 @@ public class UsedWord {
         return word_id;
     }
 
-    //SETTERS
     public void setWord_id(int word_id) {
         this.word_id = word_id;
     }

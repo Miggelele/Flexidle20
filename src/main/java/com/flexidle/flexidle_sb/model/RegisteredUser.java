@@ -9,17 +9,17 @@ import jakarta.persistence.Table;
  * username max 12 char
  * password max 24 char
  * s_question max 50 char
- * s_answer max 12 char ??!!! räcker det?
+ * s_answer max 12 char
  */
 @Entity
 @Table(name = "registered_user", schema = "flexidle")
 public class RegisteredUser {
 
     @Id
-    private String username;    //max 12 char
-    private String password;    //max 24 char
-    private String s_question;  //max 50 char
-    private String s_answer;    //max 12 char
+    private String username;
+    private String password;
+    private String s_question;
+    private String s_answer;
 
     public RegisteredUser() {}
 
@@ -30,7 +30,6 @@ public class RegisteredUser {
         this.s_answer = s_answer;
     }
 
-    //GETTERS
     public String getUsername() {
         return username;
     }
@@ -47,7 +46,6 @@ public class RegisteredUser {
         return s_answer;
     }
 
-    //SETTERS
     public void setPassword(String password) {
         this.password = password;
     }

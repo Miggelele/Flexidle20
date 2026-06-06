@@ -11,7 +11,6 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
-<!--TOOLBAR -->
 <body class="background">
 <div class="toolbar-style">
     <div class="toolbar-place-right">
@@ -21,7 +20,6 @@
     </div>
 </div>
 
-<!--LOGO AND BUTTONS -->
 <div class="start-display">
     <img class="logo-home" th:src="@{/images/flex-logo.png}" alt="Flexidle">
     <a href="#" class="btn btn-start" data-bs-toggle="modal" data-bs-target="#settings">PLAY</a>
@@ -29,7 +27,6 @@
     <a href="#" class="btn btn-start" data-bs-toggle="modal" data-bs-target="#stats">STATISTICS</a>
 </div>
 
-<!--LOG IN PAGE -->
 <div class="modal fade" id="log-in" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -41,7 +38,6 @@
 
             <div class="modal-body">
 
-                <!-- Skriva in användarnamn -->
                 <div id="view-username">
                     <p>Enter username:</p>
                     <input type="text" id="usernameInput" class="form-control mb-3" placeholder="Username">
@@ -49,15 +45,13 @@
                     <p>To start a new account, begin by entering a username.</p>
                 </div>
 
-                <!-- Skriva in lösenord (användaren finns) -->
                 <div id="view-password" class="modal-style">
                     <p>Enter your password:</p>
                     <input type="password" id="passwordInput" class="form-control mb-3" placeholder="Password">
-                    <button class="btn btn-start w-100" onclick="login()">LOGGA IN</button>
+                    <button class="btn btn-start w-100" onclick="login()">LOG IN</button>
                     <button class="btn btn-secondary w-100 mt-2" onclick="showView('view-username')">Back</button>
                 </div>
 
-                <!-- Skapa konto (användaren finns inte) -->
                 <div id="view-create" class="modal-style">
                     <p>No account found, enter a password to start new account:</p>
                     <input type="password" id="newPassword" class="form-control mb-3" placeholder="Password">
@@ -78,7 +72,6 @@
     </div>
 </div>
 
-<!-- INLOGGAD MODAL -->
 <div class="modal fade" id="logged-in" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -94,7 +87,6 @@
     </div>
 </div>
 
-<!-- CONFIRM LOGOUT MODAL -->
 <div class="modal fade" id="confirm-logout" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -123,7 +115,6 @@
     </div>
 </div>
 
-<!--STATISTICS PAGE -->
 <div class="modal fade" id="stats" tabindex="-1">
     <div class="modal-dialog modal-stats">
         <div class="modal-content">
@@ -151,18 +142,11 @@
                 <br>
 
                 <div>
-
-
                     <h3>Global statistics</h3>
                     <br>
 
                     <div class="diagram-wrapper">
                     <div class="statistics-diagram-bar">
-
-
-
-
-
                             <div class="statistics-diagram-item">
                                 <h5 class="statistics-diagram-bar-text">Wordlength: 4</h5>
                                 <div class="statistics-circle-diagram" id="g4"></div>
@@ -175,16 +159,11 @@
                             <div class="statistics-diagram-item">
                                 <h5 class="statistics-diagram-bar-text">Wordlength: 6</h5>
                                 <div class="statistics-circle-diagram" id="g6"></div>
-
                             </div>
-
                         <div id="statistics-legend" class="diagram-legend"></div>
                     </div>
-
-
                     </div>
                     <br>
-
                     <div>
                         <h3>Personal statistics</h3>
                         <br>
@@ -203,14 +182,12 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!--RULES -->
 <div class="modal fade" id="rules" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -266,7 +243,6 @@
     </div>
 </div>
 
-<!--SETTINGS PAGE FOR PLAY GAME BUTTON -->
 <div class="modal fade" id="settings" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -314,16 +290,12 @@
 
                 <br>
                 <br>
-
-
             </div>
         </div>
     </div>
 </div>
 </div>
 
-
-<!--SETTINGS PAGE FOR FLEXINGSTYLE -->
 <div class="modal fade" id="settingsCostumize" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -352,12 +324,9 @@
                 <div class="applyBtn">
                     <button class="closeBtn" data-bs-dismiss="modal" onclick="appliedSettings()">APPLY</button>
                 </div>
-
             </div>
-
                 <br>
                 <br>
-
         </div>
     </div>
 </div>
@@ -369,6 +338,5 @@
 <script src="/js/home.js"></script>
 <script src="/js/settings.js"></script>
 <script src="/js/toolbar.js"></script>
-
 </body>
 </html>

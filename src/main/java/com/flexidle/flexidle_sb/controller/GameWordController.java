@@ -47,20 +47,15 @@ public class GameWordController {
         int randomIndex;
         GameWord randomGameWord;
 
-        // will loop until a random word with correct properties is found in the full list of words from db
         for (int i = 0; i < allGameWords.size(); i++) {
             randomIndex = random.nextInt(allGameWords.size());
             randomGameWord = allGameWords.get(randomIndex);
 
             if ( randomGameWord.getWord().length() == length && randomGameWord.getLanguage().equalsIgnoreCase(language) ) {
-                System.out.println("DEBUG i getWordWithParameters, output blev " + randomGameWord.getWord());
-                //ToDo Fundera om det är bäst att returnera bara String eller om hela objektet är bättre?
+                System.out.println(randomGameWord.getWord());
                 return randomGameWord;
             }
         }
-
-        //if nothing matching was found in whole database table.
-        System.out.println("DEBUG in getWordWithParameters, no matches found in database");
         return null;
     }
 

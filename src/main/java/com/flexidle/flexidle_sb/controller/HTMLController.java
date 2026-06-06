@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 
-//en kontroller för att sköta mappings osv
 @Controller
 public class HTMLController {
 
@@ -14,40 +13,11 @@ public class HTMLController {
         return "index";
     }
 
-    @GetMapping("settings")
-    public String settings() {
-        return "settings";
-    }
-
     @GetMapping("Flexidle")
     public String flexidle() {
         return "flexidle";
     }
 
-    @GetMapping("statistics")
-    public String statistics() {
-        return "statistics";
-    }
-
-    @GetMapping("rules")
-    public String rules() {
-        return "rules";
-    }
-
-    @GetMapping("result-pop-up-won")
-    public String resultPopUpWon() {
-        return "result-pop-up-won";
-    }
-
-    @GetMapping("result-pop-up-lost")
-    public String resultPopUpLost() {
-        return "result-pop-up-lost";
-    }
-
-    @GetMapping("test")
-    public String test() {
-        return "test";
-    }
 
     @GetMapping("/flexidle")
     public String game(@RequestParam(required = false) String bg,

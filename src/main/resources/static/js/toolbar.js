@@ -14,7 +14,6 @@ const acc = document.getElementById("account-button");
 if (acc) acc.addEventListener("click", accountPressed);
 
 function settingsPressed() {
-    //console.log("SETTINGS PRESSED")
     const settingsCostumize = new bootstrap.Modal(document.getElementById('settingsCostumize'));
     settingsCostumize.show();
 }

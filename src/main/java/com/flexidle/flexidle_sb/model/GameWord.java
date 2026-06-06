@@ -36,7 +36,6 @@ public class GameWord {
                 word_id, word, language, description);
     }
 
-    //GETTERS
     public int getWord_id() {
         return word_id;
     }
@@ -53,7 +52,6 @@ public class GameWord {
         return description;
     }
 
-    //SETTERS
     public void setWord(String word) {
         this.word = word;
     }

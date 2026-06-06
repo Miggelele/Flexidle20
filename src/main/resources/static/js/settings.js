@@ -53,10 +53,7 @@ document.querySelectorAll(".nbrOfGuessesOption").forEach(btn => {
     });
 });
 
-
-
 function startGame() {
-
 
     const bg = sessionStorage.getItem("bgColour");
 
@@ -69,36 +66,30 @@ function startGame() {
     const guesses = selectedNbrOfGuesses;
     const language = selectedCountry;
 
-
-
     window.location.href =
         `/flexidle?bg=${bg}&shape=${shape}&language=${language}&length=${length}&guesses=${guesses}`;
 }
 
 function chooseRandomSettings(){
 
-    //language remove current highlight
     document.querySelectorAll(".countryOption").forEach(btn => btn.classList.remove("selected"));
-    //language randomize one
+
     let languageLength = document.querySelectorAll(".countryOption").length;
     let randomLanguage = Math.floor(Math.random() * languageLength);
     let languageBtn = document.querySelectorAll(".countryOption").item(randomLanguage);
     languageBtn.classList.add("selected");
     selectedCountry = languageBtn.dataset.value;
 
-    //wordLength remove current highlight
     document.querySelectorAll(".wordLengthOption").forEach(btn => btn.classList.remove("selected"));
-    //randomize it
+
     let wordLengthLength = document.querySelectorAll(".wordLengthOption").length;
     let randomWordLength = Math.floor(Math.random() * wordLengthLength);
     let wordLengthBtn = document.querySelectorAll(".wordLengthOption").item(randomWordLength);
     wordLengthBtn.classList.add("selected");
     selectedWordLength = parseInt(wordLengthBtn.dataset.len);
 
-
-    //nbrOfGuesses remove current highlight
     document.querySelectorAll(".nbrOfGuessesOption").forEach(btn => btn.classList.remove("selected"));
-    //randomize it
+
     let nbrOfGuessesLength = document.querySelectorAll(".nbrOfGuessesOption").length;
     let randomNbrGuesses = Math.floor(Math.random() * nbrOfGuessesLength);
     let nbrGuessesBtn = document.querySelectorAll(".nbrOfGuessesOption").item(randomNbrGuesses);
@@ -111,5 +102,4 @@ function appliedSettings(){
     let bg = "";
     bg = encodeURIComponent(document.getElementById("bgColor").value);
     sessionStorage.setItem("bgColour", bg);
-
 }

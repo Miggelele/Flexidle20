@@ -7,10 +7,6 @@ let selCountry = "swedish";
 let userLoggedIn = false;
 let currentUser = null;
 
-/*window.addEventListener("DOMContentLoaded", async () => {
-    await checkUserLoggedIn();
-    await updateView(selCountry)
-});*/
 
 document.querySelector('[data-bs-target="#stats"]')
     .addEventListener("click", async () => {
@@ -34,7 +30,6 @@ document.querySelectorAll(".statistics-flag").forEach(flag => {
 async function checkUserLoggedIn() {
 
     const userState = sessionStorage.getItem("currentUser");
-    console.log("User: " + userState);
     if (!userState || userState === "UNKNOWN") {
         userLoggedIn = false;
         currentUser = null;
@@ -42,9 +37,6 @@ async function checkUserLoggedIn() {
         currentUser = userState;
         userLoggedIn = true;
     }
-
-    console.log("currentUser:", currentUser);
-    console.log("loggedIn:", userLoggedIn);
 }
 
 async function updateView(selLanguage) {
@@ -52,23 +44,8 @@ async function updateView(selLanguage) {
     const wordLengths = [4, 5, 6];
 
     const gStats = await fetchGlobalStatistics();
-    //const pStats = null;
-
-   /* if (userLoggedIn && currentUser) {
-        const pStats = await fetchPersonalStatistics(currentUser)
-    }*/
 
     await Promise.all(wordLengths.map(async (wordLength) => {
-
-        /*const gStats = await fetchAllSlices(
-            language,
-            wordLength,
-            "global"
-        );*/
-
-        //const gStats = await fetchGlobalStatistics();
-
-        //const gSegment = buildSegments(gStats);
 
         let index;
         if (selLanguage === "swedish") {
@@ -88,23 +65,12 @@ async function updateView(selLanguage) {
                         8;
         }
 
-       /* const index =
-            wordLength === 4 ? 0 :
-                wordLength === 5 ? 1 :
-                    2;*/
-
         const gSegment = buildSegments(gStats[index], wordLength);
 
         updateCircleDiagram("g"+wordLength, gSegment);
 
-        // personal stats
         if (userLoggedIn && currentUser) {
             const pStats = await fetchPersonalStatistics(currentUser)
-
-            /*const index =
-                wordLength === 4 ? 0 :
-                    wordLength === 5 ? 1 :
-                        2;*/
 
             let index;
             if (selLanguage === "swedish") {
@@ -126,16 +92,12 @@ async function updateView(selLanguage) {
 
             const pSegments = buildSegments(pStats[index], wordLength);
 
-            //const pSegments = buildSegments(pStats);
-
             updateCircleDiagram("p"+wordLength, pSegments);
 
         } else {
             clearDiagram("p"+wordLength);
         }
 
-        //TODO lägg till förklaring av diagrammen
-        //updateLegend("g6-legend", 6);
         updateLegend("statistics-legend", 6);
     }));
 }
@@ -161,7 +123,6 @@ function buildSegments(stats, wordLength) {
     }));
 }
 
-//försöker hämta all personlig statistik samtidigt
 async function fetchPersonalStatistics(username) {
     try {
         const response = await fetch(
@@ -172,14 +133,10 @@ async function fetchPersonalStatistics(username) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const statistics = await response.json(); // int[][] från backend
-
-        console.log("PERSONAL STATS");
-        console.log(statistics);
+        const statistics = await response.json();
 
         return Promise.all(statistics);
     } catch (error) {
-        console.error("Kunde inte hämta statistik:", error);
         return null;
     }
 }
@@ -194,18 +151,13 @@ async function fetchGlobalStatistics() {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const statistics = await response.json(); // int[][] från backend
-
-        console.log("GLOBAL STATS");
-        console.log(statistics);
+        const statistics = await response.json();
 
         return Promise.all(statistics);
     } catch (error) {
-        console.error("Kunde inte hämta statistik:", error);
         return null;
     }
 }
-
 
 async function fetchAllSlices(language, wordLength, type, username = null) {
 
@@ -229,7 +181,6 @@ async function fetchAllSlices(language, wordLength, type, username = null) {
                     }
 
                     const data = await result.json();
-                    console.log(`Data (${selCountry}): `+data);
                     return Array.isArray(data) ? (data[0] ?? 0) : 0;
                 })
                 .catch(() => 0)
@@ -304,7 +255,6 @@ function clearDiagram(id) {
     circle.style.background = "conic-gradient(#ddd 0% 100%)";
 }
 
-//färgförklaringen
 function updateLegend(id, wordLength) {
 
     const legend = document.getElementById(id);
@@ -333,7 +283,6 @@ function updateLegend(id, wordLength) {
         legend.appendChild(row);
     }
 
-    // röd = misslyckades
     const failRow = document.createElement("div");
     failRow.className = "legend-item";
 

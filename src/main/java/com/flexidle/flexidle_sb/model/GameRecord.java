@@ -32,7 +32,6 @@ public class GameRecord {
         this.date = LocalDate.now();
     }
 
-    //GETTERS
     public int getGame_id() {
         return game_id;
     }
@@ -53,7 +52,6 @@ public class GameRecord {
         return date;
     }
 
-    //SETTERS
     public void setMax_guesses(int max_guesses) {
         this.max_guesses = max_guesses;
     }

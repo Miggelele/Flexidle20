@@ -22,24 +22,19 @@ const keyboardGreenArray = [];
 const keyboardYellowArray = [];
 const keyboardGrayArray = [];
 
-//Debug. Prints the selected settings in console (F12)
-console.log(`Wordlength:   ${wordLength}      Language:   ${language}`);
-
 /**
  * @Author Frida
  * @section fetch
  */
-//fetches a word from backend with the given settings, saves it, then prints the word in the console F12
+
 fetch(`/game_word/${wordLength}/${language}`)
     .then(response => response.json())
     .then(data => {
-
         answer = data.word;
         wordId = data.word_id;
         console.log(answer);
     })
     .catch(error => {
-        console.error("Fel:", error);
     });
 
 
@@ -48,16 +43,10 @@ fetch(`/game_word/${wordLength}/${language}`)
  * @Section: startGame()
  */
 function startGame(){
-
-    //första koll om inloggning fungerar!
     if (currentUser=== "UNKNOWN") {
-        console.log(`Game started. not logged in!`)
     } else {
-        console.log(`Game started. logged in as: ` + currentUser);
     }
 
-    //checks if maxGuesses is invalid, possibly due to user interference in url.
-    //if invalid it redirects user back to settings page.
     if (maxGuesses < 4 || maxGuesses > 6 ) {
         window.location.href = "/settings";
         return;
@@ -215,8 +204,6 @@ function deleteLetter() {
 
     if (tileShape === "heart") tile.textContent = "💙";
     else if (tileShape === "dog") tile.textContent = "🐶";
-    /*else if (tileShape === "diamond") tile.textContent = "🔷";
-    else if (tileShape === "triangle") tile.textContent = "△";*/
     else tile.textContent = "";
 }
 
@@ -225,7 +212,6 @@ function deleteLetter() {
  * @Section: makeGuess()
  */
 function makeGuess(){
-    console.log(currentUser);
     if (currentCol < wordLength) return;
 
     const guess = [];
@@ -239,7 +225,6 @@ function makeGuess(){
 
     const result = Array(wordLength).fill("gray");
 
-    //Check for Green letters
     for (let i = 0; i < wordLength; i++) {
         if (guessArray[i] === answerArray[i]) {
             result[i] = "green";
@@ -248,7 +233,6 @@ function makeGuess(){
         }
     }
 
-    //Check for Yellow letters
     for (let i = 0; i < wordLength; i++) {
         if (guessArray[i] === null) {
             continue;
@@ -261,15 +245,12 @@ function makeGuess(){
         }
     }
 
-    //FLip all letters to corresponding color
     for (let i = 0; i < wordLength; i++) {
         const tile = board.children[currentRow * wordLength + i];
 
-        //delay so that the flipflops happen at same time
         setTimeout(() => {
             tile.classList.add("flip");
 
-            //adds correctcolour to flip and to the keyboard-keys-array.
             setTimeout(() => {
                 if (result[i] === "green") {
                     tile.classList.add("correctLetter");
@@ -281,20 +262,18 @@ function makeGuess(){
                     tile.classList.add("wrongLetter");
                     keyboardGrayArray.push(guess[i]);
                 }
-        }, 250); //half the time of the flip so that it changes color mid-flip.
+        }, 250);
 
-        }, i * 200); //so the flips happen in order.
-        //waits for all the animations to happen and the logic so the keyboard can correctly change colours.
+        }, i * 200);
+
         setTimeout(() => {
             applyKeyboardColors();
-        }, wordLength * 200 + 300); //time for the last tile to start flipping + extra.
+        }, wordLength * 200 + 300);
     }
 
     if (guessString === answer) {
         gameOver = true;
-        //TODO: skapa popuppp av resultWon
         showResultWon(answer, currentRow+1);
-        //ToDo: Skicka resultatet till backend
         if (currentUser != null && currentUser !== "UNKNOWN") {
             saveResult(wordId, currentRow+1, maxGuesses, true);
         }
@@ -305,10 +284,9 @@ function makeGuess(){
 
     if (currentRow >= maxGuesses) {
         gameOver = true;
-        //TODO: skapa popuppp av resultLost
+
         showResultLost(answer);
 
-        //ToDo: Skicka resultatet till backend
         if (currentUser != null && currentUser !== "UNKNOWN") {
             saveResult(wordId, currentRow, maxGuesses, false);
         }
@@ -318,7 +296,6 @@ function makeGuess(){
 document.addEventListener("keydown", e => {
     let languageString;
 
-    //checkar att där du skriver in, inte är ett input fält (för logga in pop-up)
     if (e.target.tagName === 'INPUT') {
         return;
     }
@@ -347,14 +324,12 @@ document.addEventListener("keydown", e => {
 });
 
 /**
- * @Author:
+ * @Author: Elin Piho, Isabell Persson
  * @Section: showResultWon()
  */
 function showResultWon(word, tries) {
-    // Visa fyrverkerier
     document.getElementById('fireworks-container').style.display = 'block';
 
-    //jag tycker dem ska vara kvar tills man stänger fönstret
     setTimeout(() => {
         document.getElementById('fireworks-container').style.display = 'none';
     }, 100000000);
@@ -368,7 +343,7 @@ function showResultWon(word, tries) {
 }
 
 /**
- * @Author:
+ * @Author: Elin Piho, Isabell Persson
  * @Section: showResultLost()
  */
 function showResultLost(word) {
@@ -380,6 +355,7 @@ function showResultLost(word) {
     const modal = new bootstrap.Modal(document.getElementById('result-lost'));
     modal.show();
 }
+
 
 function saveResult(wordId, madeGuesses, maxGuesses, gameWon) {
     const gameRecord = {
@@ -424,6 +400,10 @@ function goToSettings() {
     window.location.href = `/?openSettings=true`;
 }
 
+/**
+ * @Author: Elin Piho
+ * @Section: showResultLost()
+ */
 function startRain() {
     const container = document.getElementById('rain-container');
     container.style.display = 'block';
@@ -444,12 +424,12 @@ function startRain() {
         container.innerHTML = '';
     }, 10000000);
 }
+
 /**
  * @Author: Cecilia R
  * @Section: applyKeyboardColors()
  */
 function applyKeyboardColors(){
-    //Change colors of the on-screen-keyboard
     document.querySelectorAll(".key").forEach(btn => {
 
         if (keyboardGreenArray.includes(btn.textContent)){
@@ -467,6 +447,5 @@ function applyKeyboardColors(){
             btn.classList.remove("correctGuessedKey");
             btn.classList.add("wrongGuessedKey");
         }
-
     });
 }

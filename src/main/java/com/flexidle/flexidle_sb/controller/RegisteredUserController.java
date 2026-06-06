@@ -37,10 +37,8 @@ public class RegisteredUserController {
     public boolean checkUsername(@PathVariable String username) {
         RegisteredUser registeredUser = registeredUserService.getRegisteredUserByUsername(username);
         if (registeredUser != null) {
-            System.out.println("DEBUG username '" + username + "' finns!");
             return true;
         } else {
-            System.out.println("DEBUG username '" + username + "' finns inte!");
             return false;
         }
     }

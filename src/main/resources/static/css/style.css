@@ -1,15 +1,11 @@
-/*Global*/
+/*Global
+author: Elin Piho
+*/
+
 .background {
     background-color: #333;
     color: white;
 }
-
-/*@media (prefers-color-scheme: light) {
-    .background {
-        background-color: #f9f9f9;
-        color: black;
-    }
-}*/
 
 .wordle-green {
     background: #25af5c;
@@ -180,38 +176,23 @@ section: Settings
     margin-bottom: 20px;
 }
 
-/*@media (prefers-color-scheme: dark) {
-    .settingsPage {
-        background-color: #333;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 20px;
-    }
-}*/
-
 #settings {
     background: #222;
     padding: 20px;
     border-radius: 10px;
     color: white;
 }
+
 label {
     display: inline-block;
     margin: 10px 0;
 }
 
 button{
-    /*margin-top: 15px;*/
-    /*padding: 10px 20px;*/
-    /*cursor: pointer;*/
-
     display: inline-flex;
     justify-content: center;
     align-items: center;
 
-    /*width: 120px;*/
     width: auto;
     height: 50px;
 
@@ -276,19 +257,6 @@ section: Gameboard
     margin-top: 40px;
 }
 
-
-/*@media (prefers-color-scheme: light) {
-    .gameboard {
-        ffont-family: "Times New Roman", sans-serif;
-        background: #f9f9f9;
-        color: black;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 40px;
-    }
-}*/
-
 h1 { margin-bottom: 10px; }
 
 #board{
@@ -296,6 +264,7 @@ h1 { margin-bottom: 10px; }
     gap: 5px;
     margin-bottom: 20px;
 }
+
 .tile {
     width: 48px;
     height: 48px;
@@ -304,9 +273,6 @@ h1 { margin-bottom: 10px; }
     align-items: center;
     justify-content: center;
     font-size: 24px;
-    /*transition: transform 0.4s ease, background-color 0.3s;*/
-    /*transform-style: preserve-3d;*/
-
 }
 
 .flip{
@@ -329,20 +295,23 @@ h1 { margin-bottom: 10px; }
     justify-content: center;
     align-items: center;
 }
+
 .rhomb span{
     transform: rotate(-45deg);
 }
+
 .correctLetter {
     background: #25af5c;
     border-color: #25af5c;
     color: #fff;
-
 }
+
 .existingLetter {
     background: #ffc217;
     border-color: #ffc217;
     color: #fff;
 }
+
 .wrongLetter {
     background: #3a3a3c;
     border-color: #3a3a3c;
@@ -351,14 +320,12 @@ h1 { margin-bottom: 10px; }
 
 #keyboard {
     margin-top: 20px;
-
 }
 
 .keyboardRow {
     display: flex;
     justify-content: center;
     margin-bottom: 5px;
-
 }
 
 .key{
@@ -376,6 +343,7 @@ h1 { margin-bottom: 10px; }
     align-items: center;
     cursor: pointer;
 }
+
 .correctGuessedKey{
     background: #25af5c;
     color: #fff;
@@ -387,6 +355,7 @@ h1 { margin-bottom: 10px; }
     border-radius: 6px;
     font-size: 20px;
 }
+
 .existingGuessedKey{
     background: #ffc217;
     color: #fff;
@@ -411,8 +380,6 @@ h1 { margin-bottom: 10px; }
     font-size: 20px;
 }
 
-
-
 .actionKey {
     background: #5b5b5b;
     padding: 12px 14px;
@@ -425,7 +392,6 @@ h1 { margin-bottom: 10px; }
     margin-top: 50px;
     margin-bottom: 35px;
 }
-
 
 
 /*
@@ -444,16 +410,6 @@ section: Statistics
     background-color: #f9f9f9;
     color: black;
 }
-
-/*@media (prefers-color-scheme: light) {
-    .statistics-style {
-        font-family: "Times New Roman";
-        font-size: 20px;
-        background-color: #f9f9f9;
-        color: black;
-    }
-}*/
-
 
 .statistics-diagram-item {
     display: flex;
@@ -528,7 +484,7 @@ button {
 }
 
 .toast-header .btn-close {
-    filter: invert(1);  /* gör stäng-knappen vit */
+    filter: invert(1);
 }
 
 
@@ -753,106 +709,10 @@ section: Toolbar
     padding: 10px;
 }
 
-/* ATTEMPT TO DO TRANGLES
-.triangle-test-ish-working{
-    clip-path: polygon(
-            50% 0%,
-            0% 100%,
-            100% 100%
-    );
 
-    background: #eeeeee;
-    color: #1a1a1b;
-
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    padding-bottom: 6px;
-}
-
-
-.triangle-test {
-    position: relative;
-
-    width: 48px;
-    height: 48px;
-
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-
-    padding-bottom: 5px;
-}
-
-.triangle-test svg{
-    position: absolute;
-    inset: 0;
-
-    width: 100%;
-    height: 100%;
-}
-
-.triangle-test polygon{
-    fill: none;
-    stroke: #eeeeee;
-    stroke-width: 4;
-}
-
-.triangle-test span{
-    position: relative;
-    z-index: 1;
-
-    color: #eeeeee;
-}
-
-
-.triangle-test-2{
-    width: 48px;
-    height: 48px;
-
-    position: relative;
-
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-
-    padding-bottom: 6px;
-
-    color: #eeeeee;
-
-    clip-path: polygon(
-            50% 0%,
-            0% 100%,
-            100% 100%
-    );
-
-    background: transparent;
-}
-
-.triangle-test-2::before{
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    clip-path: inherit;
-
-    outline: 2px solid #eeeeee;
-    outline-offset: -2px;
-
-    pointer-events: none;
-}
-
-.triangle-test-2 span{
-    position: relative;
-
-    transform: translateY(6px);
-
-    z-index: 1;
-}
+/*
+Section: Special effects
  */
-
-/*SPECIAL EFFECTS*/
 body {
     margin: 0;
     height: 100vh;
@@ -866,12 +726,7 @@ body {
     100% { width: var(--finalSize); opacity: 0; }
 }
 
-/* @keyframes fireworkPseudo {
-  0% { transform: translate(-50%, -50%); width: var(--initialSize); opacity: 1; }
-  50% { width: 0.5vmin; opacity: 1; }
-  100% { width: var(--finalSize); opacity: 0; }
-}
- */
+ *
 .firework,
 .firework::before,
 .firework::after
@@ -903,13 +758,11 @@ body {
             radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 100% 100%,
             radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 0% 100%,
 
-
             radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 50% 0%,
             radial-gradient(circle, var(--color2) var(--particleSize), #0000 0) 100% 50%,
             radial-gradient(circle, var(--color3) var(--particleSize), #0000 0) 50% 100%,
             radial-gradient(circle, var(--color4) var(--particleSize), #0000 0) 0% 50%,
 
-                /* bottom right */
             radial-gradient(circle, var(--color5) var(--particleSize), #0000 0) 80% 90%,
             radial-gradient(circle, var(--color6) var(--particleSize), #0000 0) 95% 90%,
             radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 90% 70%,
@@ -917,7 +770,6 @@ body {
             radial-gradient(circle, var(--color3) var(--particleSize), #0000 0) 55% 80%,
             radial-gradient(circle, var(--color4) var(--particleSize), #0000 0) 70% 77%,
 
-                /* bottom left */
             radial-gradient(circle, var(--color5) var(--particleSize), #0000 0) 22% 90%,
             radial-gradient(circle, var(--color6) var(--particleSize), #0000 0) 45% 90%,
             radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 33% 70%,
@@ -926,7 +778,6 @@ body {
             radial-gradient(circle, var(--color4) var(--particleSize), #0000 0) 28% 77%,
             radial-gradient(circle, var(--color5) var(--particleSize), #0000 0) 13% 72%,
 
-                /* top left */
             radial-gradient(circle, var(--color6) var(--particleSize), #0000 0) 80% 10%,
             radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 95% 14%,
             radial-gradient(circle, var(--color2) var(--particleSize), #0000 0) 90% 23%,
@@ -935,7 +786,6 @@ body {
             radial-gradient(circle, var(--color5) var(--particleSize), #0000 0) 77% 37%,
             radial-gradient(circle, var(--color6) var(--particleSize), #0000 0) 60% 7%,
 
-                /* top right */
             radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 22% 14%,
             radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 45% 20%,
             radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 33% 34%,
@@ -952,18 +802,14 @@ body {
     --x: -50%;
     --y: -50%;
     --initialY: -50%;
-    /*   transform: translate(-20vmin, -2vmin) rotate(40deg) scale(1.3) rotateY(40deg); */
     transform: translate(-50%, -50%) rotate(40deg) scale(1.3) rotateY(40deg);
-    /*   animation: fireworkPseudo 2s infinite; */
 }
 
 .firework::after {
     --x: -50%;
     --y: -50%;
     --initialY: -50%;
-    /*   transform: translate(44vmin, -50%) rotate(170deg) scale(1.15) rotateY(-30deg); */
     transform: translate(-50%, -50%) rotate(170deg) scale(1.15) rotateY(-30deg);
-    /*   animation: fireworkPseudo 2s infinite; */
 }
 
 .firework:nth-child(2) {
@@ -1020,7 +866,7 @@ body {
     }
 }
 
-/*fridas experiment för diagram-legend*/
+
 .diagram-wrapper {
     display: flex;
     align-items: center;
@@ -1032,14 +878,6 @@ body {
     flex-direction: column;
     gap: 6px;
 }
-
-/*.diagram-legend {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-}*/
 
 .legend-item {
     display: flex;

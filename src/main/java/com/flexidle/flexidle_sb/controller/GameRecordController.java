@@ -32,19 +32,16 @@ public class GameRecordController {
 
     @GetMapping("/allPersonalStatistics/{username}")
     public int[][] getAllPersonalStatistics(@PathVariable String username) {
-        int[][] stats = new int[][] {{}, {}, {}, {}, {}, {}, {}, {}, {}}; //plats för 9 diagram
+        int[][] stats = new int[][] {{}, {}, {}, {}, {}, {}, {}, {}, {}};
 
-        //TODO felhantering av username när riktiga funktionen implementeras
-        //personal
-        //swedish
         stats[0] = new int[]{10, 15, 35, 35, 5};
         stats[1] = new int[]{10, 12, 15, 25, 30, 8};
         stats[2] = new int[]{6, 8, 14, 18, 22, 25, 7};
-        //english
+
         stats[3] = new int[]{8, 10, 20, 40, 22};
         stats[4] = new int[]{7, 8, 17, 25, 28, 15};
         stats[5] = new int[]{8, 8, 12, 15, 22, 25, 10};
-        //german
+
         stats[6] = new int[]{7, 10, 20, 43, 20};
         stats[7] = new int[]{8, 8, 14, 25, 30, 15};
         stats[8] = new int[]{7, 8, 10, 15, 20, 20, 20};
@@ -54,17 +51,16 @@ public class GameRecordController {
 
     @GetMapping("/allGlobalStatistics")
     public int[][] getAllGlobalStatistics() {
-        int[][] stats = new int[][] {{}, {}, {}, {}, {}, {}, {}, {}, {}}; //plats för 9 diagram
-        //global
-        //swedish
+        int[][] stats = new int[][] {{}, {}, {}, {}, {}, {}, {}, {}, {}};
+
         stats[0] = new int[] { 5,10,30,45,10};
         stats[1] = new int[] { 5,10,20,20,35,10};
         stats[2] = new int[] { 3,7,10,15,20,30,15};
-        //english
+
         stats[3] = new int[] { 3,5,15,45,32};
         stats[4] = new int[] { 2,3,12,35,25,23};
         stats[5] = new int[] { 3,3,10,19,20,20,25};
-        //german
+
         stats[6] = new int[] { 2,5,15,38,40};
         stats[7] = new int[] { 3,3,15,30,29,20};
         stats[8] = new int[] { 2,3,5,15,25,25,25};
@@ -159,92 +155,10 @@ public class GameRecordController {
         return winStatsInPercentages;
     }
 
-    /**
-     * Finds statistics from game records in database for a given language and wordlength, for a
-     * specific user.
-     * Used in frontend to generate circle diagrams in statistics menu.
-     * Returns an int array, where the elements represent the percentages of games won for the number of
-     * guesses matching that index. For example, [10, 20, 40, 30] means 10 % of games were won on
-     * the first guess, 20 % of games won on the second guess.
-     *
-     * @param language      language setting for the statistics wanted
-     * @param wordLength    word length for the statistics wanted
-     * @param maxGuesses    max guesses for statistics wanted
-     * @param username      the username for the statistics wanted.
-     *
-     * @return              an int[], representing percentages of wins for the different number of
-     *                      guesses, for a specific user.
-     *
-     * @author Frida Sjögren
-     */
-//    @GetMapping("/personal/{username}/{language}/{wordLength}/{maxGuesses}")
-//    public int[] getPersonalStatistics(@PathVariable String username, @PathVariable String language, @PathVariable int wordLength, @PathVariable int maxGuesses) {
-//        List<GameRecord> allGameRecords = gameRecordService.getAllGameRecords();
-//
-//        //keeps track of how many games were won at different number of guesses
-//        double[] winsInAmount = new double[maxGuesses];
-//
-//        for (int i  = 0; i < allGameRecords.size(); i++) {
-//            //Checks for games matching the maxGuesses parameter
-//            if (allGameRecords.get(i).getMax_guesses() == maxGuesses) {
-//
-//                //Gets the word used in the game_record.
-//                int gameId = allGameRecords.get(i).getGame_id();
-//                UsedWord usedWord = usedWordService.getUsedWordById(gameId);
-//
-//                //checks if the username matches
-//                if (usedWord.getUsername().equals(username)) {
-//
-//                    GameWord gameWord = gameWordService.getGameWordById(gameId);
-//
-//                    //Checks for matching language parameter
-//                    if (gameWord.getLanguage().equalsIgnoreCase(language)) {
-//
-//                        //Checks for matching word length
-//                        if (gameWord.getWord().length() == wordLength) {
-//
-//                            //if the game_record matches then an index matching the made guesses is increased by one.
-//                            winsInAmount[allGameRecords.get(i).getMade_guesses()]++;
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//
-//        int totalGames = 0;
-//        for (int i = 0; i < winsInAmount.length; i++) {
-//            totalGames += winsInAmount[i];
-//        }
-//
-//        int[] winStatsInPercentages = new int[maxGuesses];
-//
-//        for (int i  = 0; i < winStatsInPercentages.length; i++) {
-//            double percentage = winsInAmount[i] * 100 / totalGames;
-//            winStatsInPercentages[i] = Math.toIntExact(Math.round(percentage));
-//        }
-//
-//        //sums the percentages to see if they add up to 100.
-//        int sumPercentages = 0;
-//        for (int i  = 0; i < winStatsInPercentages.length; i++) {
-//            sumPercentages += winStatsInPercentages[i];
-//        }
-//
-//        //if a rounding error has occurred the first index is adjusted
-//        if (sumPercentages > 100) {
-//            winStatsInPercentages[0] -= (sumPercentages-100);
-//        } else if (sumPercentages < 100) {
-//            winStatsInPercentages[1] += (sumPercentages-100);
-//        }
-//
-//        System.out.println("winStatsInPercentages: " + Arrays.toString(winStatsInPercentages));
-//        return winStatsInPercentages;
-//    }
-
     @GetMapping("/personal/{username}/{language}/{wordLength}/{maxGuesses}")
     public int[] getPersonalStatistics(@PathVariable String username, @PathVariable String language, @PathVariable int wordLength, @PathVariable int maxGuesses) {
         List<GameRecord> allGameRecords = gameRecordService.getAllGameRecords();
 
-        //keeps track of how many games were won at different number of guesses
         double[] winsInAmount = new double[maxGuesses];
 
         for (GameRecord record : allGameRecords) {
@@ -258,7 +172,6 @@ public class GameRecordController {
             UsedWord usedWord = usedWordService.getUsedWordById(gameId);
             GameWord gameWord = gameWordService.getGameWordById(gameId);
 
-            // checks for 500 errors
             if (usedWord == null || gameWord == null) {
                 continue;
             }
@@ -266,7 +179,6 @@ public class GameRecordController {
                 continue;
             }
 
-            // checks statistics for the right person and language
             if (!usedWord.getUsername().equals(username)) {
                 continue;
             }
@@ -292,7 +204,6 @@ public class GameRecordController {
 
         int[] winStatsInPercentages = new int[maxGuesses];
 
-        // if 0 return now to prevent division by 0
         if (totalGames == 0) {
             System.out.println("winStatsInPercentages: " + Arrays.toString(winStatsInPercentages));
             return winStatsInPercentages;
@@ -303,13 +214,11 @@ public class GameRecordController {
             winStatsInPercentages[i] = (int) Math.round(percentage);
         }
 
-        //sums the percentages to see if they add up to 100.
         int sumPercentages = 0;
         for (int value : winStatsInPercentages) {
             sumPercentages += value;
         }
 
-        //if a rounding error has occurred the first index is adjusted
         if (sumPercentages != 100 && totalGames > 0) {
             int difference = 100 - sumPercentages;
             winStatsInPercentages[0] += difference;
@@ -334,6 +243,4 @@ public class GameRecordController {
     public void deleteGameRecord(@PathVariable int id) {
         gameRecordService.deleteGameRecord(id);
     }
-
-
 }
