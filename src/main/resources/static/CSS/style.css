@@ -1,5 +1,6 @@
-/*Global
+/*
 author: Elin Piho
+section: Global
 */
 
 .background {
@@ -18,8 +19,6 @@ author: Elin Piho
 .wordle-grey {
     background: #3a3a3c;
 }
-
-
 
 /*
 author: Elin Piho
@@ -101,7 +100,7 @@ section: Home Page
 
 /*
 author: Elin Piho
-section: home page modal
+section: Home Page Modal
 */
 .modal-style  {
     display: none;
@@ -161,7 +160,7 @@ select.form-control option {
 
 /*
 author: Cecilia Raalas
-section: Settings
+section: Game Settings
  */
 
 .settingsPage,
@@ -709,9 +708,9 @@ section: Toolbar
     padding: 10px;
 }
 
-
 /*
-Section: Special effects
+author: Elin Piho
+section: Special effects
  */
 body {
     margin: 0;
@@ -865,7 +864,6 @@ body {
         transform: translateY(110vh);
     }
 }
-
 
 .diagram-wrapper {
     display: flex;

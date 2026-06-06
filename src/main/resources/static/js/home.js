@@ -1,3 +1,5 @@
+
+
 if (!sessionStorage.getItem("currentUser")) {
     sessionStorage.setItem("currentUser", "UNKNOWN");
 }

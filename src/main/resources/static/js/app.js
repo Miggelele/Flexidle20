@@ -23,8 +23,8 @@ const keyboardYellowArray = [];
 const keyboardGrayArray = [];
 
 /**
- * @Author Frida
- * @section fetch
+ * author: Frida Sjögren
+ * section: Gameboard
  */
 
 fetch(`/game_word/${wordLength}/${language}`)
@@ -39,8 +39,8 @@ fetch(`/game_word/${wordLength}/${language}`)
 
 
 /**
- * @Author: Cecilia Raalas
- * @Section: startGame()
+ * author: Cecilia Raalas
+ * section: Gameboard
  */
 function startGame(){
     if (currentUser=== "UNKNOWN") {
@@ -74,8 +74,8 @@ function startGame(){
 }
 
 /**
- * @Author: Cecilia Raalas
- * @Section: buildKeyboard()
+ * author: Cecilia Raalas
+ * section: Gameboard
  */
 function buildKeyboard(){
     keyboard.innerHTML = "";
@@ -137,8 +137,8 @@ function buildKeyboard(){
 }
 
 /**
- * @Author: Cecilia Raalas
- * @Section: pressedKey()
+ * author: Cecilia Raalas
+ * section: Gameboard
  */
 function pressedKey(key, actionKey) {
     let languageString;
@@ -166,8 +166,8 @@ function pressedKey(key, actionKey) {
 }
 
 /**
- * @Author: Cecilia Raalas
- * @Section: addLetter()
+ * author: Cecilia Raalas
+ * section: Gameboard
  */
 function addLetter(letter){
     if (currentCol >= wordLength){
@@ -193,8 +193,8 @@ function addLetter(letter){
 }
 
 /**
- * @Author: Cecilia Raalas
- * @Section: deleteLetter()
+ * author: Cecilia Raalas
+ * section: Gameboard
  */
 function deleteLetter() {
     if (currentCol === 0) return;
@@ -208,8 +208,8 @@ function deleteLetter() {
 }
 
 /**
- * @Author: Cecilia Raalas
- * @Section: makeGuess()
+ * author: Cecilia Raalas, Mikael Szalai
+ * section: Gameboard
  */
 function makeGuess(){
     if (currentCol < wordLength) return;
@@ -293,6 +293,10 @@ function makeGuess(){
     }
 }
 
+/**
+ * author: Cecilia Raalas
+ * section: Gameboard
+ */
 document.addEventListener("keydown", e => {
     let languageString;
 
@@ -324,8 +328,8 @@ document.addEventListener("keydown", e => {
 });
 
 /**
- * @Author: Elin Piho, Isabell Persson
- * @Section: showResultWon()
+ * author: Elin Piho, Isabell Persson
+ * section: Gameboard
  */
 function showResultWon(word, tries) {
     document.getElementById('fireworks-container').style.display = 'block';
@@ -343,8 +347,8 @@ function showResultWon(word, tries) {
 }
 
 /**
- * @Author: Elin Piho, Isabell Persson
- * @Section: showResultLost()
+ * author: Elin Piho, Isabell Persson
+ * section: Gameboard
  */
 function showResultLost(word) {
     startRain();
@@ -356,7 +360,10 @@ function showResultLost(word) {
     modal.show();
 }
 
-
+/**
+ * author: Mikael Szalai
+ * section: Gameboard
+ */
 function saveResult(wordId, madeGuesses, maxGuesses, gameWon) {
     const gameRecord = {
         made_guesses: madeGuesses,
@@ -392,17 +399,25 @@ function saveResult(wordId, madeGuesses, maxGuesses, gameWon) {
 
 startGame();
 
+/**
+ * author: Elin Piho
+ * section: Gameboard
+ */
 function playAgain() {
     window.location.href = `/flexidle?bg=${encodeURIComponent(bgColor)}&shape=${tileShape}&language=${language}&length=${wordLength}&guesses=${maxGuesses}`;
 }
 
+/**
+ * author: Elin Piho
+ * section: Gameboard
+ */
 function goToSettings() {
     window.location.href = `/?openSettings=true`;
 }
 
 /**
- * @Author: Elin Piho
- * @Section: showResultLost()
+ * author: Elin Piho
+ * section: Gameboard
  */
 function startRain() {
     const container = document.getElementById('rain-container');
@@ -426,8 +441,8 @@ function startRain() {
 }
 
 /**
- * @Author: Cecilia R
- * @Section: applyKeyboardColors()
+ * author: Cecilia Raalas
+ * section: Gameboard
  */
 function applyKeyboardColors(){
     document.querySelectorAll(".key").forEach(btn => {

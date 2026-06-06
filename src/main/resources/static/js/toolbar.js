@@ -1,3 +1,7 @@
+/**
+ * author: Isabell Persson
+ * section: Toolbar
+ */
 const cog = document.getElementById("cogwheel-button");
 if (cog) cog.addEventListener("click", settingsPressed);
 
@@ -13,25 +17,45 @@ if (ret) ret.addEventListener("click", returnPressed);
 const acc = document.getElementById("account-button");
 if (acc) acc.addEventListener("click", accountPressed);
 
+/**
+ * author: Isabell Persson, Cecilia Raalas
+ * section: Toolbar
+ */
 function settingsPressed() {
     const settingsCostumize = new bootstrap.Modal(document.getElementById('settingsCostumize'));
     settingsCostumize.show();
 }
 
+/**
+ * author: Isabell Persson, Elin Piho
+ * section: Toolbar
+ */
 function statisticsPressed() {
     const statsModal = new bootstrap.Modal(document.getElementById('stats'));
     statsModal.show();
 }
 
+/**
+ * author: Isabell Persson, Elin Piho
+ * section: Toolbar
+ */
 function rulesPressed() {
     const rulesModal = new bootstrap.Modal(document.getElementById('rules'));
     rulesModal.show();
 }
 
+/**
+ * author: Isabell Persson
+ * section: Toolbar
+ */
 function returnPressed() {
     window.location.href = '/';
 }
 
+/**
+ * author: Isabell Persson, Elin Piho
+ * section: Toolbar
+ */
 function accountPressed() {
     const accountModal = new bootstrap.Modal(document.getElementById('log-in'));
     accountModal.show();

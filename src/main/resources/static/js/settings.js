@@ -1,6 +1,6 @@
 /**
- * @author: Cecilia Raalas
- * @section: settings.js
+ * author: Cecilia Raalas
+ * section: Game Settings
  */
 let selectedShape = "square";
 let selectedWordLength = 5;
@@ -53,6 +53,10 @@ document.querySelectorAll(".nbrOfGuessesOption").forEach(btn => {
     });
 });
 
+/**
+ * author: Cecilia Raalas
+ * section: Game Settings
+ */
 function startGame() {
 
     const bg = sessionStorage.getItem("bgColour");
@@ -70,6 +74,10 @@ function startGame() {
         `/flexidle?bg=${bg}&shape=${shape}&language=${language}&length=${length}&guesses=${guesses}`;
 }
 
+/**
+ * author: Cecilia Raalas
+ * section: Game Settings
+ */
 function chooseRandomSettings(){
 
     document.querySelectorAll(".countryOption").forEach(btn => btn.classList.remove("selected"));
@@ -98,6 +106,10 @@ function chooseRandomSettings(){
 
 }
 
+/**
+ * author: Cecilia Raalas
+ * section: Game Settings
+ */
 function appliedSettings(){
     let bg = "";
     bg = encodeURIComponent(document.getElementById("bgColor").value);

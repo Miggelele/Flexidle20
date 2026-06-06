@@ -1,4 +1,7 @@
-
+/**
+ * author: Isabell Persson
+ * section: Gameboard
+ */
 function showResultMessageLost() {
     const params = new URLSearchParams(window.location.search);
 

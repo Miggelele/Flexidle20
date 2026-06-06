@@ -1,7 +1,7 @@
-/*
-author: Isabell Persson
-section: Statistics
-*/
+/**
+ * author: Isabell Persson, Frida Sjögren
+ * section: Statistics
+ */
 
 let selCountry = "swedish";
 let userLoggedIn = false;
@@ -26,7 +26,10 @@ document.querySelectorAll(".statistics-flag").forEach(flag => {
         await updateView(selCountry);
     });
 });
-
+/**
+ * author: Isabell Persson
+ * section: Statistics
+ */
 async function checkUserLoggedIn() {
 
     const userState = sessionStorage.getItem("currentUser");
@@ -39,6 +42,10 @@ async function checkUserLoggedIn() {
     }
 }
 
+/**
+ * author: Frida Sjögren
+ * section: Statistics
+ */
 async function updateView(selLanguage) {
 
     const wordLengths = [4, 5, 6];
@@ -102,6 +109,10 @@ async function updateView(selLanguage) {
     }));
 }
 
+/**
+ * author: Isabell Persson
+ * section: Statistics
+ */
 function buildSegments(stats, wordLength) {
     const clean = stats.map(value => {
         const number = Number(value);
@@ -123,6 +134,10 @@ function buildSegments(stats, wordLength) {
     }));
 }
 
+/**
+ * author: Isabell Persson, Frida Sjögren
+ * section: Statistics
+ */
 async function fetchPersonalStatistics(username) {
     try {
         const response = await fetch(
@@ -141,6 +156,10 @@ async function fetchPersonalStatistics(username) {
     }
 }
 
+/**
+ * author: Isabell Persson, Frida Sjögren
+ * section: Statistics
+ */
 async function fetchGlobalStatistics() {
     try {
         const response = await fetch(
@@ -159,36 +178,10 @@ async function fetchGlobalStatistics() {
     }
 }
 
-async function fetchAllSlices(language, wordLength, type, username = null) {
-
-    const slices = [];
-
-    for (let maxGuesses = 1; maxGuesses <= 6; maxGuesses++) {
-
-        let url;
-
-        if (type === "global") {
-            url = `/game_record/global/${language}/${wordLength}/${maxGuesses}`;
-        } else {
-            url = `/game_record/personal/${username}/${language}/${wordLength}/${maxGuesses}`;
-        }
-
-        slices.push(
-            fetch(url)
-                .then(async (result) => {
-                    if (!result.ok) {
-                        throw new Error("HTTP "+result.status);
-                    }
-
-                    const data = await result.json();
-                    return Array.isArray(data) ? (data[0] ?? 0) : 0;
-                })
-                .catch(() => 0)
-        );
-    }
-    return Promise.all(slices);
-}
-
+/**
+ * author: Frida Sjögren
+ * section: Statistics
+ */
 function getColor(index, wordLength) {
     let colors;
 
@@ -223,6 +216,10 @@ function getColor(index, wordLength) {
     return colors[index] || "#757575";
 }
 
+/**
+ * author: Isabell Persson
+ * section: Statistics
+ */
 function updateCircleDiagram(id, segments) {
     const circle = document.getElementById(id);
 
@@ -246,6 +243,10 @@ function updateCircleDiagram(id, segments) {
     circle.style.background = `conic-gradient(${gradientParts.join(', ')})`;
 }
 
+/**
+ * author: Isabell Persson
+ * section: Statistics
+ */
 function clearDiagram(id) {
     const circle = document.getElementById(id);
 
@@ -255,6 +256,10 @@ function clearDiagram(id) {
     circle.style.background = "conic-gradient(#ddd 0% 100%)";
 }
 
+/**
+ * author: Frida Sjögren
+ * section: Statistics
+ */
 function updateLegend(id, wordLength) {
 
     const legend = document.getElementById(id);
