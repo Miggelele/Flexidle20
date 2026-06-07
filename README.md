@@ -1,5 +1,6 @@
 Länk till repository: https://github.com/Miggelele/Flexidle20
-(Klicka på flexidle 1.0 under "Releases" och ladda ner Source Code (zip) för senaste versionen)
+
+Tryck på knappen "<> CODE" och ladda ner Source Code (zip).
 
 Instruktioner för att komma igång med G20 Flexidle!
 
